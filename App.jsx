@@ -18,6 +18,10 @@ import Profile from './components/Profile';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Fontisto from 'react-native-vector-icons/Fontisto';
+import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import Feather from 'react-native-vector-icons/Feather';
 
 
 // const config = {
@@ -83,9 +87,9 @@ function MyTabs({
           tabBarLabelStyle: {fontWeight: 'bold', fontSize: 12},
           tabBarIcon: ({ focused }) => {
             return focused ? (
-              <MaterialCommunityIcons name="home" color={color} size={size} />
+              <Fontisto name="home" color={color} size={size} />
             ) : (
-              <MaterialCommunityIcons name="home-outline" color={color} size={size} />
+              <SimpleLineIcons name="home" color={color} size={size} />
             )
           },
           tabBarActiveTintColor: 'white',
@@ -111,7 +115,7 @@ function MyTabs({
         component={Add} 
         options={{
           tabBarLabelStyle: {fontWeight: 'bold', fontSize: 12},
-          tabBarIcon: ({ focused }) => {
+          tabBarIcon: () => {
             return (
               <Add />
             );
@@ -126,9 +130,12 @@ function MyTabs({
           tabBarLabelStyle: {fontWeight: 'bold', fontSize: 12},
           tabBarIcon: ({ focused }) => {
             return focused ? (
-              <Ionicons name="book" color={color} size={size} />
+              <FontAwesome5 name="book-medical" color={color} size={size} />
             ) : (
-              <Ionicons name="book-outline" color={color} size={size} />
+              <View style={{ flexDirection: 'column', alignItems: 'center', position: 'absolute', }}>
+                  <Feather name="book" color={color} size={size} style={{flex: 1}}/>
+                  <MaterialCommunityIcons name="plus-thick" color={color} size={size / 2.1} style={{flex: 0.5,position: 'absolute', top: 5, left: 8 }}/>
+            </View>
             )
           },
           tabBarActiveTintColor: 'white',

@@ -12,8 +12,8 @@ const MyModal = ({ children, visible, onRequestClose }) => {
         >
             <View style={styles.modalContainer}>
                 <View style={styles.modalContent}>
-                {children}
-                <Button title="Close" onPress={onRequestClose} />
+                    {children}
+                    <Button title="Close" onPress={onRequestClose} />
                 </View>
                 
                 <View style={{ flex: 1 }}>
