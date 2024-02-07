@@ -9,8 +9,11 @@ import qs from 'qs';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from './components/Home';
+import Calendar from './components/Calendar';
 import Data from './components/Data';
 import Add from './components/Add';
+import Resources from './components/Resources';
+import Profile from './components/Profile';
 
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -90,7 +93,7 @@ function MyTabs({
       />
       <Tab.Screen 
         name="Calendar" 
-        component={Data} 
+        component={Calendar} 
         options={{
           tabBarLabelStyle: {fontWeight: 'bold', fontSize: 12},
           tabBarIcon: ({ focused }) => {
@@ -112,40 +115,13 @@ function MyTabs({
             return (
               <Add />
             );
-            // return focused ? (
-            //   <View style={{flexDirection: 'column', alignItems: 'center', bottom: 35}}>
-            //     <View style={{
-            //       width: 96,
-            //       height: 96,
-            //       borderRadius: 500,
-            //       backgroundColor: 'white',
-            //     }} />
-            //     <MaterialIcons 
-            //       name="cancel" 
-            //       color='#CC3533' 
-            //       size={115} 
-            //       style={{ position: 'absolute', marginRight: -40, top: -8, right: 30}}
-            //     />
-            //   </View>
-              
-            // ) : (
-            //   <View style={{ flexDirection: 'column', alignItems: 'center', bottom: 35 }}>
-            //     <View style={{
-            //       width: 96,
-            //       height: 96,
-            //       borderRadius: 500,
-            //       backgroundColor: 'white',
-            //     }} />
-            //     <MaterialIcons name="add-circle-outline" color='#CC3533' size={85} style={{ position: 'absolute', paddingTop: 5}}/>
-            //   </View>
-            // )
           },
           tabBarActiveTintColor: 'white',
         }}
       />
       <Tab.Screen 
         name="Resources" 
-        component={Data} 
+        component={Resources} 
         options={{
           tabBarLabelStyle: {fontWeight: 'bold', fontSize: 12},
           tabBarIcon: ({ focused }) => {
@@ -160,14 +136,14 @@ function MyTabs({
       />
       <Tab.Screen 
         name="Profile" 
-        component={Data} 
+        component={Profile} 
         options={{
           tabBarLabelStyle: {fontWeight: 'bold', fontSize: 12},
           tabBarIcon: ({ focused }) => {
             return focused ? (
-              <Ionicons name="person-circle" color={color} size={size} />
+              <Ionicons name="person" color={color} size={size} />
             ) : (
-              <Ionicons name="person-circle-outline" color={color} size={size} />
+              <Ionicons name="person-outline" color={color} size={size} />
             )
           },
           tabBarActiveTintColor: 'white',
