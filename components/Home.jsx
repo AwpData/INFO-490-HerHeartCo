@@ -5,11 +5,11 @@ import * as WebBrowser from 'expo-web-browser';
 import pkceChallenge from 'react-native-pkce-challenge';
 import Base64 from 'react-native-base64';
 import qs from 'qs';
-import Svg, { Circle } from 'react-native-svg';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import Feather from 'react-native-vector-icons/Feather';
 
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { AnimatedCircularProgress } from 'react-native-circular-progress';
 
 // const config = {
 //   clientId: '23RTKC', // replace with your Fitbit app's client ID
@@ -41,7 +41,7 @@ export default function Home() {
   const [dailySteps, setDailySteps] = React.useState('');
   const [dailyStepGoal, setDailyStepGoal] = React.useState('');
   const [heartRate, setHeartRate] = React.useState('');
-
+  
   const handleFitbitLogin = async () => {
     const challenge = pkceChallenge();
     const codeChallenge = challenge.codeChallenge;
@@ -56,9 +56,6 @@ export default function Home() {
     // TODO: update scope 
     const authUrl = `https://www.fitbit.com/oauth2/authorize?client_id=${clientId}&response_type=code&code_challenge=${codeChallenge}&code_challenge_method=S256&grant_type=authorization_code&scope=profile+activity+heartrate`;
     console.log('authurl: ', authUrl);
-
-    
-    // concatenate this with the parsed result.url
   
     try {
       const result = await WebBrowser.openAuthSessionAsync(authUrl, 'exp://10.0.0.79:8081');
@@ -250,40 +247,136 @@ export default function Home() {
   }
 
   return (
-    <ScrollView> 
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <View style={{height: 100}}></View>
+    <ScrollView style={{backgroundColor: 'white'}}> 
+      <View style={{ flex: 1, }}>
       {name ? (
         <View>
-          <Text>Welcome, {name}</Text>
-          <Text>Daily step goal: {dailyStepGoal}</Text>
-          <Text>Steps on 2021-07-01: {dailySteps}</Text>
-          <View style={{ flexDirection: 'column', margin: 20, borderWidth: '1px solid', borderColor: 'black'}}> 
-          <Svg width={80} height={80} alignItems='center'>
-            <Circle
-                cx={80 / 2}
-                cy={80 / 2}
-                r={80 / 2 - 5 / 2} // Adjust for stroke width
-                fill="none"
-                stroke='black'
-                strokeWidth={5}
-                opacity={0.15}
-            />
-            <View style={{ flexDirection: 'column', alignItems:'center', margin: 10}}> 
-                <MaterialCommunityIcons 
-                    name="shoe-sneaker" color='#CC3533' size={35} 
-                    style={{
-                        right: 2,
-                        transform: [{ rotate: '-30deg'}]
-                }}/>
-
-                <Text style={{fontWeight: 'bold'}}>{dailySteps}</Text>
-            </View>
-            
-            </Svg>
+          <View style={{margin: 20}}> 
+            <Text style={{ fontSize: 36, fontWeight: 'bold'}}>Welcome, {name}</Text>
             <Text>Daily step goal: {dailyStepGoal}</Text>
-            
+            <Text>Steps on 2021-07-01: {dailySteps}</Text>
           </View>
+          <View style={{
+            flexDirection: 'row', justifyContent: 'center', 
+            paddingTop: 20, paddingBottom: 40, 
+            }}> 
+            {/* 1 */}
+            <View style={{alignItems:'center', minWidth: 100,}}> 
+                <Text style={{fontWeight: 'bold', paddingBottom: 10}}>Heart Rate</Text>
+                <View 
+                    style={{ 
+                        flex: 1, justifyContent: 'center',
+                        flexDirection: 'column', alignItems:'center', 
+                    }}> 
+                    
+                    <AnimatedCircularProgress
+                        size={90}
+                        width={5}
+                        fill={dailySteps  * 100 / dailyStepGoal}
+                        rotation={0}
+                        tintColor="#cc3533"
+                        backgroundColor="#e0e0e0" 
+                    />
+                    <View style={{ 
+                        position: 'absolute', 
+                        flexDirection: 'column', alignItems:'center', 
+                    }}> 
+                        <FontAwesome5 name="heartbeat" color='#CC3533' size={25} />
+                        <Text style={{fontWeight: 'bold', fontSize: 20}}>90</Text>
+                        <Text style={{fontSize: 14}}>BPM</Text>
+                    </View>            
+                </View>
+            </View>
+
+            {/* 2 */}
+            <View style={{alignItems:'center', minWidth: 100,}}> 
+                <Text style={{fontWeight: 'bold', paddingBottom: 10}}>Steps</Text>
+                <View 
+                    style={{ 
+                        flex: 1, justifyContent: 'center',
+                        flexDirection: 'column', alignItems:'center', 
+                    }}> 
+                    
+                    <AnimatedCircularProgress
+                        size={90}
+                        width={5}
+                        fill={dailySteps  * 100 / dailyStepGoal}
+                        rotation={0}
+                        tintColor="#cc3533"
+                        backgroundColor="#e0e0e0" 
+                    />
+                    <View style={{ 
+                        position: 'absolute', 
+                        flexDirection: 'column', alignItems:'center', 
+                    }}> 
+                        <MaterialCommunityIcons 
+                            name="shoe-sneaker" color='#CC3533' size={30} 
+                            style={{
+                                right: 2,
+                                transform: [{ rotate: '-30deg'}]
+                        }}/>
+                        <Text style={{fontWeight: 'bold', fontSize: 20}}>{dailySteps}</Text>
+                        <Text style={{fontSize: 14}}>steps</Text>
+                    </View>            
+                </View>
+            </View>
+
+            {/* 3 */}
+            <View style={{alignItems:'center', minWidth: 100,}}> 
+                <Text style={{fontWeight: 'bold', paddingBottom: 10}}>Sleep</Text>
+                <View 
+                    style={{ 
+                        flex: 1, justifyContent: 'center',
+                        flexDirection: 'column', alignItems:'center', 
+                    }}> 
+                    
+                    <AnimatedCircularProgress
+                        size={90}
+                        width={5}
+                        fill={dailySteps  * 100 / dailyStepGoal}
+                        rotation={0}
+                        tintColor="#cc3533"
+                        backgroundColor="#e0e0e0" 
+                    />
+                    <View style={{ 
+                        position: 'absolute', 
+                        flexDirection: 'column', alignItems:'center', 
+                    }}> 
+                        <Feather name="moon" color='#CC3533' size={30} />
+                        <Text style={{fontWeight: 'bold', fontSize: 20}}>7 h</Text>
+                        <Text style={{fontSize: 14}}>29 m</Text>
+                    </View>            
+                </View>
+            </View>
+
+            {/* 4 */}
+            <View style={{alignItems:'center', minWidth: 100,}}> 
+                <Text style={{fontWeight: 'bold', paddingBottom: 10}}>Water Intake</Text>
+                <View 
+                    style={{ 
+                        flex: 1, justifyContent: 'center',
+                        flexDirection: 'column', alignItems:'center', 
+                    }}> 
+                    <AnimatedCircularProgress
+                        size={90}
+                        width={5}
+                        fill={dailySteps  * 100/ dailyStepGoal}
+                        rotation={0}
+                        tintColor="#cc3533"
+                        backgroundColor="#e0e0e0" 
+                    />
+                    <View style={{ 
+                        position: 'absolute', 
+                        flexDirection: 'column', alignItems:'center', 
+                    }}> 
+                        <MaterialCommunityIcons name="cup-water" color='#CC3533' size={30} />
+                        <Text style={{fontWeight: 'bold', fontSize: 20}}>28</Text>
+                        <Text style={{fontSize: 14}}>oz</Text>
+                    </View>            
+                </View>
+            </View>
+          </View>
+          <Text>Daily step goal: {dailyStepGoal}</Text>
           <Button title="Authorize Fitbit" onPress={handleFitbitLogin} />
         </View>
       ) : (

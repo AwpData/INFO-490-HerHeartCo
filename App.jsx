@@ -6,7 +6,7 @@ import pkceChallenge from 'react-native-pkce-challenge';
 import Base64 from 'react-native-base64';
 import qs from 'qs';
 
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from './components/Home';
 import Calendar from './components/Calendar';
@@ -47,19 +47,6 @@ import Feather from 'react-native-vector-icons/Feather';
 
 const Tab = createBottomTabNavigator();
 
-// function MyTheme() {
-//   return {
-//     colors: {
-//       primary: 'black', // Example primary color
-//     },
-//     tabBarOptions: {
-//       activeTintColor: 'white', // Customize active tab color
-//       inactiveTintColor: '#555', // Customize inactive tab color
-//       style: { backgroundColor: '#CC3533' }, // Set background color
-//     },
-//   };
-// }
-
 function MyTabs({
   color='white',
   size=30
@@ -68,23 +55,22 @@ function MyTabs({
     <Tab.Navigator
       initialRouteName="Dashboard"
       screenOptions={{
-        color: 'white',
         tabBarInactiveTintColor: 'white',
         tabBarStyle: {
           backgroundColor: '#CC3533',
           height: 95
         },
+        tabBarLabelStyle: { fontWeight: 'bold', fontSize: 12, color: 'white' },
         headerStyle: {
           backgroundColor: '#CC3533',
         },
-        headerTintColor: 'white'
+        headerTintColor: 'white',
       }}
     >
       <Tab.Screen 
         name="Dashboard" 
         component={Home} 
         options={{
-          tabBarLabelStyle: {fontWeight: 'bold', fontSize: 12},
           tabBarIcon: ({ focused }) => {
             return focused ? (
               <Fontisto name="home" color={color} size={size} />
@@ -92,14 +78,12 @@ function MyTabs({
               <SimpleLineIcons name="home" color={color} size={size} />
             )
           },
-          tabBarActiveTintColor: 'white',
         }}
       />
       <Tab.Screen 
         name="Calendar" 
         component={Calendar} 
         options={{
-          tabBarLabelStyle: {fontWeight: 'bold', fontSize: 12},
           tabBarIcon: ({ focused }) => {
             return focused ? (
               <Ionicons name="calendar-sharp" color={color} size={size} />
@@ -107,27 +91,23 @@ function MyTabs({
               <Ionicons name="calendar-outline" color={color} size={size} />
             )
           },
-          tabBarActiveTintColor: 'white',
         }}
       />
       <Tab.Screen 
         name="Add" 
         component={Add} 
         options={{
-          tabBarLabelStyle: {fontWeight: 'bold', fontSize: 12},
           tabBarIcon: () => {
             return (
               <Add />
             );
           },
-          tabBarActiveTintColor: 'white',
         }}
       />
       <Tab.Screen 
         name="Resources" 
         component={Resources} 
         options={{
-          tabBarLabelStyle: {fontWeight: 'bold', fontSize: 12},
           tabBarIcon: ({ focused }) => {
             return focused ? (
               <FontAwesome5 name="book-medical" color={color} size={size} />
@@ -138,14 +118,12 @@ function MyTabs({
             </View>
             )
           },
-          tabBarActiveTintColor: 'white',
         }}
       />
       <Tab.Screen 
         name="Profile" 
         component={Profile} 
         options={{
-          tabBarLabelStyle: {fontWeight: 'bold', fontSize: 12},
           tabBarIcon: ({ focused }) => {
             return focused ? (
               <Ionicons name="person" color={color} size={size} />
@@ -153,7 +131,6 @@ function MyTabs({
               <Ionicons name="person-outline" color={color} size={size} />
             )
           },
-          tabBarActiveTintColor: 'white',
         }}
       />
     </Tab.Navigator>
@@ -352,19 +329,6 @@ export default function App() {
   //   }
   // }
 
-  // function MyTheme() {
-  //   return {
-  //     colors: {
-  //       primary: 'white', // Example primary color
-  //     },
-  //     tabBarOptions: {
-  //       activeTintColor: 'white', // Customize active tab color
-  //       inactiveTintColor: 'white', // Customize inactive tab color
-  //       style: { backgroundColor: '#CC3533' }, // Set background color
-  //     },
-  //   };
-  // }
-
   return (
     // <ScrollView> 
     //   <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -383,9 +347,40 @@ export default function App() {
     //   )}
     //   </View>
     // </ScrollView>
-    <NavigationContainer color='#CC3533'>
+    <NavigationContainer >
       <MyTabs size={30} />
     </NavigationContainer>
   );
 
 }
+
+const AppTheme = {  
+  ...DefaultTheme, 
+  // // color: '#CC3533',
+  // colors: {
+  //   primary: 'white',
+  //   backgroundColor: 'white', 
+  //   tabBarInactiveTintColor: 'white'
+  // },
+  // tabBarOptions: {
+  //   activeTintColor: 'white', // Customize active tab color
+  //   inactiveTintColor: 'white', // Customize inactive tab color
+  //   style: { backgroundColor: '#CC3533' }, // Set background color
+  // },
+  // screenOptions: {
+  //   tabBarInactiveTintColor: 'white'
+  // }
+}
+
+  // function MyTheme() {
+  //   return {
+  //     colors: {
+  //       primary: 'white', // Example primary color
+  //     },
+      // tabBarOptions: {
+      //   activeTintColor: 'white', // Customize active tab color
+      //   inactiveTintColor: 'white', // Customize inactive tab color
+      //   style: { backgroundColor: '#CC3533' }, // Set background color
+      // },
+  //   };
+  // }
