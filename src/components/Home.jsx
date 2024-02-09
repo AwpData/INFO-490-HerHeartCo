@@ -5,9 +5,14 @@ import * as WebBrowser from 'expo-web-browser';
 import pkceChallenge from 'react-native-pkce-challenge';
 import Base64 from 'react-native-base64';
 import qs from 'qs';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import Feather from 'react-native-vector-icons/Feather';
 
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { AnimatedCircularProgress } from 'react-native-circular-progress';
+
+import * as Theme from '../theme';
+import DailyStat from './DailyStat';
 
 // const config = {
 //   clientId: '23RTKC', // replace with your Fitbit app's client ID
@@ -30,16 +35,16 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 //   return `${baseUrl}?${queryParams}`;
 // };
 
-export default function Profile() {
+export default function Home() {
   const [authToken, setAuthToken] = React.useState('');
   const [name, setName] = React.useState('');
   const [height, setHeight] = React.useState('');
   const [weight, setWeight] = React.useState('');
   const [lifetimeSteps, setLifetimeSteps] = React.useState('')
   const [dailySteps, setDailySteps] = React.useState('');
+  const [dailyStepGoal, setDailyStepGoal] = React.useState('');
   const [heartRate, setHeartRate] = React.useState('');
-  const [age, setAge] = React.useState('');
-
+  
   const handleFitbitLogin = async () => {
     const challenge = pkceChallenge();
     const codeChallenge = challenge.codeChallenge;
@@ -54,9 +59,6 @@ export default function Profile() {
     // TODO: update scope 
     const authUrl = `https://www.fitbit.com/oauth2/authorize?client_id=${clientId}&response_type=code&code_challenge=${codeChallenge}&code_challenge_method=S256&grant_type=authorization_code&scope=profile+activity+heartrate`;
     console.log('authurl: ', authUrl);
-
-    
-    // concatenate this with the parsed result.url
   
     try {
       const result = await WebBrowser.openAuthSessionAsync(authUrl, 'exp://10.0.0.79:8081');
@@ -110,6 +112,24 @@ export default function Profile() {
         } catch(error) {
           console.log('error: ', error);
         }
+      }
+
+      async function getDailyStepGoalRequest(response) {
+        try {
+            const bearer = 'Bearer ' + response.access_token;
+            const tokenResponse = await fetch('https://api.fitbit.com/1/user/-/activities/goals/daily.json', {
+            method: 'GET',
+            headers: {
+              'Authorization': bearer,
+            },
+          });
+
+          const responseData = await tokenResponse.json();
+          console.log('Daily Activity request response data: ', responseData);
+          return responseData;
+        } catch(error) {
+            console.log('error: ', error);
+          }
       }
 
       async function getDailyActivitySummaryRequest(response) {
@@ -184,7 +204,6 @@ export default function Profile() {
               console.log('profile data: ', profileData);
               console.log(profileData.user.firstName);
               setName(profileData.user.firstName);
-              setAge(profileData.user.age);
               setHeight(profileData.user.height);
               setWeight(profileData.user.weight);
               // const profileString = JSON.stringify(profileData);
@@ -207,6 +226,13 @@ export default function Profile() {
           })
           .catch(error => console.log('error fetching daily summary data: ', error));
 
+          getDailyStepGoalRequest(responseData)
+          .then( dailyGoalData => {
+            console.log('daily step goal: ', dailyGoalData.goals.steps);
+            setDailyStepGoal(dailyGoalData.goals.steps);
+          })
+          .catch(error => console.log('Error fetching daily step goal: ', error));
+
           // getDailyHeartRate(responseData)
           // .then(dailyHeartRateData => {
           //   console.log(dailyHeartRateData);
@@ -224,33 +250,60 @@ export default function Profile() {
   }
 
   return (
-    <ScrollView> 
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', padding: 20, marginHorizontal: 0 }}>
-        <View style={{height: 100}}></View>
+    <ScrollView style={{backgroundColor: 'white'}}> 
+      <View style={{ flex: 1, }}>
       {name ? (
         <View>
-          <Text style={{fontSize: 40, fontWeight: 'bold', textAlign: 'center', color: '#700B0B'}}>Kristy</Text>
-
-          <View 
-            style={{
-                shadowRadius: 10, shadowOpacity: 0.2, 
-                backgroundColor: 'white', 
-                padding: 20, borderRadius: 10, 
-                marginVertical: 40, paddingBottom: 80, 
-                minWidth: '100%'
-            }}>
-            <Text style={{fontSize: 30, fontWeight: 'bold', paddingVertical: 10}}>My Measurements</Text>
-            <Text style={{fontSize: 22, fontWeight: 'bold'}}>Age: {age}</Text>
-            <Text 
-                style={{
-                    fontSize: 22, 
-                    fontWeight: 'bold'
-                }}>Height: {Math.floor(height / 2.54 / 12)} ft {Math.ceil((height / 2.54) % 12)} in
-            </Text>
-            <Text style={{fontSize: 22, fontWeight: 'bold'}}>Weight: {weight} lbs</Text>
-            {/* <Text style={{fontSize: 24, fontWeight: 'bold'}}>Lifetime steps: {lifetimeSteps}</Text>
-            <Text style={{fontSize: 24, fontWeight: 'bold'}}>Steps on 2021-07-01: {dailySteps}</Text> */}
+          <View style={{margin: 20}}> 
+            <Text style={Theme.pageTitle}>Welcome, {name}</Text>
+            <Text>Daily step goal: {dailyStepGoal}</Text>
+            <Text>Steps on 2021-07-01: {dailySteps}</Text>
           </View>
+          <View style={{
+            flexDirection: 'row', justifyContent: 'center', 
+            paddingTop: 20, paddingBottom: 40, 
+            }}> 
+
+            {/* 1 */}
+            {/* TODO: get BPM */}
+            <DailyStat 
+              statTitle='Heart Rate' 
+              measurement={90} 
+              goal={1} 
+              icon={<FontAwesome5 name="heartbeat" color='#CC3533' size={25} />} 
+              unit='BPM' />
+
+
+            {/* 2 */}
+            <DailyStat 
+              statTitle='Steps' 
+              measurement={dailySteps} 
+              goal={dailyStepGoal} 
+              icon={<MaterialCommunityIcons 
+                name="shoe-sneaker" color='#CC3533' size={30} 
+                style={{
+                    right: 2,
+                    transform: [{ rotate: '-30deg'}] }}/>} 
+              unit='steps' />
+
+            {/* 3 */}
+            <DailyStat 
+              statTitle='Sleep' 
+              measurement='7' 
+              goal={8} 
+              icon={<Feather name="moon" color='#CC3533' size={30} />} 
+              unit='48m' />
+
+            {/* 4 */}
+            <DailyStat 
+              statTitle='Water Intake' 
+              measurement='28' 
+              goal={64} 
+              icon={<MaterialCommunityIcons name="cup-water" color='#CC3533' size={30} />} 
+              unit='oz' />
+          </View>
+          <Text>Daily step goal: {dailyStepGoal}</Text>
+          <Button title="Authorize Fitbit" onPress={handleFitbitLogin} />
         </View>
       ) : (
         <Button title="Authorize Fitbit" onPress={handleFitbitLogin} />
@@ -258,5 +311,4 @@ export default function Profile() {
       </View>
     </ScrollView>
   );
-
 }

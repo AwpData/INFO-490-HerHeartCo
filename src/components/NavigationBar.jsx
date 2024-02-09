@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
-
-import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
+import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
 import Home from './Home';
 import Calendar from './Calendar';
 import Add from './Add';

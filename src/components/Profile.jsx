@@ -5,11 +5,7 @@ import * as WebBrowser from 'expo-web-browser';
 import pkceChallenge from 'react-native-pkce-challenge';
 import Base64 from 'react-native-base64';
 import qs from 'qs';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import Feather from 'react-native-vector-icons/Feather';
 
-import { AnimatedCircularProgress } from 'react-native-circular-progress';
 
 // const config = {
 //   clientId: '23RTKC', // replace with your Fitbit app's client ID
@@ -32,16 +28,16 @@ import { AnimatedCircularProgress } from 'react-native-circular-progress';
 //   return `${baseUrl}?${queryParams}`;
 // };
 
-export default function Home() {
+export default function Profile() {
   const [authToken, setAuthToken] = React.useState('');
   const [name, setName] = React.useState('');
   const [height, setHeight] = React.useState('');
   const [weight, setWeight] = React.useState('');
   const [lifetimeSteps, setLifetimeSteps] = React.useState('')
   const [dailySteps, setDailySteps] = React.useState('');
-  const [dailyStepGoal, setDailyStepGoal] = React.useState('');
   const [heartRate, setHeartRate] = React.useState('');
-  
+  const [age, setAge] = React.useState('');
+
   const handleFitbitLogin = async () => {
     const challenge = pkceChallenge();
     const codeChallenge = challenge.codeChallenge;
@@ -54,11 +50,16 @@ export default function Home() {
     const clientId = '23RTKC';
 
     // TODO: update scope 
-    const authUrl = `https://www.fitbit.com/oauth2/authorize?client_id=${clientId}&response_type=code&code_challenge=${codeChallenge}&code_challenge_method=S256&grant_type=authorization_code&scope=profile+activity+heartrate`;
+    const authUrl = `https://www.fitbit.com/oauth2/authorize?client_id=${clientId}&response_type=code&code_challenge=${codeChallenge}&code_challenge_method=S256&grant_type=authorization_code&scope=profile+activity+heartrate+weight`;
     console.log('authurl: ', authUrl);
+
+    
+    // concatenate this with the parsed result.url
   
     try {
-      const result = await WebBrowser.openAuthSessionAsync(authUrl, 'exp://10.0.0.79:8081');
+      // const result = await WebBrowser.openAuthSessionAsync(authUrl, 'exp://10.0.0.79:8081');
+      const result = await WebBrowser.openAuthSessionAsync(authUrl, 'exp://10.19.122.27:8081');
+      
       const url = result.url;
 
       const startIndex = url.indexOf('=') + 1; // Start after the `=` symbol
@@ -67,7 +68,7 @@ export default function Home() {
 
       console.log('Authorization code: ', authorizationCode);
 
-      const data = JSON.stringify(`client_id=${clientId}&code=${authorizationCode}&code_verifier=${codeVerifier}&grant_type=authorization_code&expires_in=31536000&scope=profile+activity+heartrate`);
+      const data = JSON.stringify(`client_id=${clientId}&code=${authorizationCode}&code_verifier=${codeVerifier}&grant_type=authorization_code&expires_in=31536000&scope=profile+activity+heartrate+weight`);
 
       const basicToken = 'Basic ' + Base64.encode(clientId + ':3518afc3120b575c7370f51d12e208f5');
 
@@ -109,24 +110,6 @@ export default function Home() {
         } catch(error) {
           console.log('error: ', error);
         }
-      }
-
-      async function getDailyStepGoalRequest(response) {
-        try {
-            const bearer = 'Bearer ' + response.access_token;
-            const tokenResponse = await fetch('https://api.fitbit.com/1/user/-/activities/goals/daily.json', {
-            method: 'GET',
-            headers: {
-              'Authorization': bearer,
-            },
-          });
-
-          const responseData = await tokenResponse.json();
-          console.log('Daily Activity request response data: ', responseData);
-          return responseData;
-        } catch(error) {
-            console.log('error: ', error);
-          }
       }
 
       async function getDailyActivitySummaryRequest(response) {
@@ -201,6 +184,7 @@ export default function Home() {
               console.log('profile data: ', profileData);
               console.log(profileData.user.firstName);
               setName(profileData.user.firstName);
+              setAge(profileData.user.age);
               setHeight(profileData.user.height);
               setWeight(profileData.user.weight);
               // const profileString = JSON.stringify(profileData);
@@ -223,13 +207,6 @@ export default function Home() {
           })
           .catch(error => console.log('error fetching daily summary data: ', error));
 
-          getDailyStepGoalRequest(responseData)
-          .then( dailyGoalData => {
-            console.log('daily step goal: ', dailyGoalData.goals.steps);
-            setDailyStepGoal(dailyGoalData.goals.steps);
-          })
-          .catch(error => console.log('Error fetching daily step goal: ', error));
-
           // getDailyHeartRate(responseData)
           // .then(dailyHeartRateData => {
           //   console.log(dailyHeartRateData);
@@ -247,137 +224,33 @@ export default function Home() {
   }
 
   return (
-    <ScrollView style={{backgroundColor: 'white'}}> 
-      <View style={{ flex: 1, }}>
+    <ScrollView> 
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', padding: 20, marginHorizontal: 0 }}>
+        <View style={{height: 100}}></View>
       {name ? (
         <View>
-          <View style={{margin: 20}}> 
-            <Text style={{ fontSize: 36, fontWeight: 'bold'}}>Welcome, {name}</Text>
-            <Text>Daily step goal: {dailyStepGoal}</Text>
-            <Text>Steps on 2021-07-01: {dailySteps}</Text>
+          <Text style={{fontSize: 40, fontWeight: 'bold', textAlign: 'center', color: '#700B0B'}}>Kristy</Text>
+
+          <View 
+            style={{
+                shadowRadius: 10, shadowOpacity: 0.2, 
+                backgroundColor: 'white', 
+                padding: 20, borderRadius: 10, 
+                marginVertical: 40, paddingBottom: 80, 
+                minWidth: '100%'
+            }}>
+            <Text style={{fontSize: 30, fontWeight: 'bold', paddingVertical: 10}}>My Measurements</Text>
+            <Text style={{fontSize: 22, fontWeight: 'bold'}}>Age: {age}</Text>
+            <Text 
+                style={{
+                    fontSize: 22, 
+                    fontWeight: 'bold'
+                }}>Height: {Math.floor(height / 2.54 / 12)} ft {Math.ceil((height / 2.54) % 12)} in
+            </Text>
+            <Text style={{fontSize: 22, fontWeight: 'bold'}}>Weight: {Math.ceil(weight * 2.2)} lbs</Text>
+            {/* <Text style={{fontSize: 24, fontWeight: 'bold'}}>Lifetime steps: {lifetimeSteps}</Text>
+            <Text style={{fontSize: 24, fontWeight: 'bold'}}>Steps on 2021-07-01: {dailySteps}</Text> */}
           </View>
-          <View style={{
-            flexDirection: 'row', justifyContent: 'center', 
-            paddingTop: 20, paddingBottom: 40, 
-            }}> 
-            {/* 1 */}
-            <View style={{alignItems:'center', minWidth: 100,}}> 
-                <Text style={{fontWeight: 'bold', paddingBottom: 10}}>Heart Rate</Text>
-                <View 
-                    style={{ 
-                        flex: 1, justifyContent: 'center',
-                        flexDirection: 'column', alignItems:'center', 
-                    }}> 
-                    
-                    <AnimatedCircularProgress
-                        size={90}
-                        width={5}
-                        fill={dailySteps  * 100 / dailyStepGoal}
-                        rotation={0}
-                        tintColor="#cc3533"
-                        backgroundColor="#e0e0e0" 
-                    />
-                    <View style={{ 
-                        position: 'absolute', 
-                        flexDirection: 'column', alignItems:'center', 
-                    }}> 
-                        <FontAwesome5 name="heartbeat" color='#CC3533' size={25} />
-                        <Text style={{fontWeight: 'bold', fontSize: 20}}>90</Text>
-                        <Text style={{fontSize: 14}}>BPM</Text>
-                    </View>            
-                </View>
-            </View>
-
-            {/* 2 */}
-            <View style={{alignItems:'center', minWidth: 100,}}> 
-                <Text style={{fontWeight: 'bold', paddingBottom: 10}}>Steps</Text>
-                <View 
-                    style={{ 
-                        flex: 1, justifyContent: 'center',
-                        flexDirection: 'column', alignItems:'center', 
-                    }}> 
-                    
-                    <AnimatedCircularProgress
-                        size={90}
-                        width={5}
-                        fill={dailySteps  * 100 / dailyStepGoal}
-                        rotation={0}
-                        tintColor="#cc3533"
-                        backgroundColor="#e0e0e0" 
-                    />
-                    <View style={{ 
-                        position: 'absolute', 
-                        flexDirection: 'column', alignItems:'center', 
-                    }}> 
-                        <MaterialCommunityIcons 
-                            name="shoe-sneaker" color='#CC3533' size={30} 
-                            style={{
-                                right: 2,
-                                transform: [{ rotate: '-30deg'}]
-                        }}/>
-                        <Text style={{fontWeight: 'bold', fontSize: 20}}>{dailySteps}</Text>
-                        <Text style={{fontSize: 14}}>steps</Text>
-                    </View>            
-                </View>
-            </View>
-
-            {/* 3 */}
-            <View style={{alignItems:'center', minWidth: 100,}}> 
-                <Text style={{fontWeight: 'bold', paddingBottom: 10}}>Sleep</Text>
-                <View 
-                    style={{ 
-                        flex: 1, justifyContent: 'center',
-                        flexDirection: 'column', alignItems:'center', 
-                    }}> 
-                    
-                    <AnimatedCircularProgress
-                        size={90}
-                        width={5}
-                        fill={dailySteps  * 100 / dailyStepGoal}
-                        rotation={0}
-                        tintColor="#cc3533"
-                        backgroundColor="#e0e0e0" 
-                    />
-                    <View style={{ 
-                        position: 'absolute', 
-                        flexDirection: 'column', alignItems:'center', 
-                    }}> 
-                        <Feather name="moon" color='#CC3533' size={30} />
-                        <Text style={{fontWeight: 'bold', fontSize: 20}}>7 h</Text>
-                        <Text style={{fontSize: 14}}>29 m</Text>
-                    </View>            
-                </View>
-            </View>
-
-            {/* 4 */}
-            <View style={{alignItems:'center', minWidth: 100,}}> 
-                <Text style={{fontWeight: 'bold', paddingBottom: 10}}>Water Intake</Text>
-                <View 
-                    style={{ 
-                        flex: 1, justifyContent: 'center',
-                        flexDirection: 'column', alignItems:'center', 
-                    }}> 
-                    <AnimatedCircularProgress
-                        size={90}
-                        width={5}
-                        fill={dailySteps  * 100/ dailyStepGoal}
-                        rotation={0}
-                        tintColor="#cc3533"
-                        backgroundColor="#e0e0e0" 
-                    />
-                    <View style={{ 
-                        position: 'absolute', 
-                        flexDirection: 'column', alignItems:'center', 
-                    }}> 
-                        <MaterialCommunityIcons name="cup-water" color='#CC3533' size={30} />
-                        <Text style={{fontWeight: 'bold', fontSize: 20}}>28</Text>
-                        <Text style={{fontSize: 14}}>oz</Text>
-                    </View>            
-                </View>
-            </View>
-          </View>
-          <Text>Daily step goal: {dailyStepGoal}</Text>
-          <Button title="Authorize Fitbit" onPress={handleFitbitLogin} />
         </View>
       ) : (
         <Button title="Authorize Fitbit" onPress={handleFitbitLogin} />
