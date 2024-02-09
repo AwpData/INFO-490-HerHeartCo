@@ -9,27 +9,26 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Feather from 'react-native-vector-icons/Feather';
 
-import { AnimatedCircularProgress } from 'react-native-circular-progress';
 
 import * as Theme from '../theme';
 import DailyStat from './DailyStat';
 
-// const config = {
-//   clientId: '23RTKC', // replace with your Fitbit app's client ID
-//   scopes: ['heartrate', 'activity', 'profile', 'sleep'],
-// };
-// const redirectUri = AuthSession.makeRedirectUri({ useProxy: true });
-// console.log(redirectUri);
+// TODO: hard coding this for now, but there may be security concerns when we release the app
+const fitbitConfig = {
+  clientId: '23RTKC', // replace with your Fitbit app's client ID
+  clientSecret: '3518afc3120b575c7370f51d12e208f5', // replace with your Fitbit app's client secret
+  scopes: ['profile', 'activity', 'heartrate', 'nutrition'],
+};
 
 // const getFitbitAuthUrl = () => {
 //   const baseUrl = 'https://www.fitbit.com/oauth2/authorize';
 //   redirectUri;
-//   const queryParams = qs.stringify({
-//     client_id: config.clientId,
-//     response_type: 'token',
-//     scope: config.scopes.join(' '),
-//     redirect_uri: redirectUri,
-//     expires_in: '31536000',
+  // const queryParams = qs.stringify({
+  //   client_id: config.clientId,
+  //   response_type: 'token',
+  //   scope: config.scopes.join(' '),
+  //   redirect_uri: redirectUri,
+  //   expires_in: '31536000',
 //   });
 
 //   return `${baseUrl}?${queryParams}`;
@@ -48,36 +47,44 @@ export default function Home() {
   const [dailyWaterGoal, setDailyWaterGoal] = React.useState('');
   
   const handleFitbitLogin = async () => {
+
+    console.log(fitbitConfig.scopes.join('+'));
+
+    
+
     const challenge = pkceChallenge();
-    const codeChallenge = challenge.codeChallenge;
-    console.log('code challenge: ', codeChallenge);
-    const codeVerifier = challenge.codeVerifier;
-    console.log('challenge verifer: ', codeVerifier);
+    const codeChallenge = challenge.codeChallenge; 
+      // ex: jK8r4S0lO-YyuhDdJs7m-HJsogX1emthpexyAT--qyA
+    const codeVerifier = challenge.codeVerifier; 
+      // ex: M4VgxTlKxiEsEORQhQ289HgdrP3pYqe5WoCvEVOOxaHrga1AH5cartlBVWHkI6Prwg9AUGjHQzhNR4yOuPhkMUQnF7rTJPJlVxvAyB8ZYmR88wEd-tcn_ZXPZX2Uf8Gw
+
+      const queryParams = qs.stringify({
+        client_id: fitbitConfig.clientId,
+        response_type: 'code',
+        code_challenge: codeChallenge,
+        code_challenge_method: 'S256',
+        grant_type: 'authorization_code',
+      }) + '&scope=' + fitbitConfig.scopes.join('+');
+      console.log('QUERY PARAMS: ', queryParams);
 
     const redirectUri = AuthSession.makeRedirectUri({ useProxy: true });
-    console.log('redirecturi: ', redirectUri);
-    const clientId = '23RTKC';
+      // ex: exp://10.0.0.79:8081
 
-    // TODO: update scope 
-    const authUrl = `https://www.fitbit.com/oauth2/authorize?client_id=${clientId}&response_type=code&code_challenge=${codeChallenge}&code_challenge_method=S256&grant_type=authorization_code&scope=profile+activity+heartrate+nutrition`;
-    console.log('authurl: ', authUrl);
+    const authUrl = `https://www.fitbit.com/oauth2/authorize?${queryParams}`;
   
     try {
-      const result = await WebBrowser.openAuthSessionAsync(authUrl, 'exp://10.0.0.79:8081');
+      const result = await WebBrowser.openAuthSessionAsync(authUrl, redirectUri);
       const url = result.url;
 
-      const startIndex = url.indexOf('=') + 1; // Start after the `=` symbol
-      const endIndex = url.indexOf('#'); // End before the `#` symbol
-      const authorizationCode = url.substring(startIndex, endIndex);
+      const authorizationCode = url.substring(url.indexOf('=') + 1, url.indexOf('#'));
+      // ex: 326e6fc061158d3b8af7d682c62be99e06b443fd
 
-      console.log('Authorization code: ', authorizationCode);
+      const requestProperties = JSON.stringify(`client_id=${fitbitConfig.clientId}&code=${authorizationCode}&code_verifier=${codeVerifier}&grant_type=authorization_code&expires_in=31536000&scope=profile+activity+heartrate+nutrition`);
 
-      const data = JSON.stringify(`client_id=${clientId}&code=${authorizationCode}&code_verifier=${codeVerifier}&grant_type=authorization_code&expires_in=31536000&scope=profile+activity+heartrate+nutrition`);
-
-      const basicToken = 'Basic ' + Base64.encode(clientId + ':3518afc3120b575c7370f51d12e208f5');
+      const basicToken = 'Basic ' + Base64.encode(fitbitConfig.clientId + ':' + fitbitConfig.clientSecret);
 
       // Login
-      async function makeFitbitPostRequest(someData) {
+      async function makeFitbitLoginPostRequest(properties) {
         try {
           const tokenResponse = await fetch('https://api.fitbit.com/oauth2/token', {
             method: 'POST',
@@ -85,14 +92,13 @@ export default function Home() {
               'Authorization': basicToken,
               'Content-Type': 'application/x-www-form-urlencoded',
             },
-            body: someData,
+            body: properties,
           });
 
           const responseData = await tokenResponse.json();
-          console.log('Post request response data: ', responseData);
           return responseData;
         } catch(error) {
-          console.log('error: ', error);
+          console.log('Error logging in with Fitbit: ', error);
         }
       }
 
@@ -238,7 +244,7 @@ export default function Home() {
       
 
       // Make the request to login 
-      makeFitbitPostRequest(data)
+      makeFitbitLoginPostRequest(requestProperties)
         .then(responseData => {
           // Make the request to fetch profile data 
           getProfilePostRequest(responseData)
@@ -311,8 +317,6 @@ export default function Home() {
         <View>
           <View style={{margin: 20}}> 
             <Text style={Theme.pageTitle}>Good morning</Text>
-            {/* <Text>Daily step goal: {dailyStepGoal}</Text>
-            <Text>Steps on 2021-07-01: {dailySteps}</Text> */}
 
             <View 
             style={{
@@ -334,8 +338,6 @@ export default function Home() {
             </View>
           </View>
 
-          
-            
           </View>
           <View style={{
             flexDirection: 'row', justifyContent: 'center', 
@@ -365,6 +367,7 @@ export default function Home() {
               unit='steps' />
 
             {/* 3 */}
+            {/* TODO: get sleep */}
             <DailyStat 
               statTitle='Sleep' 
               measurement='7' 
@@ -393,8 +396,10 @@ export default function Home() {
               <Text style={{ fontSize: 20, paddingBottom: 5 }}>Heart Rate</Text>
               <Text style={{ fontSize: 16, paddingBottom: 5, color: 'gray'}}>in BPM</Text>
 
+              {/* Placeholder space */}
               <View style={{ borderColor: '#e0e0e0', borderWidth: 4,height: 300, minWidth: '100%', marginVertical: 15 }}></View>
             </View>
+
             <View 
               style={{
                   shadowRadius: 5, shadowOpacity: 0.2, shadowOffset: {height:3},
@@ -405,13 +410,11 @@ export default function Home() {
               <Text style={{ fontSize: 20, paddingBottom: 5 }}>Sleep Schedule</Text>
               <Text style={{ fontSize: 16, paddingBottom: 5, color: 'gray' }}>1/29/24 - 2/10/24</Text>
 
+              {/* Placeholder space */}
               <View style={{ borderColor: '#e0e0e0', borderWidth: 4,height: 300, minWidth: '100%', marginVertical: 15  }}></View>
             </View>
-
-            
           </View>
-          {/* <Text>Daily step goal: {dailyStepGoal}</Text>
-          <Text>Daily water goal: {Math.ceil(dailyWaterGoal / 29.6)} oz</Text> */}
+
           <Button title="Authorize Fitbit" onPress={handleFitbitLogin} />
         </View>
       ) : (

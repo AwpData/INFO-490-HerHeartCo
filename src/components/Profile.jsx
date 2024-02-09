@@ -33,9 +33,6 @@ export default function Profile() {
   const [name, setName] = React.useState('');
   const [height, setHeight] = React.useState('');
   const [weight, setWeight] = React.useState('');
-  const [lifetimeSteps, setLifetimeSteps] = React.useState('')
-  const [dailySteps, setDailySteps] = React.useState('');
-  const [heartRate, setHeartRate] = React.useState('');
   const [age, setAge] = React.useState('');
 
   const handleFitbitLogin = async () => {
@@ -52,9 +49,6 @@ export default function Profile() {
     // TODO: update scope 
     const authUrl = `https://www.fitbit.com/oauth2/authorize?client_id=${clientId}&response_type=code&code_challenge=${codeChallenge}&code_challenge_method=S256&grant_type=authorization_code&scope=profile+activity+heartrate+weight`;
     console.log('authurl: ', authUrl);
-
-    
-    // concatenate this with the parsed result.url
   
     try {
       // const result = await WebBrowser.openAuthSessionAsync(authUrl, 'exp://10.0.0.79:8081');
@@ -92,66 +86,6 @@ export default function Profile() {
         }
       }
 
-      async function getLifetimeActivityPostRequest(someData) {
-        try {
-          const bearer = 'Bearer ' + someData.access_token;
-          console.log('Bearer: ', bearer);
-          const tokenResponse = await fetch('https://api.fitbit.com/1/user/-/activities.json', {
-            method: 'GET',
-            headers: {
-              'Authorization': bearer,
-            },
-          });
-          console.log('lifetime activity token response: ', tokenResponse);
-
-          const responseData = await tokenResponse.json();
-          console.log('Lifetime activity response data: ', responseData);
-          return responseData;
-        } catch(error) {
-          console.log('error: ', error);
-        }
-      }
-
-      async function getDailyActivitySummaryRequest(response) {
-        try {
-          const bearer = 'Bearer ' + response.access_token;
-          console.log('Bearer: ', bearer);
-          const tokenResponse = await fetch('https://api.fitbit.com/1/user/-/activities/date/2021-07-01.json', {
-            method: 'GET',
-            headers: {
-              'Authorization': bearer,
-            },
-          });
-          console.log('Daily activity response: ', tokenResponse);
-
-          const responseData = await tokenResponse.json();
-          console.log('Daily Activity request response data: ', responseData);
-          return responseData;
-        } catch(error) {
-          console.log('error: ', error);
-        }
-      }
-
-      // async function getDailyHeartRate(response) {
-      //   try {
-      //     const bearer = 'Bearer ' + response.access_token;
-      //     console.log('Bearer: ', bearer);
-      //     const tokenResponse = await fetch('https://api.fitbit.com/1/user/[user-id]/activities/heart/date/2021-07-01/1d.json', {
-      //       method: 'GET',
-      //       headers: {
-      //         'Authorization': bearer,
-      //       },
-      //     });
-      //     console.log('Daily heart rate response: ', tokenResponse);
-
-      //     const responseData = await tokenResponse.json();
-      //     console.log('Daily heart rate request response data: ', responseData);
-      //     return responseData;
-      //   } catch(error) {
-      //     console.log('error: ', error);
-      //   }
-      // }
-
       // Get Profile data 
       async function getProfilePostRequest(response) {
         try {
@@ -187,32 +121,9 @@ export default function Profile() {
               setAge(profileData.user.age);
               setHeight(profileData.user.height);
               setWeight(profileData.user.weight);
-              // const profileString = JSON.stringify(profileData);
-              // setAuthToken(profileString)
             }
           )
           .catch(error => console.log('error fetching profile data: ', error));
-
-          getLifetimeActivityPostRequest(responseData)
-          .then(lifeTimeData => {
-            console.log('lifetime data: ', lifeTimeData);
-            setLifetimeSteps(lifeTimeData.lifetime.total.steps);
-          })
-          .catch(error => console.log('error fetching lifetime data: ', error));
-
-          getDailyActivitySummaryRequest(responseData)
-          .then( dailySummaryData => {
-            console.log('daily activity steps: ', dailySummaryData.summary.steps);
-            setDailySteps(dailySummaryData.summary.steps);
-          })
-          .catch(error => console.log('error fetching daily summary data: ', error));
-
-          // getDailyHeartRate(responseData)
-          // .then(dailyHeartRateData => {
-          //   console.log(dailyHeartRateData);
-          // })
-          // .catch(error => console.log('error fetching heart rate: ', error));
-
         })
         .catch(error =>
           console.log('error making request: ', error)

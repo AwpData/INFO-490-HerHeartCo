@@ -5,17 +5,17 @@ import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Feather from 'react-native-vector-icons/Feather'; 
 
-import { Button, Text, View, ScrollView, Modal } from 'react-native';
+import { View, } from 'react-native';
 
 
-export const activeHome = (<Fontisto name="home" color='white' size={30} />);
-export const inactiveHome = (<SimpleLineIcons name="home" color='white' size={30} />);
+export const activeHomeIcon = (<Fontisto name="home" color='white' size={30} />);
+export const inactiveHomeIcon = (<SimpleLineIcons name="home" color='white' size={30} />);
 
-export const activeCalendar = (<Ionicons name="calendar-sharp" color='white' size={30} />);
-export const inactiveCalendar = (<Ionicons name="calendar-outline" color='white' size={30} />);
+export const activeCalendarIcon = (<Ionicons name="calendar-sharp" color='white' size={30} />);
+export const inactiveCalendarIcon = (<Ionicons name="calendar-outline" color='white' size={30} />);
 
-export const activeResources = (<FontAwesome5 name="book-medical" color='white' size={30} />);
-export const inactiveResources = (
+export const activeResourcesIcon = (<FontAwesome5 name="book-medical" color='white' size={30} />);
+export const inactiveResourcesIcon = (
     <View style={{ flexDirection: 'column', alignItems: 'center', position: 'absolute', }}>
         <Feather 
             name="book" color='white' size={30} style={{flex: 1}}/>
@@ -25,5 +25,5 @@ export const inactiveResources = (
     </View>
 );
 
-export const activeProfile = (<Ionicons name="person" color='white' size={30} />);
-export const inactiveProfile = (<Ionicons name="person-outline" color='white' size={30} />)
+export const activeProfileIcon = (<Ionicons name="person" color='white' size={30} />);
+export const inactiveProfileIcon = (<Ionicons name="person-outline" color='white' size={30} />)
