@@ -224,7 +224,7 @@ export default function Profile() {
   }
 
   return (
-    <ScrollView> 
+    <ScrollView style={{backgroundColor: 'white', }}> 
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', padding: 20, marginHorizontal: 0 }}>
         <View style={{height: 100}}></View>
       {name ? (
@@ -233,7 +233,7 @@ export default function Profile() {
 
           <View 
             style={{
-                shadowRadius: 10, shadowOpacity: 0.2, 
+                shadowRadius: 10, shadowOpacity: 0.2, shadowOffset: {height:3},
                 backgroundColor: 'white', 
                 padding: 20, borderRadius: 10, 
                 marginVertical: 40, paddingBottom: 80, 
