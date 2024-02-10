@@ -5,19 +5,22 @@ import * as WebBrowser from 'expo-web-browser';
 import pkceChallenge from 'react-native-pkce-challenge';
 import Base64 from 'react-native-base64';
 import qs from 'qs';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import Feather from 'react-native-vector-icons/Feather';
 
 import * as Theme from '../theme';
 import { circlePlaceholder, rectPlaceholder, sampleGoals } from './constants';
-import DailyStat from './pageItems/DailyStat';
 import ShadowBox from './pageItems/ShadowBox';
+import DailyStatContainer from './pageItems/DailyStatContainer';
 
 // TODO: hard coding this for now, but there may be security concerns when we release the app
+// ***there is also 150 API calls/hr limit...look into Fitbit Cloud? they might have more recent readings too
+// const fitbitConfig = {
+//   clientId: '23RTKC', // replace with your Fitbit app's client ID
+//   clientSecret: '3518afc3120b575c7370f51d12e208f5', // replace with your Fitbit app's client secret
+//   scopes: ['profile', 'activity', 'heartrate', 'nutrition'], // TODO: temperature
+// };
 const fitbitConfig = {
-  clientId: '23RTKC', // replace with your Fitbit app's client ID
-  clientSecret: '3518afc3120b575c7370f51d12e208f5', // replace with your Fitbit app's client secret
+  clientId: '23RVLG', // replace with your Fitbit app's client ID
+  clientSecret: 'bc5a3f429816d44b1b1b7ca2f71ab8b0', // replace with your Fitbit app's client secret
   scopes: ['profile', 'activity', 'heartrate', 'nutrition'], // TODO: temperature
 };
 
@@ -192,6 +195,7 @@ export default function Home() {
           });
 
           const tokenJSON = await tokenResponse.json();
+          console.log('tokenJSON: ', tokenJSON);
           return tokenJSON;
         } catch(error) {
           console.log('Error in GET request for Fitbit profile data: ', error);
@@ -225,6 +229,7 @@ export default function Home() {
 
           getDailyActivitySummaryRequest(tokenEndpoint)
           .then( dailySummaryData => {
+            console.log('daily summary steps: ', dailySummaryData.summary.steps);
             setDailySteps(dailySummaryData.summary.steps);
           })
           .catch(error => console.log('Error fetching daily activity summary data: ', error));
@@ -273,51 +278,13 @@ export default function Home() {
           </View>
 
           {/* Container for daily stats (4 circles) */}
-          <View style={Theme.dailyStatsSection}> 
-
-            {/* 1 */}
-            {/* TODO: get BPM */}
-            <DailyStat 
-              statTitle='Heart Rate' 
-              measurement={90} 
-              goal={1} 
-              icon={<FontAwesome5 name="heartbeat" color='#CC3533' size={25} />} 
-              unit='BPM' />
-
-
-            {/* 2 */}
-            <DailyStat 
-              statTitle='Steps' 
-              measurement={dailySteps} 
-              goal={dailyStepGoal} 
-              icon={<MaterialCommunityIcons 
-                name="shoe-sneaker" color='#CC3533' size={30} 
-                style={{
-                    right: 2,
-                    transform: [{ rotate: '-30deg'}] }}/>} 
-              unit='steps' />
-
-            {/* 3 */}
-            {/* TODO: get sleep */}
-            <DailyStat 
-              statTitle='Sleep' 
-              measurement='7' 
-              goal={8} 
-              icon={<Feather name="moon" color='#CC3533' size={30} />} 
-              unit='48m' />
-
-            {/* 4 */}
-            <DailyStat 
-              statTitle='Water Intake' 
-              measurement={Math.ceil(water / 29.6)} 
-              goal={Math.ceil(dailyWaterGoal / 29.6)} 
-              icon={<MaterialCommunityIcons name="cup-water" color='#CC3533' size={30} />} 
-              unit='oz' />
-          </View>
+          <DailyStatContainer 
+            dailySteps={dailySteps} dailyStepGoal={dailyStepGoal}
+            sleep='400' sleepGoal='480'
+            dailyWaterSummary='2400' dailyWaterGoal={dailyWaterGoal} />
 
           {/* Container for graphs  */}
           <View style={{margin: 20}}> 
-
             {/* HRV graph */}
             <ShadowBox 
               primaryTitle='Heart Rate' 

@@ -5,7 +5,6 @@ import * as Theme from '../../theme';
 export default function DailyStat( { 
     statTitle, measurement, goal, icon, unit
 } ) {
-
     return (
         <View style={Theme.dailyStatContainer}> 
             <Text style={Theme.dailyStatTitle}>{statTitle}</Text>
@@ -22,9 +21,13 @@ export default function DailyStat( {
                 />
                 <View style={Theme.dailyStatIcon}> 
                     {icon}
-                    <Text style={Theme.dailyStat}>{measurement}</Text>
+                    <Text style={Theme.dailyStat}>
+                    {statTitle != 'Sleep' ? 
+                        measurement : 
+                        Math.floor(measurement / 60).toString() + 'h' }
+                    </Text> 
                     <Text style={Theme.dailyStatLabel}>{unit}</Text>
-                </View>            
+                </View>           
             </View>
         </View>
     );

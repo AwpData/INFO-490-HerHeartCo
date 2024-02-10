@@ -36,7 +36,7 @@ export const sampleGoals = [
 ]
 
 export const circlePlaceholder = (
-    <View style={{ paddingVertical: 10, alignSelf: 'center', borderColor: '#e0e0e0', borderWidth: 4, borderRadius: 250, height: 250, width: 250 }}>
+    <View style={{ marginVertical: 20, alignSelf: 'center', borderColor: '#e0e0e0', borderWidth: 4, borderRadius: 250, height: 250, width: 250 }}>
     </View>
 );
 
