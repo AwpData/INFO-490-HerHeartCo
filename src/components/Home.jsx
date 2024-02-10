@@ -9,30 +9,17 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Feather from 'react-native-vector-icons/Feather';
 
-
 import * as Theme from '../theme';
-import DailyStat from './DailyStat';
+import { circlePlaceholder, rectPlaceholder, sampleGoals } from './constants';
+import DailyStat from './pageItems/DailyStat';
+import ShadowBox from './pageItems/ShadowBox';
 
 // TODO: hard coding this for now, but there may be security concerns when we release the app
 const fitbitConfig = {
   clientId: '23RTKC', // replace with your Fitbit app's client ID
   clientSecret: '3518afc3120b575c7370f51d12e208f5', // replace with your Fitbit app's client secret
-  scopes: ['profile', 'activity', 'heartrate', 'nutrition'],
+  scopes: ['profile', 'activity', 'heartrate', 'nutrition'], // TODO: temperature
 };
-
-// const getFitbitAuthUrl = () => {
-//   const baseUrl = 'https://www.fitbit.com/oauth2/authorize';
-//   redirectUri;
-  // const queryParams = qs.stringify({
-  //   client_id: config.clientId,
-  //   response_type: 'token',
-  //   scope: config.scopes.join(' '),
-  //   redirect_uri: redirectUri,
-  //   expires_in: '31536000',
-//   });
-
-//   return `${baseUrl}?${queryParams}`;
-// };
 
 export default function Home() {
   const [authToken, setAuthToken] = React.useState('');
@@ -47,11 +34,6 @@ export default function Home() {
   const [dailyWaterGoal, setDailyWaterGoal] = React.useState('');
   
   const handleFitbitLogin = async () => {
-
-    console.log(fitbitConfig.scopes.join('+'));
-
-    
-
     const challenge = pkceChallenge();
     const codeChallenge = challenge.codeChallenge; 
       // ex: jK8r4S0lO-YyuhDdJs7m-HJsogX1emthpexyAT--qyA
@@ -65,7 +47,7 @@ export default function Home() {
         code_challenge_method: 'S256',
         grant_type: 'authorization_code',
       }) + '&scope=' + fitbitConfig.scopes.join('+');
-      console.log('QUERY PARAMS: ', queryParams);
+      // ex: client_id=23RTKC&response_type=code&code_challenge=ZPTnKa4D8CXuLosJEuvdXBh4d0_Y-S1NnJ_OV_CKmAI&code_challenge_method=S256&grant_type=authorization_code&scope=profile+activity+heartrate+nutrition
 
     const redirectUri = AuthSession.makeRedirectUri({ useProxy: true });
       // ex: exp://10.0.0.79:8081
@@ -79,7 +61,14 @@ export default function Home() {
       const authorizationCode = url.substring(url.indexOf('=') + 1, url.indexOf('#'));
       // ex: 326e6fc061158d3b8af7d682c62be99e06b443fd
 
-      const requestProperties = JSON.stringify(`client_id=${fitbitConfig.clientId}&code=${authorizationCode}&code_verifier=${codeVerifier}&grant_type=authorization_code&expires_in=31536000&scope=profile+activity+heartrate+nutrition`);
+      const requestProperties = qs.stringify({
+        client_id: fitbitConfig.clientId,
+        code: authorizationCode,
+        code_verifier: codeVerifier,
+        grant_type: 'authorization_code',
+        expires_in: 31536000,
+      }) + '&scope=' + fitbitConfig.scopes.join('+');
+      // ex: client_id=23RTKC&response_type=code&code_challenge=ZPTnKa4D8CXuLosJEuvdXBh4d0_Y-S1NnJ_OV_CKmAI&code_challenge_method=S256&grant_type=authorization_code&scope=profile+activity+heartrate+nutrition
 
       const basicToken = 'Basic ' + Base64.encode(fitbitConfig.clientId + ':' + fitbitConfig.clientSecret);
 
@@ -95,218 +84,169 @@ export default function Home() {
             body: properties,
           });
 
-          const responseData = await tokenResponse.json();
-          return responseData;
+          const tokenJSON = await tokenResponse.json();
+          return tokenJSON;
         } catch(error) {
-          console.log('Error logging in with Fitbit: ', error);
+          console.log('Error in POST request for logging in with Fitbit: ', error);
         }
       }
 
-      async function getLifetimeActivityPostRequest(someData) {
+      // TODO: get heart rate data 
+
+      // Not used right now but this request is to get a summary of all of the user's Fitbit data ever. Can delete later if we don't need it
+      async function getLifetimeActivityPostRequest(tokenEndpoint) {
         try {
-          const bearer = 'Bearer ' + someData.access_token;
-          console.log('Bearer: ', bearer);
+          const accessToken = 'Bearer ' + tokenEndpoint.access_token;
           const tokenResponse = await fetch('https://api.fitbit.com/1/user/-/activities.json', {
             method: 'GET',
             headers: {
-              'Authorization': bearer,
+              'Authorization': accessToken,
             },
           });
-          console.log('lifetime activity token response: ', tokenResponse);
 
-          const responseData = await tokenResponse.json();
-          console.log('Lifetime activity response data: ', responseData);
-          return responseData;
+          const tokenJSON = await tokenResponse.json();
+          return tokenJSON;
         } catch(error) {
-          console.log('error: ', error);
+          console.log('Error in GET request for activities: ', error);
         }
       }
 
-      async function getDailyWaterRequest(someData) {
+      // GET request for user's logged water in the Fitbit app. TODO: write this data 
+      async function getDailyWaterRequest(tokenEndpoint) {
         try {
-          const bearer = 'Bearer ' + someData.access_token;
-          console.log('Bearer: ', bearer);
+          const accessToken = 'Bearer ' + tokenEndpoint.access_token;
           const tokenResponse = await fetch('https://api.fitbit.com/1/user/-/foods/log/water/date/2024-02-09.json', {
             method: 'GET',
             headers: {
-              'Authorization': bearer,
+              'Authorization': accessToken,
             },
           });
-          console.log('Daily water token response: ', tokenResponse);
 
-          const responseData = await tokenResponse.json();
-          console.log('Daily water response data: ', responseData);
-          return responseData;
+          const tokenJSON = await tokenResponse.json();
+          return tokenJSON;
         } catch(error) {
-          console.log('error: ', error);
+          console.log('Error in GET request for water: ', error);
         }
       }
 
-      async function getDailyStepGoalRequest(response) {
+      async function getDailyStepGoalRequest(tokenEndpoint) {
         try {
-            const bearer = 'Bearer ' + response.access_token;
-            const tokenResponse = await fetch('https://api.fitbit.com/1/user/-/activities/goals/daily.json', {
+          const accessToken = 'Bearer ' + tokenEndpoint.access_token;
+          const tokenResponse = await fetch('https://api.fitbit.com/1/user/-/activities/goals/daily.json', {
             method: 'GET',
             headers: {
-              'Authorization': bearer,
+              'Authorization': accessToken,
             },
           });
 
-          const responseData = await tokenResponse.json();
-          console.log('Daily Activity Goals request response data: ', responseData);
-          return responseData;
+          const tokenJSON = await tokenResponse.json();
+          return tokenJSON;
         } catch(error) {
-            console.log('error: ', error);
+            console.log('Error in GET request for daily step goal: ', error);
           }
       }
 
-      async function getDailyActivitySummaryRequest(response) {
+      async function getDailyActivitySummaryRequest(tokenEndpoint) {
         try {
-          const bearer = 'Bearer ' + response.access_token;
-          console.log('Bearer: ', bearer);
+          const accessToken = 'Bearer ' + tokenEndpoint.access_token;
           const tokenResponse = await fetch('https://api.fitbit.com/1/user/-/activities/date/2021-07-01.json', {
             method: 'GET',
             headers: {
-              'Authorization': bearer,
+              'Authorization': accessToken,
             },
           });
-          console.log('Daily activity response: ', tokenResponse);
 
-          const responseData = await tokenResponse.json();
-          console.log('Daily Activity request response data: ', responseData);
-          return responseData;
+          const tokenJSON = await tokenResponse.json();
+          return tokenJSON;
         } catch(error) {
-          console.log('error: ', error);
+          console.log('Error in GET request for daily activity: ', error);
         }
       }
 
-      async function getDailyWaterGoalRequest(response) {
+      async function getDailyWaterGoalRequest(tokenEndpoint) {
         try {
-          const bearer = 'Bearer ' + response.access_token;
-          console.log('Bearer: ', bearer);
+          const accessToken = 'Bearer ' + tokenEndpoint.access_token;
           const tokenResponse = await fetch('https://api.fitbit.com/1/user/-/foods/log/water/goal.json', {
             method: 'GET',
             headers: {
-              'Authorization': bearer,
+              'Authorization': accessToken,
             },
           });
-          console.log('Daily water goal response: ', tokenResponse);
 
-          const responseData = await tokenResponse.json();
-          console.log('Daily water goal request response data: ', responseData);
-          return responseData;
+          const tokenJSON = await tokenResponse.json();
+          return tokenJSON;
         } catch(error) {
-          console.log('error: ', error);
+          console.log('Error in GET request for daily water goal: ', error);
         }
       }
 
-      // async function getDailyHeartRate(response) {
-      //   try {
-      //     const bearer = 'Bearer ' + response.access_token;
-      //     console.log('Bearer: ', bearer);
-      //     const tokenResponse = await fetch('https://api.fitbit.com/1/user/[user-id]/activities/heart/date/2021-07-01/1d.json', {
-      //       method: 'GET',
-      //       headers: {
-      //         'Authorization': bearer,
-      //       },
-      //     });
-      //     console.log('Daily heart rate response: ', tokenResponse);
-
-      //     const responseData = await tokenResponse.json();
-      //     console.log('Daily heart rate request response data: ', responseData);
-      //     return responseData;
-      //   } catch(error) {
-      //     console.log('error: ', error);
-      //   }
-      // }
-
       // Get Profile data 
-      async function getProfilePostRequest(response) {
+      async function getProfilePostRequest(tokenEndpoint) {
         try {
-          console.log("Response at start of profile request: ", response);
-          const bearer = 'Bearer ' + response.access_token;
-          console.log('Bearer: ', bearer);
+          const accessToken = 'Bearer ' + tokenEndpoint.access_token;
           const tokenResponse = await fetch('https://api.fitbit.com/1/user/-/profile.json', {
             method: 'GET',
             headers: {
-              'Authorization': bearer,
+              'Authorization': accessToken,
             },
           });
-          console.log('token response: ', tokenResponse);
 
-          const responseData = await tokenResponse.json();
-          console.log('Profile request response data: ', responseData);
-          return responseData;
+          const tokenJSON = await tokenResponse.json();
+          return tokenJSON;
         } catch(error) {
-          console.log('error: ', error);
+          console.log('Error in GET request for Fitbit profile data: ', error);
         }
       }
       
 
       // Make the request to login 
       makeFitbitLoginPostRequest(requestProperties)
-        .then(responseData => {
+        .then(tokenEndpoint => {
           // Make the request to fetch profile data 
-          getProfilePostRequest(responseData)
+          getProfilePostRequest(tokenEndpoint)
           .then(profileData => {
-              console.log('profile data: ', profileData);
-              console.log(profileData.user.firstName);
               setName(profileData.user.firstName);
               setHeight(profileData.user.height);
               setWeight(profileData.user.weight);
-              // const profileString = JSON.stringify(profileData);
-              // setAuthToken(profileString)
             }
           )
-          .catch(error => console.log('error fetching profile data: ', error));
+          .catch(error => console.log('Error fetching profile data: ', error));
 
-          getLifetimeActivityPostRequest(responseData)
+          getLifetimeActivityPostRequest(tokenEndpoint)
           .then(lifeTimeData => {
-            console.log('lifetime data: ', lifeTimeData);
             setLifetimeSteps(lifeTimeData.lifetime.total.steps);
           })
-          .catch(error => console.log('error fetching lifetime data: ', error));
+          .catch(error => console.log('Error fetching lifetime activity data: ', error));
 
-          getDailyWaterRequest(responseData) 
+          getDailyWaterRequest(tokenEndpoint) 
           .then( dailyWaterData => {
-            console.log('daily water: ', dailyWaterData.summary.water);
             setWater(dailyWaterData.summary.water);
           })
 
-          getDailyActivitySummaryRequest(responseData)
+          getDailyActivitySummaryRequest(tokenEndpoint)
           .then( dailySummaryData => {
-            console.log('daily activity steps: ', dailySummaryData.summary.steps);
             setDailySteps(dailySummaryData.summary.steps);
           })
-          .catch(error => console.log('error fetching daily summary data: ', error));
+          .catch(error => console.log('Error fetching daily activity summary data: ', error));
 
-          getDailyStepGoalRequest(responseData)
+          getDailyStepGoalRequest(tokenEndpoint)
           .then( dailyGoalData => {
-            console.log('daily step goal: ', dailyGoalData.goals.steps);
             setDailyStepGoal(dailyGoalData.goals.steps);
           })
           .catch(error => console.log('Error fetching daily step goal: ', error));
 
-          getDailyWaterGoalRequest(responseData)
+          getDailyWaterGoalRequest(tokenEndpoint)
           .then( dailyWaterGoalData => {
-            console.log('daily water goal: ', dailyWaterGoalData.goal.goal);
             setDailyWaterGoal(dailyWaterGoalData.goal.goal);
           })
           .catch(error => console.log('Error fetching daily water goal: ', error));
-
-          // getDailyHeartRate(responseData)
-          // .then(dailyHeartRateData => {
-          //   console.log(dailyHeartRateData);
-          // })
-          // .catch(error => console.log('error fetching heart rate: ', error));
-
         })
         .catch(error =>
-          console.log('error making request: ', error)
+          console.log('Error making login request: ', error)
         );
     } catch (error) {
       // Handle authentication errors
-      console.log('error: ', error);
+      console.log('Error in auth URL: ', error);
     }
   }
 
@@ -318,31 +258,22 @@ export default function Home() {
           <View style={{margin: 20}}> 
             <Text style={Theme.pageTitle}>Good morning</Text>
 
-            <View 
-            style={{
-                shadowRadius: 10, shadowOpacity: 0.2, shadowOffset: {height:3},
-                backgroundColor: 'white', 
-                padding: 20, borderRadius: 10, 
-                marginVertical: 20,
-                minWidth: '100%'
-            }}>
-            <Text style={{ fontSize: 20, fontWeight: 'bold', paddingBottom: 10 }}>Reminders / Alerts / Goals</Text>
-            <Text style={{ fontSize: 16, paddingBottom: 5 }}>• Go to the gym</Text>
-            <Text style={{ fontSize: 16, paddingBottom: 5 }}>• Make a new appointment</Text>
-            <Text style={{ fontSize: 16, paddingBottom: 5 }}>• Run a mile</Text>
-            <Text style={{ fontSize: 16, paddingBottom: 5 }}>• This is a super long goal to see how this looks on more than one line</Text>
+            <ShadowBox 
+              primaryTitle='Reminders / Goals / Alerts' 
+              isBold={true} 
+              secondaryTitle='' 
+              content={
+                sampleGoals.map((item, i) => {
+                  return (
+                    <Text key={i} style={{ fontSize: 16, paddingBottom: 5 }}>• {item}</Text>
+                  ) }) } />
+
+            {/* Circle summary graph  */}
+            { circlePlaceholder }
           </View>
 
-          <View style={{ fontSize: 16, paddingVertical: 10, alignItems: 'center', }}>
-            <View style={{ borderColor: '#e0e0e0', borderWidth: 4, borderRadius: 250, height: 250, width: 250}}>
-            </View>
-          </View>
-
-          </View>
-          <View style={{
-            flexDirection: 'row', justifyContent: 'center', 
-            paddingVertical: 10, 
-            }}> 
+          {/* Container for daily stats (4 circles) */}
+          <View style={Theme.dailyStatsSection}> 
 
             {/* 1 */}
             {/* TODO: get BPM */}
@@ -386,33 +317,20 @@ export default function Home() {
 
           {/* Container for graphs  */}
           <View style={{margin: 20}}> 
-            <View 
-              style={{
-                  shadowRadius: 10, shadowOpacity: 0.2, shadowOffset: {height:3},
-                  backgroundColor: 'white', 
-                  padding: 20, borderRadius: 10, 
-                  marginVertical: 20,
-                  minWidth: '100%', }}>
-              <Text style={{ fontSize: 20, paddingBottom: 5 }}>Heart Rate</Text>
-              <Text style={{ fontSize: 16, paddingBottom: 5, color: 'gray'}}>in BPM</Text>
 
-              {/* Placeholder space */}
-              <View style={{ borderColor: '#e0e0e0', borderWidth: 4,height: 300, minWidth: '100%', marginVertical: 15 }}></View>
-            </View>
+            {/* HRV graph */}
+            <ShadowBox 
+              primaryTitle='Heart Rate' 
+              isBold={false} 
+              secondaryTitle='in BPM' 
+              content={ rectPlaceholder } />
 
-            <View 
-              style={{
-                  shadowRadius: 5, shadowOpacity: 0.2, shadowOffset: {height:3},
-                  backgroundColor: 'white', 
-                  padding: 20, borderRadius: 10, 
-                  marginVertical: 20,
-                  minWidth: '100%', }}>
-              <Text style={{ fontSize: 20, paddingBottom: 5 }}>Sleep Schedule</Text>
-              <Text style={{ fontSize: 16, paddingBottom: 5, color: 'gray' }}>1/29/24 - 2/10/24</Text>
-
-              {/* Placeholder space */}
-              <View style={{ borderColor: '#e0e0e0', borderWidth: 4,height: 300, minWidth: '100%', marginVertical: 15  }}></View>
-            </View>
+            {/* Sleep schedule graph */}
+            <ShadowBox 
+              primaryTitle='Sleep Schedule' 
+              isBold={false} 
+              secondaryTitle='1/29/24 - 2/10/24' // placeholder date range
+              content={ rectPlaceholder } />
           </View>
 
           <Button title="Authorize Fitbit" onPress={handleFitbitLogin} />

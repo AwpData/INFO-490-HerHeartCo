@@ -3,6 +3,12 @@ export const pageTitle = {
     fontWeight: 'bold'
 }
 
+export const dailyStatsSection = {
+    flexDirection: 'row', 
+    justifyContent: 'center', 
+    paddingVertical: 10, 
+}
+
 export const dailyStatContainer = {
     alignItems:'center', 
     minWidth: 100,
@@ -23,42 +29,39 @@ export const dailyStatLabel = {
 }
 
 export const dailyStatLayers = {
+    flexDirection: 'column',
     flex: 1, 
     justifyContent: 'center',
-    flexDirection: 'column', alignItems:'center', 
+    alignItems:'center', 
 }
 
 export const dailyStatIcon = {
+    flexDirection: 'column',
     position: 'absolute', 
-    flexDirection: 'column', alignItems:'center', 
+    alignItems:'center', 
 }
 
+export const shadowBoxStyle = {
+    shadowRadius: 10, shadowOpacity: 0.2, shadowOffset: { height: 3 },
+    backgroundColor: 'white', 
+    padding: 20, borderRadius: 10, 
+    marginVertical: 20,
+    minWidth: '100%'
+}
 
-function DailyStat( { 
-    statTitle, measurement, goal, icon, unit
-} ) {
+export const shadowBoxBoldTitle = {
+    fontSize: 20, 
+    fontWeight: 'bold', 
+    paddingBottom: 10
+}
 
-    return (
-        <View style={Theme.dailyStatContainer}> 
-            <Text style={dailyStatTitle}>{statTitle}</Text>
-            <View 
-                style={Theme.dailyStatLayers}> 
-                
-                <AnimatedCircularProgress
-                    size={90}
-                    width={5}
-                    fill={measurement  * 100 / goal}
-                    rotation={0}
-                    tintColor="#cc3533"
-                    backgroundColor="#e0e0e0" 
-                />
-                <View style={Theme.dailyStatIcon}> 
-                    {icon}
-                    {/* <FontAwesome5 name="heartbeat" color='#CC3533' size={25} /> */}
-                    <Text style={Theme.dailyStat}>{measurement}</Text>
-                    <Text style={Theme.dailyStatLabel}>{unit}</Text>
-                </View>            
-            </View>
-        </View>
-    );
+export const shadowBoxTitle = {
+    fontSize: 20, 
+    paddingBottom: 5 
+}
+
+export const shadowBoxSecondaryTitle = {
+    fontSize: 16, 
+    paddingBottom: 5, 
+    color: 'gray'
 }

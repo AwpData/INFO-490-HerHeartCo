@@ -1,6 +1,6 @@
 import { Text, View, } from 'react-native';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
-import * as Theme from '../theme';
+import * as Theme from '../../theme';
 
 export default function DailyStat( { 
     statTitle, measurement, goal, icon, unit
