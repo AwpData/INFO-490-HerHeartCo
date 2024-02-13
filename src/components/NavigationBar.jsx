@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Home from './Home';
 import Calendar from './Calendar';
-import Add from './Add';
+import AddData from './AddData';
 import Resources from './Resources';
 import Profile from './Profile';
 
@@ -43,10 +43,10 @@ export default function NavigationBar() {
                         return focused ? activeCalendarIcon : inactiveCalendarIcon },}} />
             <Tab.Screen 
                 name="Add" 
-                component={Add} 
+                component={AddData} 
                 options={{
                     tabBarIcon: () => { 
-                        return ( <Add /> ); }, }} />
+                        return ( <AddData /> ); }, }} />
             <Tab.Screen 
                 name="Resources" 
                 component={Resources} 

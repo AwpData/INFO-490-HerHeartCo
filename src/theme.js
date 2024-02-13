@@ -49,6 +49,12 @@ export const shadowBoxStyle = {
     minWidth: '100%'
 }
 
+export const shadowBoxLargeTitle = {
+    fontSize: 30, 
+    fontWeight: 'bold', 
+    paddingVertical: 10,
+}
+
 export const shadowBoxBoldTitle = {
     fontSize: 20, 
     fontWeight: 'bold', 
@@ -64,4 +70,53 @@ export const shadowBoxSecondaryTitle = {
     fontSize: 16, 
     paddingBottom: 5, 
     color: 'gray'
+}
+
+export const profileName = {
+    fontSize: 40, 
+    fontWeight: 'bold', 
+    textAlign: 'center', 
+    color: '#700B0B', 
+    marginBottom: 20,
+}
+
+export const addDataRowStyle = {
+    borderColor: '#e0e0e0', 
+    borderWidth: 2, 
+    minWidth: '100%', 
+    borderRadius: 15, 
+    padding: 15, 
+}
+
+export const addDataRowTitle = {
+    fontWeight: 'bold', 
+    fontSize: 18
+}
+
+export const addDataCurrentValue = {
+    fontWeight: 'bold', 
+    fontSize: 28,
+}
+
+export const addDataRowGoal = {
+    fontWeight: 'bold', 
+    fontSize: 20, 
+    color: '#cc3533', 
+    paddingBottom: 5
+}
+
+export const addDataNavBarStyle = {
+    flexDirection:'row', 
+    alignItems:'center', 
+    justifyContent: 'space-between', 
+    backgroundColor: 'white', 
+    minWidth: '100%', height: 60, 
+    padding: 20
+}
+
+export const addPageDateFormat = {
+    color: '#cc3533', 
+    fontWeight: 'bold', 
+    fontSize: 26, 
+    textAlign: 'center'
 }

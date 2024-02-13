@@ -4,6 +4,7 @@ import Fontisto from 'react-native-vector-icons/Fontisto';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Feather from 'react-native-vector-icons/Feather'; 
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import { View, } from 'react-native';
 
@@ -44,3 +45,19 @@ export const rectPlaceholder = (
     <View style={{ borderColor: '#e0e0e0', borderWidth: 4, height: 300, minWidth: '100%', marginVertical: 15  }}>
     </View>
 )
+
+export const goalsIcon = (
+    <MaterialIcons name='flag' color='black' size={35} />
+);
+
+export const grayChevronRight = (
+    <MaterialIcons name='chevron-right' color='#e0e0e0' size={30} />
+);
+
+export const redChevronRight = (
+    <MaterialIcons name='chevron-right' color='#cc3533' size={30} />
+);
+
+export const redChevronLeft = (
+    <MaterialIcons name='chevron-left' color='#cc3533' size={30} />
+);

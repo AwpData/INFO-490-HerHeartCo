@@ -8,9 +8,7 @@ export default function DailyStat( {
     return (
         <View style={Theme.dailyStatContainer}> 
             <Text style={Theme.dailyStatTitle}>{statTitle}</Text>
-            <View 
-                style={Theme.dailyStatLayers}> 
-                
+            <View style={Theme.dailyStatLayers}> 
                 <AnimatedCircularProgress
                     size={90}
                     width={5}
@@ -19,6 +17,7 @@ export default function DailyStat( {
                     tintColor="#cc3533"
                     backgroundColor="#e0e0e0" 
                 />
+                
                 <View style={Theme.dailyStatIcon}> 
                     {icon}
                     <Text style={Theme.dailyStat}>

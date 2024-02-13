@@ -1,35 +1,15 @@
+import ShadowBox from './pageItems/ShadowBox';
+import * as Theme from '../theme';
 import * as React from 'react';
 import { Button, Text, View, ScrollView } from 'react-native';
 import * as AuthSession from 'expo-auth-session';
 import * as WebBrowser from 'expo-web-browser';
 import pkceChallenge from 'react-native-pkce-challenge';
 import Base64 from 'react-native-base64';
-import qs from 'qs';
 
 
-// const config = {
-//   clientId: '23RTKC', // replace with your Fitbit app's client ID
-//   scopes: ['heartrate', 'activity', 'profile', 'sleep'],
-// };
-// const redirectUri = AuthSession.makeRedirectUri({ useProxy: true });
-// console.log(redirectUri);
-
-// const getFitbitAuthUrl = () => {
-//   const baseUrl = 'https://www.fitbit.com/oauth2/authorize';
-//   redirectUri;
-//   const queryParams = qs.stringify({
-//     client_id: config.clientId,
-//     response_type: 'token',
-//     scope: config.scopes.join(' '),
-//     redirect_uri: redirectUri,
-//     expires_in: '31536000',
-//   });
-
-//   return `${baseUrl}?${queryParams}`;
-// };
-
+// TODO: update fitbit auth like that in Home.jsx
 export default function Profile() {
-  const [authToken, setAuthToken] = React.useState('');
   const [name, setName] = React.useState('');
   const [height, setHeight] = React.useState('');
   const [weight, setWeight] = React.useState('');
@@ -140,28 +120,20 @@ export default function Profile() {
         <View style={{height: 100}}></View>
       {name ? (
         <View>
-          <Text style={{fontSize: 40, fontWeight: 'bold', textAlign: 'center', color: '#700B0B'}}>Kristy</Text>
+          <Text style={Theme.profileName}>Kristy</Text>
 
-          <View 
-            style={{
-                shadowRadius: 10, shadowOpacity: 0.2, shadowOffset: {height:3},
-                backgroundColor: 'white', 
-                padding: 20, borderRadius: 10, 
-                marginVertical: 40, paddingBottom: 80, 
-                minWidth: '100%'
-            }}>
-            <Text style={{fontSize: 30, fontWeight: 'bold', paddingVertical: 10}}>My Measurements</Text>
-            <Text style={{fontSize: 22, fontWeight: 'bold'}}>Age: {age}</Text>
-            <Text 
-                style={{
-                    fontSize: 22, 
-                    fontWeight: 'bold'
-                }}>Height: {Math.floor(height / 2.54 / 12)} ft {Math.ceil((height / 2.54) % 12)} in
-            </Text>
-            <Text style={{fontSize: 22, fontWeight: 'bold'}}>Weight: {Math.ceil(weight * 2.2)} lbs</Text>
-            {/* <Text style={{fontSize: 24, fontWeight: 'bold'}}>Lifetime steps: {lifetimeSteps}</Text>
-            <Text style={{fontSize: 24, fontWeight: 'bold'}}>Steps on 2021-07-01: {dailySteps}</Text> */}
-          </View>
+          <ShadowBox primaryTitle='My Measurements' isLarge={true} content={
+            <View style={{paddingBottom: 60}}>
+              <Text style={{fontSize: 22, fontWeight: 'bold'}}>Age: {age}</Text>
+              <Text 
+                  style={{
+                      fontSize: 22, 
+                      fontWeight: 'bold'
+                  }}>Height: {Math.floor(height / 2.54 / 12)} ft {Math.ceil((height / 2.54) % 12)} in
+              </Text>
+              <Text style={{fontSize: 22, fontWeight: 'bold'}}>Weight: {Math.ceil(weight * 2.2)} lbs</Text>
+            </View>
+          } />
         </View>
       ) : (
         <Button title="Authorize Fitbit" onPress={handleFitbitLogin} />
@@ -169,5 +141,4 @@ export default function Profile() {
       </View>
     </ScrollView>
   );
-
 }

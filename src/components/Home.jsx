@@ -13,29 +13,28 @@ import DailyStatContainer from './pageItems/DailyStatContainer';
 
 // TODO: hard coding this for now, but there may be security concerns when we release the app
 // ***there is also 150 API calls/hr limit...look into Fitbit Cloud? they might have more recent readings too
+// OPTION 1: 
 // const fitbitConfig = {
 //   clientId: '23RTKC', // replace with your Fitbit app's client ID
 //   clientSecret: '3518afc3120b575c7370f51d12e208f5', // replace with your Fitbit app's client secret
 //   scopes: ['profile', 'activity', 'heartrate', 'nutrition'], // TODO: temperature
 // };
+// OPTION 2: - switch between the 2 if you run out of API calls 
 const fitbitConfig = {
   clientId: '23RVLG', // replace with your Fitbit app's client ID
   clientSecret: 'bc5a3f429816d44b1b1b7ca2f71ab8b0', // replace with your Fitbit app's client secret
-  scopes: ['profile', 'activity', 'heartrate', 'nutrition'], // TODO: temperature
+  scopes: ['profile', 'activity', 'heartrate', 'nutrition'], // TODO: temperature, heartrate, sleep
 };
 
 export default function Home() {
-  const [authToken, setAuthToken] = React.useState('');
+  // TODO: look into using redux to handle state across the app 
   const [name, setName] = React.useState('');
-  const [height, setHeight] = React.useState('');
-  const [weight, setWeight] = React.useState('');
-  const [lifetimeSteps, setLifetimeSteps] = React.useState('')
   const [dailySteps, setDailySteps] = React.useState('');
   const [dailyStepGoal, setDailyStepGoal] = React.useState('');
-  const [heartRate, setHeartRate] = React.useState('');
   const [water, setWater] = React.useState('');
   const [dailyWaterGoal, setDailyWaterGoal] = React.useState('');
   
+  // TODO: export login into separate function 
   const handleFitbitLogin = async () => {
     const challenge = pkceChallenge();
     const codeChallenge = challenge.codeChallenge; 
@@ -210,17 +209,17 @@ export default function Home() {
           getProfilePostRequest(tokenEndpoint)
           .then(profileData => {
               setName(profileData.user.firstName);
-              setHeight(profileData.user.height);
-              setWeight(profileData.user.weight);
+              // setHeight(profileData.user.height);
+              // setWeight(profileData.user.weight);
             }
           )
           .catch(error => console.log('Error fetching profile data: ', error));
 
-          getLifetimeActivityPostRequest(tokenEndpoint)
-          .then(lifeTimeData => {
-            setLifetimeSteps(lifeTimeData.lifetime.total.steps);
-          })
-          .catch(error => console.log('Error fetching lifetime activity data: ', error));
+          // getLifetimeActivityPostRequest(tokenEndpoint)
+          // .then(lifeTimeData => {
+          //   setLifetimeSteps(lifeTimeData.lifetime.total.steps);
+          // })
+          // .catch(error => console.log('Error fetching lifetime activity data: ', error));
 
           getDailyWaterRequest(tokenEndpoint) 
           .then( dailyWaterData => {
@@ -255,6 +254,7 @@ export default function Home() {
     }
   }
 
+
   return (
     <ScrollView style={{backgroundColor: 'white', }}> 
       <View style={{ flex: 1, paddingBottom: 75}}>
@@ -280,22 +280,24 @@ export default function Home() {
           {/* Container for daily stats (4 circles) */}
           <DailyStatContainer 
             dailySteps={dailySteps} dailyStepGoal={dailyStepGoal}
-            sleep='400' sleepGoal='480'
-            dailyWaterSummary='2400' dailyWaterGoal={dailyWaterGoal} />
+            sleep='400' sleepGoal='480' // in minutes
+            // dailyWaterSummary='2400' dailyWaterGoal={dailyWaterGoal} /> 
+            dailyWaterSummary={water} dailyWaterGoal={dailyWaterGoal} />
 
           {/* Container for graphs  */}
           <View style={{margin: 20}}> 
+
             {/* HRV graph */}
             <ShadowBox 
               primaryTitle='Heart Rate' 
-              isBold={false} 
+              // isBold={false} 
               secondaryTitle='in BPM' 
               content={ rectPlaceholder } />
 
             {/* Sleep schedule graph */}
             <ShadowBox 
               primaryTitle='Sleep Schedule' 
-              isBold={false} 
+              // isBold={false} 
               secondaryTitle='1/29/24 - 2/10/24' // placeholder date range
               content={ rectPlaceholder } />
           </View>
