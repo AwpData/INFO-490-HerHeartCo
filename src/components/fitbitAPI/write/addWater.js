@@ -7,13 +7,13 @@ export const addWater = createSlice({
         value: 0
     },
     reducers: {
-        addAmount: (state, action) => {
+        addNewWater: (state, action) => {
             state.value += action.payload
         }
     }
 })
 
-export const { addAmount } = addWater.actions 
+export const { addNewWater } = addWater.actions 
 
 export const currAmount = (state) => state.water.value;
 

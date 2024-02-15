@@ -20,7 +20,7 @@ export default function AddPageModal ({
             <View style={{flex: 1, justifyContent: 'center', alignItems: 'center',}}>
                 <AddDataNavBar onRequestClose={onRequestClose} />
                 
-                <ScrollView>
+                <ScrollView automaticallyAdjustKeyboardInsets={true}>
                     {/* TODO: export the date navigator to a separate component  */}
                     <View style={{padding: 20, }}>
                         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
