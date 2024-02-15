@@ -2,6 +2,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Feather from 'react-native-vector-icons/Feather'; 
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -49,6 +50,38 @@ export const rectPlaceholder = (
 export const goalsIcon = (
     <MaterialIcons name='flag' color='black' size={35} />
 );
+
+export const waterIcon = (
+    <MaterialCommunityIcons name='cup-water' color='black' size={30} />
+);
+
+export const foodIcon = (
+    <MaterialCommunityIcons name='silverware-fork-knife' color='black' size={30} />
+);
+
+export const glucoseIcon = (
+    <View style={{ alignItems: 'center', }}>
+        <MaterialCommunityIcons 
+            name='water' 
+            color='black' 
+            size={25} 
+            style={{ position: 'absolute', paddingTop: 7, paddingLeft: 14, }} />
+        <MaterialCommunityIcons 
+            name='water-outline' 
+            color='black' 
+            size={50} 
+            style={{paddingRight: 50}} />
+        <FontAwesome 
+            name="plus" 
+            color='black' 
+            size={12} 
+            style={{ position: 'absolute', paddingTop: 22}} />
+    </View>
+)
+
+export const bpIcon = (
+    <FontAwesome5 name='heartbeat' color='black' size={30} />
+)
 
 export const grayChevronRight = (
     <MaterialIcons name='chevron-right' color='#e0e0e0' size={30} />

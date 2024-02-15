@@ -86,6 +86,7 @@ export const addDataRowStyle = {
     minWidth: '100%', 
     borderRadius: 15, 
     padding: 15, 
+    marginBottom: 10,
 }
 
 export const addDataRowTitle = {
@@ -119,4 +120,9 @@ export const addPageDateFormat = {
     fontWeight: 'bold', 
     fontSize: 26, 
     textAlign: 'center'
+}
+
+export const logDataUnit = {
+    fontWeight: 'bold', 
+    fontSize: 24,
 }
