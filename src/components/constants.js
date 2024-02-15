@@ -48,39 +48,39 @@ export const rectPlaceholder = (
 )
 
 export const goalsIcon = (
-    <MaterialIcons name='flag' color='black' size={35} />
+    <MaterialIcons name='flag' color='#f69880' size={35} />
 );
 
 export const waterIcon = (
-    <MaterialCommunityIcons name='cup-water' color='black' size={30} />
+    <MaterialCommunityIcons name='cup-water' color='#f69880' size={30} />
 );
 
 export const foodIcon = (
-    <MaterialCommunityIcons name='silverware-fork-knife' color='black' size={30} />
+    <MaterialCommunityIcons name='silverware-fork-knife' color='#f69880' size={30} />
 );
 
 export const glucoseIcon = (
     <View style={{ alignItems: 'center', }}>
         <MaterialCommunityIcons 
             name='water' 
-            color='black' 
+            color='#f69880' 
             size={25} 
             style={{ position: 'absolute', paddingTop: 7, paddingLeft: 14, }} />
         <MaterialCommunityIcons 
             name='water-outline' 
-            color='black' 
+            color='#f69880' 
             size={50} 
             style={{paddingRight: 50}} />
         <FontAwesome 
             name="plus" 
-            color='black' 
+            color='#f69880' 
             size={12} 
             style={{ position: 'absolute', paddingTop: 22}} />
     </View>
 )
 
 export const bpIcon = (
-    <FontAwesome5 name='heartbeat' color='black' size={30} />
+    <FontAwesome5 name='heartbeat' color='#f69880' size={30} />
 )
 
 export const grayChevronRight = (
@@ -88,13 +88,13 @@ export const grayChevronRight = (
 );
 
 export const redChevronRight = (
-    <MaterialIcons name='chevron-right' color='#cc3533' size={30} />
+    <MaterialIcons name='chevron-right' color='#f69880' size={30} />
 );
 
 export const redChevronLeft = (
-    <MaterialIcons name='chevron-left' color='#cc3533' size={30} />
+    <MaterialIcons name='chevron-left' color='#f69880' size={30} />
 );
 
 export const redChevronDown = (
-    <MaterialCommunityIcons name='chevron-down' color='#cc3533' size={30} />
+    <MaterialCommunityIcons name='chevron-down' color='#f69880' size={30} />
 );

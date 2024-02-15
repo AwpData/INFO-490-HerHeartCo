@@ -15,7 +15,7 @@ export default function ExpandableView ({ expanded = false, expandedContent }) {
   }, [expanded, height]);
 
   return (
-    <Animated.View style={{ height, alignItems: 'center', backgroundColor:'#fb6c6d', borderBottomLeftRadius: 14, borderBottomRightRadius: 14 }}>
+    <Animated.View style={{ height, alignItems: 'center', backgroundColor:'#f8b7ae', borderBottomLeftRadius: 14, borderBottomRightRadius: 14 }}>
         {expanded ? expandedContent : (<View></View>)}
     </Animated.View>
   );

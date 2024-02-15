@@ -14,6 +14,8 @@ export default function AddDataExpandedView({unit}) {
     const [inputValue2, setInputValue2] = useState('');
     const dispatch = useDispatch();
 
+    // TODO: refactor style
+
     return (
         <View style={{flex: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
             { unit === 'bp' ? 
@@ -27,7 +29,7 @@ export default function AddDataExpandedView({unit}) {
                         returnKeyType='done'
                         clearTextOnFocus={true}
                     />
-                    <Text style={{fontSize: 48, fontWeight: 'bold', display: 'flex', alignSelf: 'center', textAlignVertical: 'bottom'}}> / </Text>
+                    <Text style={{fontSize: 48, fontWeight: 'bold', display: 'flex', alignSelf: 'center', textAlignVertical: 'bottom', color: '#10526a'}}> / </Text>
                     <TextInput
                         style={{backgroundColor: 'white', fontSize: 48, fontWeight: 'bold', padding: 15, minWidth: 100, textAlign: 'center', borderRadius: 15, }}
                         value={inputValue2.toString()}
@@ -36,7 +38,6 @@ export default function AddDataExpandedView({unit}) {
                         keyboardType={"number-pad"}
                         returnKeyType='done'
                         clearTextOnFocus={true}
-                        // TODO: create store for the second BP value
                     />
                 </View>) : 
                 (<TextInput
@@ -49,23 +50,22 @@ export default function AddDataExpandedView({unit}) {
                     clearTextOnFocus={true}
                 />)
             }
-            {/* <TextInput
-                style={{backgroundColor: 'white', fontSize: 48, fontWeight: 'bold', padding: 15, minWidth: 100, textAlign: 'center', borderRadius: 15, }}
-                value={inputValue.toString()}
-                onChangeText={setInputValue}
-                placeholder="0"
-                keyboardType={"number-pad"}
-                clearTextOnFocus={true}
-            /> */}
-            <TouchableOpacity onPress={() => {
+            <TouchableOpacity onPress={
+                () => {
                 switch(unit) {
                     case('water'): 
                         dispatch(addNewWater(Number(inputValue) || 0));
+                        console.log("water");
+                        return;
                     case('glucose'): 
                         dispatch(editNewGlucose(Number(inputValue) || 0));
+                        console.log("glucose");
+                        return;
                     case('bp'): 
                         dispatch(editNewBP1(Number(inputValue) || 0));
                         dispatch(editNewBP2(Number(inputValue2) || 0));
+                        console.log("bp");
+                        return;
                 }
                 setInputValue('');
                 setInputValue2('');

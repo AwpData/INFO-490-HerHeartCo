@@ -28,7 +28,7 @@ export default function AddData() {
   // TODO: use real data, make buttons editable
 
   return (
-    <View style={{ flexDirection: 'column', alignItems: 'center', position: 'absolute', }}>
+    <View style={{ flexDirection: 'column', alignItems: 'center', position: 'absolute', backgroundColor: '#fef7f4', }}>
         <NavBarAddButton openModal={openModal} />
         <AddPageModal visible={modalVisible} onRequestClose={closeModal}>
             <View style={{alignItems: 'center', marginVertical: 40, }}>

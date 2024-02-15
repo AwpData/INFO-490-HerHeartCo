@@ -14,7 +14,7 @@ export default function DailyStat( {
                     width={5}
                     fill={measurement  * 100 / goal}
                     rotation={0}
-                    tintColor="#cc3533"
+                    tintColor="#f69880"
                     backgroundColor="#e0e0e0" 
                 />
                 

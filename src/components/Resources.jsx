@@ -4,7 +4,7 @@ import { Button, Text, View, ScrollView } from 'react-native';
 export default function Resources() {
 
   return (
-    <ScrollView> 
+    <ScrollView style={{backgroundColor: '#fef7f4', }}> 
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
           <Text>Resources will be inserted on this page</Text>
       </View>

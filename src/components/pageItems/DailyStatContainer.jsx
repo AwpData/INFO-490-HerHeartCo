@@ -20,7 +20,7 @@ export default function DailyStatContainer( {
               statTitle='Heart Rate' 
               measurement={90} 
               goal={1} 
-              icon={<FontAwesome5 name="heartbeat" color='#CC3533' size={25} />} 
+              icon={<FontAwesome5 name="heartbeat" color='#f69880' size={25} />} 
               unit='BPM' />
 
             <DailyStat 
@@ -28,7 +28,7 @@ export default function DailyStatContainer( {
               measurement={dailySteps} 
               goal={dailyStepGoal} 
               icon={<MaterialCommunityIcons 
-                name="shoe-sneaker" color='#CC3533' size={30} 
+                name="shoe-sneaker" color='#f69880' size={30} 
                 style={{
                     right: 2,
                     transform: [{ rotate: '-30deg'}] }}/>} 
@@ -39,14 +39,14 @@ export default function DailyStatContainer( {
               statTitle='Sleep' 
               measurement={sleep} 
               goal={sleepGoal} 
-              icon={<Feather name="moon" color='#CC3533' size={30} />} 
+              icon={<Feather name="moon" color='#f69880' size={30} />} 
               unit={(sleep % 60).toString() + 'm'} />
 
             <DailyStat 
               statTitle='Water Intake' 
               measurement={Math.ceil(dailyWaterSummary / 29.6)} 
               goal={Math.ceil(dailyWaterGoal / 29.6)} 
-              icon={<MaterialCommunityIcons name="cup-water" color='#CC3533' size={30} />} 
+              icon={<MaterialCommunityIcons name="cup-water" color='#f69880' size={30} />} 
               unit='oz' />
           </View>
     );
