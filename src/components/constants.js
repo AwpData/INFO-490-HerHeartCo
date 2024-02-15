@@ -94,3 +94,7 @@ export const redChevronRight = (
 export const redChevronLeft = (
     <MaterialIcons name='chevron-left' color='#cc3533' size={30} />
 );
+
+export const redChevronDown = (
+    <MaterialCommunityIcons name='chevron-down' color='#cc3533' size={30} />
+);

@@ -9,7 +9,7 @@ export default function SelfLogHealthData({
 }) {
     return (
         <TouchableOpacity style={Theme.addDataRowStyle}>
-            <View style={{flexDirection: 'row', alignItems: 'center', }}>
+            <View style={{flexDirection: 'row', alignItems: 'center', padding: 15}}>
                 <View style={{maxWidth: 35, minWidth: 35, alignItems: 'center', }}>
                     {icon}
                 </View>

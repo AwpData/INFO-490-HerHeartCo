@@ -1,14 +1,17 @@
-import { Button, Text, View, StyleSheet, Modal, TouchableOpacity, } from 'react-native';
+import React, { useState, useRef } from 'react';
+import { Button, Text, View, StyleSheet, Modal, TouchableOpacity, Animated } from 'react-native';
 
 import * as Theme from '../../theme';
-import { grayChevronRight } from "../constants"
+import { grayChevronRight, redChevronDown } from "../constants"
+import ExpandableView from './ExpandableView';
 
 
-export default function AddDataRow({
-    icon, title, value, goal, unit
-}) {
-    return ( 
-        <TouchableOpacity style={Theme.addDataRowStyle}>
+export default function AddDataRow ({ icon, title, value, goal, unit, expandedContent }) {
+    const [isExpanded, setIsExpanded] = useState(false);
+
+    return (
+      <View style={Theme.addDataRowStyle}>
+        <TouchableOpacity onPress={() => { setIsExpanded(!isExpanded) }} style={{padding: 15}} >
             <View style={{flexDirection: 'row', alignItems: 'center', }}>
                 <View style={{maxWidth: 35, minWidth: 35, alignItems: 'center', }}>
                     {icon}
@@ -22,8 +25,11 @@ export default function AddDataRow({
                     </View>
                 </View>
                 <View style={{flex: 1}} />
-                {grayChevronRight}
+                    {isExpanded ? redChevronDown : grayChevronRight}
             </View>
+            
         </TouchableOpacity>
-    )
-}
+        <ExpandableView expanded={isExpanded} expandedContent={expandedContent}/>
+      </View>
+    );
+  };

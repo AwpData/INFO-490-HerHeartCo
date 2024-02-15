@@ -85,7 +85,6 @@ export const addDataRowStyle = {
     borderWidth: 2, 
     minWidth: '100%', 
     borderRadius: 15, 
-    padding: 15, 
     marginBottom: 10,
 }
 
