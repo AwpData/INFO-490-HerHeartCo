@@ -16,12 +16,12 @@ export default function DailyStatContainer( {
     return (
         <View style={Theme.dailyStatsSection}> 
             {/* TODO: get BPM */}
-            <DailyStat 
+            {/* <DailyStat 
               statTitle='Heart Rate' 
               measurement={90} 
               goal={1} 
               icon={<FontAwesome5 name="heartbeat" color='#f69880' size={25} />} 
-              unit='BPM' />
+              unit='BPM' /> */}
 
             <DailyStat 
               statTitle='Steps' 

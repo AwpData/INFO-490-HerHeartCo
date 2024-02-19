@@ -84,7 +84,7 @@ export const profileName = {
     fontSize: 40, 
     fontWeight: 'bold', 
     textAlign: 'center', 
-    color: '#700B0B', 
+    color: '#10526a',
     marginBottom: 20,
 }
 
