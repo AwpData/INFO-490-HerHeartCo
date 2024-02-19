@@ -256,8 +256,8 @@ export default function Home() {
 
 
   return (
-    <ScrollView style={{backgroundColor: 'white', }}> 
-      <View style={{ flex: 1, paddingBottom: 75}}>
+    <ScrollView style={{backgroundColor: '#fef7f4', }}> 
+      <View style={{ flex: 1, paddingBottom: 75, }}>
       {name ? (
         <View>
           <View style={{margin: 20}}> 
@@ -270,7 +270,7 @@ export default function Home() {
               content={
                 sampleGoals.map((item, i) => {
                   return (
-                    <Text key={i} style={{ fontSize: 16, paddingBottom: 5 }}>• {item}</Text>
+                    <Text key={i} style={{ fontSize: 16, paddingBottom: 5, color: '#10526a' }}>• {item}</Text>
                   ) }) } />
 
             {/* Circle summary graph  */}

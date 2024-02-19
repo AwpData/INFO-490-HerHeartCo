@@ -1,6 +1,7 @@
 export const pageTitle = {
     fontSize: 36, 
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    color: '#10526a'
 }
 
 export const dailyStatsSection = {
@@ -17,15 +18,18 @@ export const dailyStatContainer = {
 export const dailyStatTitle = {
     fontWeight: 'bold', 
     paddingBottom: 10,
+    color: '#10526a'
 }
 
 export const dailyStat = {
     fontWeight: 'bold', 
-    fontSize: 20
+    fontSize: 20,
+    color: '#10526a'
 }
 
 export const dailyStatLabel = {
-    fontSize: 14
+    fontSize: 14,
+    color: '#10526a'
 }
 
 export const dailyStatLayers = {
@@ -46,24 +50,28 @@ export const shadowBoxStyle = {
     backgroundColor: 'white', 
     padding: 20, borderRadius: 10, 
     marginVertical: 20,
-    minWidth: '100%'
+    minWidth: '100%',
+    color: '#10526a'
 }
 
 export const shadowBoxLargeTitle = {
     fontSize: 30, 
     fontWeight: 'bold', 
     paddingVertical: 10,
+    color: '#10526a'
 }
 
 export const shadowBoxBoldTitle = {
     fontSize: 20, 
     fontWeight: 'bold', 
-    paddingBottom: 10
+    paddingBottom: 10,
+    color: '#10526a'
 }
 
 export const shadowBoxTitle = {
     fontSize: 20, 
-    paddingBottom: 5 
+    paddingBottom: 5 ,
+    color: '#10526a'
 }
 
 export const shadowBoxSecondaryTitle = {
@@ -85,23 +93,26 @@ export const addDataRowStyle = {
     borderWidth: 2, 
     minWidth: '100%', 
     borderRadius: 15, 
-    padding: 15, 
+    marginBottom: 10,
+    color: '#10526a'
 }
 
 export const addDataRowTitle = {
     fontWeight: 'bold', 
-    fontSize: 18
+    fontSize: 18,
+    color: '#10526a'
 }
 
 export const addDataCurrentValue = {
     fontWeight: 'bold', 
     fontSize: 28,
+    color: '#10526a'
 }
 
 export const addDataRowGoal = {
     fontWeight: 'bold', 
     fontSize: 20, 
-    color: '#cc3533', 
+    color: '#f69880', 
     paddingBottom: 5
 }
 
@@ -109,14 +120,22 @@ export const addDataNavBarStyle = {
     flexDirection:'row', 
     alignItems:'center', 
     justifyContent: 'space-between', 
-    backgroundColor: 'white', 
+    backgroundColor: '#fef7f4', 
     minWidth: '100%', height: 60, 
-    padding: 20
+    padding: 20,
+    color: '#10526a'
 }
 
 export const addPageDateFormat = {
-    color: '#cc3533', 
+    color: '#f69880', 
     fontWeight: 'bold', 
     fontSize: 26, 
-    textAlign: 'center'
+    textAlign: 'center',
+    color: '#10526a'
+}
+
+export const logDataUnit = {
+    fontWeight: 'bold', 
+    fontSize: 24,
+    color: '#10526a'
 }

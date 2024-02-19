@@ -21,7 +21,7 @@ export default function NavBarAddButton({
             }} />
             <MaterialIcons 
                 name="add-circle-outline" 
-                color='#CC3533' 
+                color='#f69880' 
                 size={85} 
                 style={{ position: 'absolute', paddingTop: 5}}
             />

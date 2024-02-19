@@ -115,7 +115,7 @@ export default function Profile() {
   }
 
   return (
-    <ScrollView style={{backgroundColor: 'white', }}> 
+    <ScrollView style={{backgroundColor: '#fef7f4', }}> 
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', padding: 20, marginHorizontal: 0 }}>
         <View style={{height: 100}}></View>
       {name ? (
@@ -123,15 +123,16 @@ export default function Profile() {
           <Text style={Theme.profileName}>Kristy</Text>
 
           <ShadowBox primaryTitle='My Measurements' isLarge={true} content={
-            <View style={{paddingBottom: 60}}>
-              <Text style={{fontSize: 22, fontWeight: 'bold'}}>Age: {age}</Text>
+            <View style={{paddingBottom: 60, }}>
+              <Text style={{fontSize: 22, fontWeight: 'bold', color: '#10526a'}}>Age: {age}</Text>
               <Text 
                   style={{
                       fontSize: 22, 
-                      fontWeight: 'bold'
+                      fontWeight: 'bold',
+                      color: '#10526a'
                   }}>Height: {Math.floor(height / 2.54 / 12)} ft {Math.ceil((height / 2.54) % 12)} in
               </Text>
-              <Text style={{fontSize: 22, fontWeight: 'bold'}}>Weight: {Math.ceil(weight * 2.2)} lbs</Text>
+              <Text style={{fontSize: 22, fontWeight: 'bold', color: '#10526a'}}>Weight: {Math.ceil(weight * 2.2)} lbs</Text>
             </View>
           } />
         </View>

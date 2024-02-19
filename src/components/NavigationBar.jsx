@@ -23,11 +23,11 @@ export default function NavigationBar() {
             screenOptions={{
                 tabBarInactiveTintColor: 'white',
                 tabBarStyle: {
-                    backgroundColor: '#CC3533',
+                    backgroundColor: '#f69880',
                     height: 95
                 },
                 tabBarLabelStyle: { fontWeight: 'bold', fontSize: 12, color: 'white' },
-                headerStyle: { backgroundColor: '#CC3533', },
+                headerStyle: { backgroundColor: '#f69880', },
                 headerTintColor: 'white', }}>
             <Tab.Screen 
                 name="Dashboard" 

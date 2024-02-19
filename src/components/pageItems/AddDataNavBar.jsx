@@ -10,11 +10,11 @@ export default function AddDataNavBar({
                     
             {/* TODO: "Cancel" = removing draft of data changes */}
             <TouchableOpacity onPress={onRequestClose}  >
-                <Text style={{color: 'black', fontSize: 18, }}>Cancel</Text>
+                <Text style={{color: '#10526a', fontSize: 18, }}>Cancel</Text>
             </TouchableOpacity>
             
             <TouchableOpacity onPress={onRequestClose}  >
-                <Text style={{color: 'black', fontSize: 18, fontWeight: 'bold', }}>Done</Text>
+                <Text style={{color: '#10526a', fontSize: 18, fontWeight: 'bold', }}>Done</Text>
             </TouchableOpacity>
         </View>
     )
