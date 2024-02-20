@@ -7,7 +7,9 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Feather from 'react-native-vector-icons/Feather'; 
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-import { View, } from 'react-native';
+import { LineChart } from 'react-native-chart-kit';
+
+import { View, Text, Dimensions} from 'react-native';
 
 
 export const activeHomeIcon = (<Fontisto name="home" color='white' size={30} />);
@@ -43,7 +45,45 @@ export const circlePlaceholder = (
 );
 
 export const rectPlaceholder = (
-    <View style={{ borderColor: '#e0e0e0', borderWidth: 4, height: 300, minWidth: '100%', marginVertical: 15  }}>
+    <View style={{ borderColor: '#e0e0e0', marginVertical: 15, borderWidth: 2}}>
+        <LineChart
+            data={{
+            labels: ["5:00", "5:05", "5:10", "5:15", "5:20", "5:25"],
+            datasets: [
+                {
+                data: [
+                    75, 
+                    Math.random() * (150 - 100 + 1) + 100,
+                    Math.random() * (150 - 100 + 1) + 100,
+                    Math.random() * (150 - 100 + 1) + 100,
+                    Math.random() * (150 - 100 + 1) + 100,
+                    150
+                ]
+                }
+            ]
+            }}
+            width={300} // from react-native
+            height={250}
+            segments={4}
+            yAxisSuffix=" BPM"
+            yAxisInterval={1} // optional, defaults to 1
+            chartConfig={{
+            backgroundColor: "#ffffff",
+            backgroundGradientFrom: "#ffffff",
+            backgroundGradientTo: "#ffffff",
+            decimalPlaces: 0, // optional, defaults to 2dp
+            color: (opacity = 1) => `rgba(16,82,106, ${opacity})`,
+            labelColor: (opacity = 1) => `rgba(16,82,106,${opacity})`,
+            style: {
+                borderRadius: 10,
+            },
+            propsForDots: {
+                r: "4",
+                strokeWidth: "2",
+                stroke: "#10526A"
+            },
+            }}
+        />
     </View>
 )
 

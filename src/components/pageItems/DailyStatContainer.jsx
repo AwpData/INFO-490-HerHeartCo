@@ -22,6 +22,13 @@ export default function DailyStatContainer( {
               goal={1} 
               icon={<FontAwesome5 name="heartbeat" color='#f69880' size={25} />} 
               unit='BPM' /> */}
+            <DailyStat 
+              statTitle='Exercise' 
+              measurement={dailySteps} 
+              goal={dailyStepGoal} 
+              icon={<MaterialCommunityIcons 
+                name="weight-lifter" color='#f69880' size={30}/>} 
+              unit='min' />
 
             <DailyStat 
               statTitle='Steps' 
