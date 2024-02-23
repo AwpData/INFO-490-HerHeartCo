@@ -1,9 +1,13 @@
-import { View, } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
 
 import DailyStat from './DailyStat';
 import * as Theme from '../../theme';
 
-import { exerciseIcon, goalsIcon, sleepIcon, stepsIcon, waterIcon,  } from '../../constants';
+import { exerciseIcon, goalsIcon, hrvTrainingIcon, sleepIcon, stepsIcon, waterIcon,  } from '../../constants';
+// import { TouchableOpacity } from 'react-native-gesture-handler';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import SelectDailyGoalsModal from './SelectDailyGoalsModal';
 
 export default function DailyStatContainer( {
     // heartRate, 
@@ -11,7 +15,24 @@ export default function DailyStatContainer( {
     sleep, sleepGoal, 
     dailyWaterSummary, dailyWaterGoal
 }) {
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const openModal = () => {
+    setModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setModalVisible(false);
+  };
+
     return (
+      <View style={{flexDirection: 'column', margin: 20}}>
+        <View style={{flexDirection: 'row', justifyContent: 'space-between', }}>
+          <Text style={{fontSize: 28, fontWeight: 'bold'}}>My Goals</Text>
+          <TouchableOpacity onPress={openModal}>
+            <MaterialCommunityIcons name='plus-circle' color={Theme.secondaryTint} size={30} />
+          </TouchableOpacity>
+        </View>
         <View style={Theme.dailyStatsSection}> 
             {/* TODO: get BPM */}
             {/* <DailyStat 
@@ -25,7 +46,7 @@ export default function DailyStatContainer( {
               measurement={dailySteps} 
               goal={dailyStepGoal} 
               icon={exerciseIcon} 
-              unit='min' />
+              unit='times' />
 
             <DailyStat 
               statTitle='Steps' 
@@ -36,11 +57,11 @@ export default function DailyStatContainer( {
 
             {/* TODO: get sleep */}
             <DailyStat 
-              statTitle='Sleep' 
+              statTitle='HRV Training' 
               measurement={sleep} 
               goal={sleepGoal} 
-              icon={sleepIcon} 
-              unit={(sleep % 60).toString() + 'm'} />
+              icon={hrvTrainingIcon} 
+              unit={(sleep % 60).toString() + 'min'} />
 
             <DailyStat 
               statTitle='Water Intake' 
@@ -49,5 +70,7 @@ export default function DailyStatContainer( {
               icon={waterIcon} 
               unit='oz' />
           </View>
+          <SelectDailyGoalsModal visible={modalVisible} onRequestClose={closeModal} />
+        </View>
     );
 }

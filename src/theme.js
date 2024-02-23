@@ -34,21 +34,33 @@ export const pageTitle = {
     color: primaryTint
 }
 
+export const h1 = {
+    fontSize: 28, 
+    fontWeight: 'bold',
+    color: primaryTint,
+    textAlign: 'center', 
+    paddingBottom: 20
+}
+
 export const dailyStatsSection = {
     flexDirection: 'row', 
     justifyContent: 'center', 
-    paddingVertical: 10, 
+    paddingVertical: 20, 
 }
 
 export const dailyStatContainer = {
     alignItems:'center', 
-    minWidth: 100,
+    minWidth: 90,
+    maxWidth: 90, 
+    flexWrap: 'wrap', 
+    marginHorizontal: 5
 }
 
 export const dailyStatTitle = {
     fontWeight: 'bold', 
     paddingBottom: 10,
-    color: primaryTint
+    color: primaryTint,
+    fontSize: 12
 }
 
 export const dailyStat = {

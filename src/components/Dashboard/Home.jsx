@@ -270,7 +270,7 @@ export default function Home() {
               content={
                 sampleGoals.map((item, i) => {
                   return (
-                    <Text key={i} style={{ fontSize: 16, paddingBottom: 5, color: Theme.primaryTint }}>• {item}</Text>
+                    <Text key={i} style={{ fontSize: 16, paddingBottom: 5, color: Theme.primaryTint }}>• {item.title}</Text>
                   ) }) } />
 
             {/* Circle summary graph  */}

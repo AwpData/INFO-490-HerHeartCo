@@ -35,10 +35,19 @@ export const activeProfileIcon = (<Ionicons name="person" color='white' size={30
 export const inactiveProfileIcon = (<Ionicons name="person-outline" color='white' size={30} />)
 
 export const sampleGoals = [
-    'Go to the gym',
-    'Make a new appointment',
-    'Run a mile',
-    'This is a super long goal to see how this looks on more than one line'
+    {id: 1, icon: (<MaterialCommunityIcons name="weight-lifter" color='black' size={50}/>), title: 'Exercise for 3 times/ Week'},
+    {id: 2, icon: (
+        <FontAwesome6 name="person-walking" color={Theme.red} size={50} />
+    ), title: 'Move 10,000 Steps/ Daily'},
+    {id: 3, icon: (
+        <MaterialCommunityIcons name='cup-water' color={Theme.blue} size={50} />
+    ), title: 'Drink 7 Glasses of Water / Daily'},
+    {id: 4, icon: (
+        <Ionicons name='scale-sharp' color={Theme.primaryGray} size={50} />
+    ), title: 'Reduce Fat %'},
+    {id: 5, icon: (
+        <MaterialCommunityIcons name="heart-pulse" color={Theme.lightRed} size={50} />
+    ), title: 'Meditate for 15mins / Daily'},
 ]
 
 export const circlePlaceholder = (
@@ -98,15 +107,48 @@ export const goalsIcon = (
 );
 
 export const stepsIcon = (
-    <FontAwesome6 name="person-walking" color={Theme.lightRed} size={30} />
+    <FontAwesome6 name="person-walking" color={Theme.red} size={30} />
 )
 
 export const sleepIcon = (
     <MaterialCommunityIcons name="power-sleep" color={Theme.yellow} size={30} />
 );
 
+export const hrvTrainingIcon = (
+    <MaterialCommunityIcons name="heart-pulse" color={Theme.lightRed} size={30} />
+);
+
+export const reduceFatIcon = (
+    <Ionicons name='scale-sharp' color={Theme.primaryGray} size={30} />
+);
+
 export const waterIcon = (
     <MaterialCommunityIcons name='cup-water' color={Theme.blue} size={30} />
+);
+
+export const exerciseIconLarge = (
+    <MaterialCommunityIcons name="weight-lifter" color='black' size={50}/>
+);
+
+
+export const stepsIconLarge = (
+    <FontAwesome6 name="person-walking" color={Theme.red} size={50} />
+)
+
+export const sleepIconLarge = (
+    <MaterialCommunityIcons name="power-sleep" color={Theme.yellow} size={50} />
+);
+
+export const hrvTrainingIconLarge = (
+    <MaterialCommunityIcons name="heart-pulse" color={Theme.lightRed} size={50} />
+);
+
+export const reduceFatIconLarge = (
+    <Ionicons name='scale-sharp' color={Theme.primaryGray} size={50} />
+);
+
+export const waterIconLarge = (
+    <MaterialCommunityIcons name='cup-water' color={Theme.blue} size={50} />
 );
 
 export const foodIcon = (

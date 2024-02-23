@@ -3,7 +3,7 @@ import { View, Animated, Text, TextInput } from 'react-native';
 import { foodIcon, glucoseIcon, goalsIcon, waterIcon, bpIcon } from '../../constants';
 import AddDataRow from './DailyGoalsRow';
 import NavBarAddButton from '../NavigationBar/NavBarAddButton';
-import AddPageModal from './EditDailyGoalsModal';
+import EditDailyGoalsModal from './EditDailyGoalsModal';
 import SelfLogHealthData from './SelfLogHealthData';
 import * as Theme from '../../theme';
 import AddDataExpandedView from './EditDailyGoalsExpandedView';
@@ -28,7 +28,7 @@ export default function DailyGoalsContainer() {
   return (
     <View style={{ flexDirection: 'column', alignItems: 'center', position: 'absolute', backgroundColor: '#fef7f4', }}>
         <NavBarAddButton openModal={openModal} />
-        <AddPageModal visible={modalVisible} onRequestClose={closeModal}>
+        <EditDailyGoalsModal visible={modalVisible} onRequestClose={closeModal}>
             <View style={{alignItems: 'center', marginVertical: 40, }}>
                 <AddDataRow
                   icon={goalsIcon} title='Goals' value={8} goal={8} unit='goals'
@@ -43,7 +43,7 @@ export default function DailyGoalsContainer() {
                   icon={glucoseIcon} title='Glucose' value1={newGlucose} unit='mg/dL'
                   expandedContent={ <AddDataExpandedView unit='glucose' />} />
             </View>
-        </AddPageModal>
+        </EditDailyGoalsModal>
     </View>
   );
 }

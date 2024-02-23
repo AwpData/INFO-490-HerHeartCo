@@ -1,6 +1,6 @@
 import { Text, View, Modal, ScrollView } from 'react-native';
 import { format } from 'date-fns';
-import AddDataNavBar from './EditDailyGoalsNavBar';
+import EditDailyGoalsNavBar from './EditDailyGoalsNavBar';
 import { redChevronRight, redChevronLeft } from '../../constants';
 import * as Theme from '../../theme';
 
@@ -18,7 +18,7 @@ export default function EditDailyGoalsModal ({
             presentationStyle='pageSheet'
         >
             <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: Theme.primaryBackground, }}>
-                <AddDataNavBar onRequestClose={onRequestClose} />
+                <EditDailyGoalsNavBar onRequestClose={onRequestClose} />
                 
                 <ScrollView automaticallyAdjustKeyboardInsets={true}>
                     {/* TODO: export the date navigator to a separate component  */}
