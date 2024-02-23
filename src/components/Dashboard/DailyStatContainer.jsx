@@ -1,11 +1,9 @@
 import { View, } from 'react-native';
 
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import Feather from 'react-native-vector-icons/Feather';
-
 import DailyStat from './DailyStat';
 import * as Theme from '../../theme';
+
+import { exerciseIcon, goalsIcon, sleepIcon, stepsIcon, waterIcon,  } from '../../constants';
 
 export default function DailyStatContainer( {
     // heartRate, 
@@ -26,19 +24,14 @@ export default function DailyStatContainer( {
               statTitle='Exercise' 
               measurement={dailySteps} 
               goal={dailyStepGoal} 
-              icon={<MaterialCommunityIcons 
-                name="weight-lifter" color='#f69880' size={30}/>} 
+              icon={exerciseIcon} 
               unit='min' />
 
             <DailyStat 
               statTitle='Steps' 
               measurement={dailySteps} 
               goal={dailyStepGoal} 
-              icon={<MaterialCommunityIcons 
-                name="shoe-sneaker" color='#f69880' size={30} 
-                style={{
-                    right: 2,
-                    transform: [{ rotate: '-30deg'}] }}/>} 
+              icon={stepsIcon} 
               unit='steps' />
 
             {/* TODO: get sleep */}
@@ -46,14 +39,14 @@ export default function DailyStatContainer( {
               statTitle='Sleep' 
               measurement={sleep} 
               goal={sleepGoal} 
-              icon={<Feather name="moon" color='#f69880' size={30} />} 
+              icon={sleepIcon} 
               unit={(sleep % 60).toString() + 'm'} />
 
             <DailyStat 
               statTitle='Water Intake' 
               measurement={Math.ceil(dailyWaterSummary / 29.6)} 
               goal={Math.ceil(dailyWaterGoal / 29.6)} 
-              icon={<MaterialCommunityIcons name="cup-water" color='#f69880' size={30} />} 
+              icon={waterIcon} 
               unit='oz' />
           </View>
     );

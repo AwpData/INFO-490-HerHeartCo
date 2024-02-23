@@ -2,11 +2,11 @@ import React, { useState, useRef } from 'react';
 import { Button, Text, View, StyleSheet, Modal, TouchableOpacity, Animated } from 'react-native';
 
 import * as Theme from '../../theme';
-import { grayChevronRight, redChevronDown } from "../constants"
+import { grayChevronRight, redChevronDown } from "../../constants"
 import ExpandableView from './ExpandableView';
 
 
-export default function AddDataRow ({ icon, title, value, goal, unit, expandedContent }) {
+export default function DailyGoalsRow ({ icon, title, value, goal, unit, expandedContent }) {
     const [isExpanded, setIsExpanded] = useState(false);
 
     return (

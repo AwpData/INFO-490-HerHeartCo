@@ -6,10 +6,10 @@ import pkceChallenge from 'react-native-pkce-challenge';
 import Base64 from 'react-native-base64';
 import qs from 'qs';
 
-import * as Theme from '../theme';
-import { circlePlaceholder, rectPlaceholder, sampleGoals } from './constants';
-import ShadowBox from './pageItems/ShadowBox';
-import DailyStatContainer from './pageItems/DailyStatContainer';
+import * as Theme from '../../theme';
+import { circlePlaceholder, rectPlaceholder, sampleGoals } from '../../constants';
+import ShadowBox from '../general/ShadowBox';
+import DailyStatContainer from './DailyStatContainer';
 
 // TODO: hard coding this for now, but there may be security concerns when we release the app
 // ***there is also 150 API calls/hr limit...look into Fitbit Cloud? they might have more recent readings too
@@ -256,7 +256,7 @@ export default function Home() {
 
 
   return (
-    <ScrollView style={{backgroundColor: '#fef7f4', }}> 
+    <ScrollView style={{backgroundColor: Theme.primaryBackground, }}> 
       <View style={{ flex: 1, paddingBottom: 75, }}>
       {name ? (
         <View>
@@ -270,7 +270,7 @@ export default function Home() {
               content={
                 sampleGoals.map((item, i) => {
                   return (
-                    <Text key={i} style={{ fontSize: 16, paddingBottom: 5, color: '#10526a' }}>• {item}</Text>
+                    <Text key={i} style={{ fontSize: 16, paddingBottom: 5, color: Theme.primaryTint }}>• {item}</Text>
                   ) }) } />
 
             {/* Circle summary graph  */}

@@ -1,6 +1,8 @@
 import { View, TouchableOpacity, } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
+import * as Theme from '../../theme';
+
 export default function NavBarAddButton({
     openModal
 }) {
@@ -21,7 +23,7 @@ export default function NavBarAddButton({
             }} />
             <MaterialIcons 
                 name="add-circle-outline" 
-                color='#f69880' 
+                color={Theme.primaryTint} 
                 size={85} 
                 style={{ position: 'absolute', paddingTop: 5}}
             />

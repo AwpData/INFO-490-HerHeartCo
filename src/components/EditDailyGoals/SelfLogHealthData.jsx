@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { Button, Text, View, StyleSheet, Modal, TouchableOpacity, } from 'react-native';
 
 import * as Theme from '../../theme';
-import { grayChevronRight, redChevronDown } from "../constants"
+import { grayChevronRight, redChevronDown } from "../../constants"
 import ExpandableView from './ExpandableView';
 
 
 export default function SelfLogHealthData({
-    icon, title, value1, value2='', unit, expandedContent
+    icon, title, value1, unit, expandedContent
 }) {
     const [isExpanded, setIsExpanded] = useState(false);
 
@@ -24,7 +24,6 @@ export default function SelfLogHealthData({
                         <View style={{flexDirection: 'row', alignItems: 'flex-end',}}>
                             <Text style={Theme.addDataRowGoal}>H:  </Text>
                             <Text style={Theme.addDataCurrentValue}>{value1}</Text>
-                            { value2 !== '' ? (<Text style={Theme.addDataCurrentValue}> / {value2}</Text>) : (<View></View>) }
                             <Text style={Theme.logDataUnit}>  {unit}</Text>
                         </View>
                     </View>

@@ -1,5 +1,5 @@
-import ShadowBox from './pageItems/ShadowBox';
-import * as Theme from '../theme';
+import ShadowBox from '../general/ShadowBox';
+import * as Theme from '../../theme';
 import * as React from 'react';
 import { Button, Text, View, ScrollView } from 'react-native';
 import * as AuthSession from 'expo-auth-session';
@@ -132,7 +132,7 @@ export default function Profile() {
                       color: '#10526a'
                   }}>Height: {Math.floor(height / 2.54 / 12)} ft {Math.ceil((height / 2.54) % 12)} in
               </Text>
-              <Text style={{fontSize: 22, fontWeight: 'bold', color: '#10526a'}}>Weight: {Math.ceil(weight * 2.2)} lbs</Text>
+              {/* <Text style={{fontSize: 22, fontWeight: 'bold', color: '#10526a'}}>Weight: {Math.ceil(weight * 2.2)} lbs</Text> */}
             </View>
           } />
         </View>

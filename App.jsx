@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { NavigationContainer } from '@react-navigation/native';
-import NavigationBar from './src/components/NavigationBar';
+import NavigationBar from './src/components/NavigationBar/NavigationBar';
 
 import store from './src/app/store';
 import { Provider } from 'react-redux'

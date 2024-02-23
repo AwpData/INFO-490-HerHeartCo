@@ -1,21 +1,19 @@
 import React, { useState } from 'react';
 import { View, Animated, Text, TextInput } from 'react-native';
-import { foodIcon, glucoseIcon, goalsIcon, waterIcon, bpIcon } from './constants';
-import AddDataRow from './pageItems/AddDataRow';
-import NavBarAddButton from './pageItems/NavBarAddButton';
-import AddPageModal from './pageItems/AddPageModal';
-import SelfLogHealthData from './pageItems/SelfLogHealthData';
-import * as Theme from '../theme';
-import AddDataExpandedView from './pageItems/AddDataExpandedView';
+import { foodIcon, glucoseIcon, goalsIcon, waterIcon, bpIcon } from '../../constants';
+import AddDataRow from './DailyGoalsRow';
+import NavBarAddButton from '../NavigationBar/NavBarAddButton';
+import AddPageModal from './EditDailyGoalsModal';
+import SelfLogHealthData from './SelfLogHealthData';
+import * as Theme from '../../theme';
+import AddDataExpandedView from './EditDailyGoalsExpandedView';
 import { useSelector, useDispatch } from 'react-redux';
 
 
-export default function AddData() {
+export default function DailyGoalsContainer() {
     const [modalVisible, setModalVisible] = useState(false);
     const newWater = useSelector( state => state.water.value );
     const newGlucose = useSelector( state => state.glucose.value );
-    const newBP1 = useSelector( state => state.bp1.value );  
-    const newBP2 = useSelector( state => state.bp2.value );  
 
   const openModal = () => {
     setModalVisible(true);
@@ -44,9 +42,6 @@ export default function AddData() {
                 <SelfLogHealthData 
                   icon={glucoseIcon} title='Glucose' value1={newGlucose} unit='mg/dL'
                   expandedContent={ <AddDataExpandedView unit='glucose' />} />
-                <SelfLogHealthData 
-                  icon={bpIcon} title='Blood Pressure' value1={newBP1} value2={newBP2} unit='mm Hg'
-                  expandedContent={ <AddDataExpandedView unit='bp' />} />
             </View>
         </AddPageModal>
     </View>

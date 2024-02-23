@@ -2,14 +2,16 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import Feather from 'react-native-vector-icons/Feather'; 
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import { LineChart } from 'react-native-chart-kit';
 
 import { View, Text, Dimensions} from 'react-native';
+
+import * as Theme from './theme';
 
 
 export const activeHomeIcon = (<Fontisto name="home" color='white' size={30} />);
@@ -40,12 +42,12 @@ export const sampleGoals = [
 ]
 
 export const circlePlaceholder = (
-    <View style={{ marginVertical: 20, alignSelf: 'center', borderColor: '#e0e0e0', borderWidth: 4, borderRadius: 250, height: 250, width: 250 }}>
+    <View style={{ marginVertical: 20, alignSelf: 'center', borderColor: Theme.secondaryGray, borderWidth: 4, borderRadius: 250, height: 250, width: 250 }}>
     </View>
 );
 
 export const rectPlaceholder = (
-    <View style={{ borderColor: '#e0e0e0', marginVertical: 15, borderWidth: 2}}>
+    <View style={{ borderColor: Theme.secondaryGray, marginVertical: 15, borderWidth: 2}}>
         <LineChart
             data={{
             labels: ["5:00", "5:05", "5:10", "5:15", "5:20", "5:25"],
@@ -87,54 +89,54 @@ export const rectPlaceholder = (
     </View>
 )
 
+export const exerciseIcon = (
+    <MaterialCommunityIcons name="weight-lifter" color='black' size={30}/>
+);
+
 export const goalsIcon = (
-    <MaterialIcons name='flag' color='#f69880' size={35} />
+    <MaterialIcons name='flag' color={Theme.secondaryTint} size={35} />
+);
+
+export const stepsIcon = (
+    <FontAwesome6 name="person-walking" color={Theme.lightRed} size={30} />
+)
+
+export const sleepIcon = (
+    <MaterialCommunityIcons name="power-sleep" color={Theme.yellow} size={30} />
 );
 
 export const waterIcon = (
-    <MaterialCommunityIcons name='cup-water' color='#f69880' size={30} />
+    <MaterialCommunityIcons name='cup-water' color={Theme.blue} size={30} />
 );
 
 export const foodIcon = (
-    <MaterialCommunityIcons name='silverware-fork-knife' color='#f69880' size={30} />
+    <MaterialCommunityIcons name='silverware-fork-knife' color={Theme.brown} size={30} />
 );
 
 export const glucoseIcon = (
-    <View style={{ alignItems: 'center', }}>
-        <MaterialCommunityIcons 
-            name='water' 
-            color='#f69880' 
-            size={25} 
-            style={{ position: 'absolute', paddingTop: 7, paddingLeft: 14, }} />
-        <MaterialCommunityIcons 
-            name='water-outline' 
-            color='#f69880' 
-            size={50} 
-            style={{paddingRight: 50}} />
-        <FontAwesome 
-            name="plus" 
-            color='#f69880' 
-            size={12} 
-            style={{ position: 'absolute', paddingTop: 22}} />
-    </View>
-)
-
-export const bpIcon = (
-    <FontAwesome5 name='heartbeat' color='#f69880' size={30} />
+    <MaterialCommunityIcons name='water-plus' color={Theme.lightRed} size={35} />
 )
 
 export const grayChevronRight = (
-    <MaterialIcons name='chevron-right' color='#e0e0e0' size={30} />
+    <MaterialIcons name='chevron-right' color={Theme.secondaryGray} size={30} />
+);
+
+export const grayChevronDown = (
+    <MaterialIcons name='chevron-down' color={Theme.secondaryGray} size={30} />
 );
 
 export const redChevronRight = (
-    <MaterialIcons name='chevron-right' color='#f69880' size={30} />
+    <MaterialIcons name='chevron-right' color={Theme.secondaryTint} size={30} />
 );
 
 export const redChevronLeft = (
-    <MaterialIcons name='chevron-left' color='#f69880' size={30} />
+    <MaterialIcons name='chevron-left' color={Theme.secondaryTint} size={30} />
 );
 
 export const redChevronDown = (
-    <MaterialCommunityIcons name='chevron-down' color='#f69880' size={30} />
+    <MaterialCommunityIcons name='chevron-down' color={Theme.secondaryTint} size={30} />
+);
+
+export const redChevronUp = (
+    <MaterialCommunityIcons name='chevron-up' color={Theme.secondaryTint} size={30} />
 );

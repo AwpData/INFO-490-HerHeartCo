@@ -1,17 +1,19 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import Home from './Home';
-import Calendar from './Calendar';
-import AddData from './AddData';
-import Resources from './Resources';
-import Profile from './Profile';
+import Home from '../Dashboard/Home';
+import Calendar from '../Calendar/Calendar';
+import AddData from '../EditDailyGoals/DailyGoalsContainer';
+import Resources from '../Resources/Resources';
+import Profile from '../Profile/Profile';
+
+import * as Theme from '../../theme';
 
 import { 
     activeHomeIcon, inactiveHomeIcon, 
     activeCalendarIcon, inactiveCalendarIcon, 
     activeResourcesIcon, inactiveResourcesIcon,
-    activeProfileIcon, inactiveProfileIcon } from './constants';
+    activeProfileIcon, inactiveProfileIcon } from '../../constants';
 
 
 export default function NavigationBar() {
@@ -23,11 +25,11 @@ export default function NavigationBar() {
             screenOptions={{
                 tabBarInactiveTintColor: 'white',
                 tabBarStyle: {
-                    backgroundColor: '#f69880',
+                    backgroundColor: Theme.primaryTint,
                     height: 95
                 },
                 tabBarLabelStyle: { fontWeight: 'bold', fontSize: 12, color: 'white' },
-                headerStyle: { backgroundColor: '#f69880', },
+                headerStyle: { backgroundColor: Theme.primaryTint, },
                 headerTintColor: 'white', }}>
             <Tab.Screen 
                 name="Dashboard" 

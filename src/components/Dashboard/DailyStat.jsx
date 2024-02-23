@@ -14,8 +14,8 @@ export default function DailyStat( {
                     width={5}
                     fill={measurement  * 100 / goal}
                     rotation={0}
-                    tintColor="#f69880"
-                    backgroundColor="#e0e0e0" 
+                    tintColor={Theme.secondaryTint}
+                    backgroundColor={Theme.secondaryGray} 
                 />
                 
                 <View style={Theme.dailyStatIcon}> 

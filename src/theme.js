@@ -1,7 +1,37 @@
+// Off-white pink
+export const primaryBackground = '#FEF7F4';
+export const secondaryBackground = 'white';
+
+// Dark blue
+export const primaryTint = '#10526A';
+// Red with good contrast
+export const secondaryTint = '#E84E4E'; 
+
+// Dark gray
+export const primaryGray = 'gray';
+// Light gray
+export const secondaryGray = '#E0E0E0';
+
+// Bright red
+export const red = '#FF5E03';
+// Light red 
+export const lightRed = '#FC6B6D';
+// Gold 
+export const gold = '#E2AD47';
+// Yellow 
+export const yellow = '#FFC90C';
+// Green
+export const green = '#45B957';
+// Blue
+export const blue = '#1EA7F4';
+// Brown 
+export const brown = '#D38003';
+
+
 export const pageTitle = {
     fontSize: 36, 
     fontWeight: 'bold',
-    color: '#10526a'
+    color: primaryTint
 }
 
 export const dailyStatsSection = {
@@ -18,18 +48,18 @@ export const dailyStatContainer = {
 export const dailyStatTitle = {
     fontWeight: 'bold', 
     paddingBottom: 10,
-    color: '#10526a'
+    color: primaryTint
 }
 
 export const dailyStat = {
     fontWeight: 'bold', 
     fontSize: 20,
-    color: '#10526a'
+    color: primaryTint
 }
 
 export const dailyStatLabel = {
     fontSize: 14,
-    color: '#10526a'
+    color: primaryTint
 }
 
 export const dailyStatLayers = {
@@ -51,68 +81,68 @@ export const shadowBoxStyle = {
     padding: 20, borderRadius: 10, 
     marginVertical: 20,
     minWidth: '100%',
-    color: '#10526a'
+    color: primaryTint
 }
 
 export const shadowBoxLargeTitle = {
     fontSize: 30, 
     fontWeight: 'bold', 
     paddingVertical: 10,
-    color: '#10526a'
+    color: primaryTint
 }
 
 export const shadowBoxBoldTitle = {
     fontSize: 20, 
     fontWeight: 'bold', 
     paddingBottom: 10,
-    color: '#10526a'
+    color: primaryTint
 }
 
 export const shadowBoxTitle = {
     fontSize: 20, 
     paddingBottom: 5 ,
-    color: '#10526a'
+    color: primaryTint
 }
 
 export const shadowBoxSecondaryTitle = {
     fontSize: 16, 
     paddingBottom: 5, 
-    color: 'gray'
+    color: primaryGray
 }
 
 export const profileName = {
     fontSize: 40, 
     fontWeight: 'bold', 
     textAlign: 'center', 
-    color: '#10526a',
+    color: primaryTint,
     marginBottom: 20,
 }
 
 export const addDataRowStyle = {
-    borderColor: '#e0e0e0', 
+    borderColor: secondaryGray, 
     borderWidth: 2, 
     minWidth: '100%', 
     borderRadius: 15, 
     marginBottom: 10,
-    color: '#10526a'
+    color: primaryTint
 }
 
 export const addDataRowTitle = {
     fontWeight: 'bold', 
     fontSize: 18,
-    color: '#10526a'
+    color: primaryTint
 }
 
 export const addDataCurrentValue = {
     fontWeight: 'bold', 
     fontSize: 28,
-    color: '#10526a'
+    color: primaryTint
 }
 
 export const addDataRowGoal = {
     fontWeight: 'bold', 
     fontSize: 20, 
-    color: '#f69880', 
+    color: secondaryTint, 
     paddingBottom: 5
 }
 
@@ -120,22 +150,22 @@ export const addDataNavBarStyle = {
     flexDirection:'row', 
     alignItems:'center', 
     justifyContent: 'space-between', 
-    backgroundColor: '#fef7f4', 
+    backgroundColor: primaryBackground, 
     minWidth: '100%', height: 60, 
     padding: 20,
-    color: '#10526a'
+    color: primaryTint
 }
 
 export const addPageDateFormat = {
-    color: '#f69880', 
+    color: secondaryTint, 
     fontWeight: 'bold', 
     fontSize: 26, 
     textAlign: 'center',
-    color: '#10526a'
+    color: primaryTint
 }
 
 export const logDataUnit = {
     fontWeight: 'bold', 
     fontSize: 24,
-    color: '#10526a'
+    color: primaryTint
 }
