@@ -14,7 +14,7 @@ export default function EditDailyGoalsNavBar({
             </TouchableOpacity>
             
             <TouchableOpacity onPress={onRequestClose}  >
-                <Text style={{color: Theme.secondaryTint, fontSize: 18, fontWeight: 'bold', }}>Done</Text>
+                <Text style={{color: Theme.secondaryTint, fontSize: 18, fontWeight: 'bold', }}>Save</Text>
             </TouchableOpacity>
         </View>
     )

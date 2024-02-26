@@ -11,7 +11,7 @@ export default function DailyGoalsRow ({ icon, title, value, goal, unit, expande
 
     return (
       <View style={Theme.addDataRowStyle}>
-        <TouchableOpacity onPress={() => { setIsExpanded(!isExpanded) }} style={{padding: 15}} >
+        <TouchableOpacity onPress={() => { setIsExpanded(!isExpanded) }} style={{padding: 15 }} >
             <View style={{flexDirection: 'row', alignItems: 'center', }}>
                 <View style={{maxWidth: 35, minWidth: 35, alignItems: 'center', }}>
                     {icon}

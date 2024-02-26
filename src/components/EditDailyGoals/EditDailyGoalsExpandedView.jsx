@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Button, Text, TextInput, Pressable, TouchableOpacity } from 'react-native';
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch, connect } from 'react-redux';
 import { addNewWater } from '../fitbitAPI/write/addWater';
 import { editNewGlucose } from '../fitbitAPI/write/editGlucose';
 
@@ -16,7 +16,7 @@ export default function EditDailyGoalsExpandedView({unit}) {
     return (
         <View style={{flex: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
             <TextInput
-                style={{backgroundColor: 'white', fontSize: 48, fontWeight: 'bold', padding: 15, minWidth: 100, textAlign: 'center', borderRadius: 15, }}
+                style={{backgroundColor: 'white', fontSize: 48, fontWeight: 'bold', padding: 15, minWidth: 100, textAlign: 'center', borderRadius: 15, borderWidth: 3, borderColor: Theme.secondaryGray}}
                 value={inputValue.toString()}
                 onChangeText={setInputValue}
                 placeholder="0"

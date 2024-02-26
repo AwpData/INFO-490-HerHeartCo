@@ -34,7 +34,7 @@ export const inactiveResourcesIcon = (
 export const activeProfileIcon = (<Ionicons name="person" color='white' size={30} />);
 export const inactiveProfileIcon = (<Ionicons name="person-outline" color='white' size={30} />)
 
-export const sampleGoals = [
+export const sampleGoalsIcons = [
     {id: 1, icon: (<MaterialCommunityIcons name="weight-lifter" color='black' size={50}/>), title: 'Exercise for 3 times/ Week'},
     {id: 2, icon: (
         <FontAwesome6 name="person-walking" color={Theme.red} size={50} />
@@ -49,6 +49,29 @@ export const sampleGoals = [
         <MaterialCommunityIcons name="heart-pulse" color={Theme.lightRed} size={50} />
     ), title: 'Meditate for 15mins / Daily'},
 ]
+export const sampleGoals = [
+    {id: 1, iconLibrary: 'MaterialCommunityIcons', iconName: 'weight-lifter', title: 'Exercise for 3 times/ Week'},
+    {id: 2, iconLibrary: 'FontAwesome6', iconName: 'person-walking', title: 'Move 10,000 Steps/ Daily'},
+    {id: 3, iconLibrary: 'MaterialCommunityIcons', iconName: 'cup-water',  title: 'Drink 7 Glasses of Water / Daily'},
+    {id: 4, iconLibrary: 'Ionicons', iconName: 'scale-sharp',  title: 'Reduce Fat %'},
+    {id: 5, iconLibrary: 'MaterialCommunityIcons', iconName: 'heart-pulse',  title: 'Meditate for 15mins / Daily'},
+]
+
+export const allGoals = [ 
+    {id: 1, category: 'EXERCISE', title: 'Exercise for 3 times/ Week', isSelected: false}, 
+    {id: 2, category: 'STEPS', title: 'Move 10,000 Steps/ Daily', isSelected: false},
+    {id: 3, category: 'WATER', title: 'Drink 7 Glasses of Water / Daily', isSelected: false},
+    {id: 4, category: 'FAT', title: 'Reduce Fat %', isSelected: false},
+    {id: 5, category: 'HRV', title: 'Meditate for 15mins / Daily', isSelected: false},
+]
+
+export const GoalCategory = Object.freeze( {
+    EXERCISE: 'exercise', 
+    STEPS: 'steps',
+    WATER: 'water',
+    FAT: 'fat',
+    HRV: 'hrv'
+})
 
 export const circlePlaceholder = (
     <View style={{ marginVertical: 20, alignSelf: 'center', borderColor: Theme.secondaryGray, borderWidth: 4, borderRadius: 250, height: 250, width: 250 }}>

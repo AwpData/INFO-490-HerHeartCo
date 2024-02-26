@@ -131,6 +131,7 @@ export const profileName = {
 }
 
 export const addDataRowStyle = {
+    backgroundColor: secondaryBackground,
     borderColor: secondaryGray, 
     borderWidth: 2, 
     minWidth: '100%', 
