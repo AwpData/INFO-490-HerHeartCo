@@ -5,6 +5,7 @@ import * as WebBrowser from 'expo-web-browser';
 import pkceChallenge from 'react-native-pkce-challenge';
 import Base64 from 'react-native-base64';
 import qs from 'qs';
+import { format } from 'date-fns';
 
 import * as Theme from '../../theme';
 import { circlePlaceholder, rectPlaceholder, sampleGoals } from '../../constants';
@@ -34,6 +35,9 @@ export default function Home() {
   const [dailyStepGoal, setDailyStepGoal] = React.useState('');
   const [water, setWater] = React.useState('');
   const [dailyWaterGoal, setDailyWaterGoal] = React.useState('');
+
+  const date = new Date(); 
+  const todayDateString = format(date, 'yyyy-MM-dd');
   
   // TODO: export login into separate function 
   const handleFitbitLogin = async () => {
@@ -152,7 +156,7 @@ export default function Home() {
       async function getDailyActivitySummaryRequest(tokenEndpoint) {
         try {
           const accessToken = 'Bearer ' + tokenEndpoint.access_token;
-          const tokenResponse = await fetch('https://api.fitbit.com/1/user/-/activities/date/2021-07-01.json', {
+          const tokenResponse = await fetch(`https://api.fitbit.com/1/user/-/activities/date/${todayDateString}.json`, {
             method: 'GET',
             headers: {
               'Authorization': accessToken,
@@ -160,6 +164,7 @@ export default function Home() {
           });
 
           const tokenJSON = await tokenResponse.json();
+          console.log(tokenJSON);
           return tokenJSON;
         } catch(error) {
           console.log('Error in GET request for daily activity: ', error);
@@ -254,10 +259,8 @@ export default function Home() {
     }
   }
 
-  const dispatch = useDispatch();
   const allGoals = useSelector(state => state.userReducer);
-
-
+  
   return (
     <ScrollView style={{backgroundColor: Theme.primaryBackground, }}> 
       <View style={{ flex: 1, paddingBottom: 75, }}>
