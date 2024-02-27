@@ -10,6 +10,7 @@ import * as Theme from '../../theme';
 import { circlePlaceholder, rectPlaceholder, sampleGoals } from '../../constants';
 import ShadowBox from '../general/ShadowBox';
 import DailyStatContainer from './DailyStatContainer';
+import { useSelector, useDispatch } from 'react-redux';
 
 // TODO: hard coding this for now, but there may be security concerns when we release the app
 // ***there is also 150 API calls/hr limit...look into Fitbit Cloud? they might have more recent readings too
@@ -253,28 +254,19 @@ export default function Home() {
     }
   }
 
+  const dispatch = useDispatch();
+  const allGoals = useSelector(state => state.userReducer);
+
 
   return (
     <ScrollView style={{backgroundColor: Theme.primaryBackground, }}> 
       <View style={{ flex: 1, paddingBottom: 75, }}>
       {name ? (
-        <View>
-          <View style={{margin: 20}}> 
+        <View style={{margin: 20}}>
             <Text style={Theme.pageTitle}>Good morning</Text>
-
-            <ShadowBox 
-              primaryTitle='Reminders / Goals / Alerts' 
-              isBold={true} 
-              secondaryTitle='' 
-              content={
-                sampleGoals.map((item, i) => {
-                  return (
-                    <Text key={i} style={{ fontSize: 16, paddingBottom: 5, color: Theme.primaryTint }}>• {item.title}</Text>
-                  ) }) } />
 
             {/* Circle summary graph  */}
             { circlePlaceholder }
-          </View>
 
           {/* Container for daily stats (4 circles) */}
           <DailyStatContainer 
@@ -283,23 +275,30 @@ export default function Home() {
             // dailyWaterSummary='2400' dailyWaterGoal={dailyWaterGoal} /> 
             dailyWaterSummary={water} dailyWaterGoal={dailyWaterGoal} />
 
-          {/* Container for graphs  */}
-          <View style={{margin: 20}}> 
+          <ShadowBox 
+              primaryTitle='Reminders / Goals / Alerts' 
+              isBold={true} 
+              secondaryTitle='' 
+              content={
+                allGoals.map((item, i) => { 
+                  return item.isSelected ? ( 
+                    <Text key={i} style={{ fontSize: 16, paddingBottom: 5, color: Theme.primaryTint }}>• {item.recommendation}</Text>
+                  ) : null }) } />
 
-            {/* HRV graph */}
-            <ShadowBox 
-              primaryTitle='Heart Rate' 
-              // isBold={false} 
-              secondaryTitle='in BPM' 
-              content={ rectPlaceholder } />
 
-            {/* Sleep schedule graph */}
-            <ShadowBox 
-              primaryTitle='Sleep Schedule' 
-              // isBold={false} 
-              secondaryTitle='1/29/24 - 2/10/24' // placeholder date range
-              content={ rectPlaceholder } />
-          </View>
+          {/* HRV graph */}
+          <ShadowBox 
+            primaryTitle='Heart Rate' 
+            // isBold={false} 
+            secondaryTitle='in BPM' 
+            content={ rectPlaceholder } />
+
+          {/* Sleep schedule graph */}
+          <ShadowBox 
+            primaryTitle='Sleep Schedule' 
+            // isBold={false} 
+            secondaryTitle='1/29/24 - 2/10/24' // placeholder date range
+            content={ rectPlaceholder } />
 
           <Button title="Authorize Fitbit" onPress={handleFitbitLogin} />
         </View>

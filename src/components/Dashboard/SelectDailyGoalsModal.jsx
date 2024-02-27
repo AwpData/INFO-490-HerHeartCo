@@ -27,7 +27,6 @@ export default function SelectDailyGoalsModal ({
 
     const handleSubmit = () => {
         dispatch(updateGoals(tempState)); 
-        console.log('all goals after submitting', allGoals);
         onRequestClose(); 
     }
 

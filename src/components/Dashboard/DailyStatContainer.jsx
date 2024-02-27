@@ -28,7 +28,7 @@ export default function DailyStatContainer( {
   };
 
     return (
-      <View style={{flexDirection: 'column', margin: 20}}>
+      <View style={{flexDirection: 'column'}}>
         <View style={{flexDirection: 'row', justifyContent: 'space-between', }}>
           <Text style={{fontSize: 28, fontWeight: 'bold'}}>My Goals</Text>
           <TouchableOpacity onPress={openModal}>
@@ -55,7 +55,7 @@ export default function DailyStatContainer( {
                           key={goal.id}
                           statTitle='Steps' 
                           measurement={dailySteps} 
-                          goal={dailyStepGoal} 
+                          goal={dailyStepGoal / 2} 
                           icon={stepsIcon} 
                           unit='steps' />
                       );
