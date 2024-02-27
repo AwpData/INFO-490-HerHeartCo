@@ -228,7 +228,6 @@ export default function Home() {
 
           getDailyActivitySummaryRequest(tokenEndpoint)
           .then( dailySummaryData => {
-            console.log('daily summary steps: ', dailySummaryData.summary.steps);
             setDailySteps(dailySummaryData.summary.steps);
           })
           .catch(error => console.log('Error fetching daily activity summary data: ', error));

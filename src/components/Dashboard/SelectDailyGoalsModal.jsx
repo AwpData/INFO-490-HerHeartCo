@@ -1,64 +1,55 @@
-import { Text, View, Modal, ScrollView, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { Text, View, Modal, ScrollView, TouchableOpacity, } from 'react-native';
 import * as Theme from '../../theme';
 import EditDailyGoalsNavBar from '../EditDailyGoals/EditDailyGoalsNavBar';
 
 
 import { useSelector, useDispatch } from 'react-redux';
-import { setGoals } from '../../redux/actions';
+import { setGoals, updateGoals } from '../../redux/actions';
 import { addNewWater } from '../fitbitAPI/write/addWater';
 import { editNewGlucose } from '../fitbitAPI/write/editGlucose';
 import { goals } from '../editGoalActions/goals';
 
-import { exerciseIconLarge, sampleGoals, sampleGoalsIcons } from '../../constants';
+import { sampleGoalsIcons } from '../../constants';
 
 
 export default function SelectDailyGoalsModal ({ 
     visible, onRequestClose 
 }) {
-    const allGoals = useSelector(state => state.userReducer);
     const dispatch = useDispatch();
+    const allGoals = useSelector(state => state.userReducer);
+    const [tempState, setTempState] = useState(Array.from(allGoals));
 
-    const handleSelectGoal = (objectId) => {
-        dispatch(toggleObjectBoolean(objectId));
+    const handleCancel = () => {
+        setTempState(Array.from(allGoals));
+        onRequestClose();
     };
 
-    const renderIcon = (goal) => {
-        if (goal.iconName && goal.iconLibrary) {
-        //   return <goal.iconLibrary name={goal.iconName} />;
-            return sampleGoalsIcons[goal.id-1].icon;
-            return exerciseIconLarge;
-        } // else if (goal.iconSource) {
-        //   return <Image source={{ uri: iconData.iconSource }} style={styles.iconStyle} />;
-        // }
-        return null; // Handle the case where no icon data is available
-      };
-
-    // const handleDeselectGoal = (goal) => {
-    //     dispatch({ type: 'DESELECT_GOAL', payload: goal.id });
-    // };
-
-    // const selectedGoals = useSelector(initialState => initialState.selectedGoals);
+    const handleSubmit = () => {
+        dispatch(updateGoals(tempState)); 
+        console.log('all goals after submitting', allGoals);
+        onRequestClose(); 
+    }
 
     return (
         <Modal
             animationType="slide"
             transparent={false}
             visible={visible}
-            onRequestClose={onRequestClose}
+            onRequestClose={handleCancel}
             presentationStyle='pageSheet'
         >
             <View style={{flex: 1, flexDirection: 'column', backgroundColor: Theme.primaryBackground, }}>
-                <EditDailyGoalsNavBar onRequestClose={onRequestClose} />
+                <EditDailyGoalsNavBar onRequestClose={handleCancel} onSubmitClose={handleSubmit} />
                 <Text style={Theme.h1}>Select your goals</Text>
                 <View style={{flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around', alignSelf: 'center', marginHorizontal: 18}}>
-                    { allGoals.map((item) => ( 
+                    { tempState.map((item) => ( 
                         <TouchableOpacity key={item.id} 
-                            onPress={() => {
-                                dispatch({
-                                    type: 'TOGGLE_BOOLEAN', 
-                                    payload: item
-                                });
-                            }}
+                            onPress={(() => {
+                                setTempState(tempState.map((goal) => {
+                                    return item.id === goal.id ? {...goal, isSelected: !goal.isSelected} : goal
+                                }))
+                            })}
                             style={{
                                 borderWidth: 3, borderColor: item.isSelected ? Theme.secondaryTint : Theme.secondaryBackground, 
                                 paddingVertical: 40, paddingHorizontal: 20, 

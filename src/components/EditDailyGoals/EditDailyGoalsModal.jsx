@@ -18,7 +18,7 @@ export default function EditDailyGoalsModal ({
             presentationStyle='pageSheet'
         >
             <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: Theme.primaryBackground, }}>
-                <EditDailyGoalsNavBar onRequestClose={onRequestClose} />
+                <EditDailyGoalsNavBar onRequestClose={onRequestClose} onSubmitClose={onRequestClose} />
                 
                 <ScrollView automaticallyAdjustKeyboardInsets={true}>
                     {/* TODO: export the date navigator to a separate component  */}

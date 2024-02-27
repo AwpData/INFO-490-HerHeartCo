@@ -1,4 +1,4 @@
-import { TOGGLE_BOOLEAN } from './actions';
+import { TOGGLE_BOOLEAN, UPDATE_GOALS } from './actions';
 
 const initialState = {
     allGoals: [ 
@@ -7,7 +7,8 @@ const initialState = {
         {id: 3, category: 'WATER', title: 'Drink 7 Glasses of Water / Daily', isSelected: false},
         {id: 4, category: 'FAT', title: 'Reduce Fat %', isSelected: false},
         {id: 5, category: 'HRV', title: 'Meditate for 15mins / Daily', isSelected: false},
-    ]
+    ], 
+    tempGoals: []
   };
 
 function userReducer(state = initialState.allGoals, action) {
@@ -18,6 +19,9 @@ function userReducer(state = initialState.allGoals, action) {
                 ? { ...goal, isSelected: !goal.isSelected }
                 : goal )
             ;
+        case UPDATE_GOALS: 
+            return action.payload.map((goal) => goal );
+        ;
         default:
             return state;
     }
