@@ -36,7 +36,8 @@ export default function NavigationBar() {
                 component={Home} 
                 options={{
                     tabBarIcon: ({ focused }) => { 
-                        return focused ? activeHomeIcon : inactiveHomeIcon }, }} />
+                        return focused ? activeHomeIcon : inactiveHomeIcon },
+                    headerShown: false }} />
             <Tab.Screen 
                 name="Calendar" 
                 component={Calendar} 

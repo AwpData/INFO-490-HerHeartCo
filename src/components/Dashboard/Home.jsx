@@ -12,20 +12,20 @@ import { circlePlaceholder, rectPlaceholder, sampleGoals } from '../../constants
 import ShadowBox from '../general/ShadowBox';
 import DailyStatContainer from './DailyStatContainer';
 import { useSelector, useDispatch } from 'react-redux';
+import authorizeProfile from '../fitbitAPI/read/authorizeProfile';
 
 // TODO: hard coding this for now, but there may be security concerns when we release the app
-// ***there is also 150 API calls/hr limit...look into Fitbit Cloud? they might have more recent readings too
 // OPTION 1: 
 // const fitbitConfig = {
 //   clientId: '23RTKC', // replace with your Fitbit app's client ID
 //   clientSecret: '3518afc3120b575c7370f51d12e208f5', // replace with your Fitbit app's client secret
-//   scopes: ['profile', 'activity', 'heartrate', 'nutrition'], // TODO: temperature
+//   scopes: ['profile', 'activity', 'heartrate', 'nutrition', 'sleep'], // TODO: temperature
 // };
 // OPTION 2: - switch between the 2 if you run out of API calls 
 const fitbitConfig = {
   clientId: '23RVLG', // replace with your Fitbit app's client ID
   clientSecret: 'bc5a3f429816d44b1b1b7ca2f71ab8b0', // replace with your Fitbit app's client secret
-  scopes: ['profile', 'activity', 'heartrate', 'nutrition'], // TODO: temperature, heartrate, sleep
+  scopes: ['profile', 'activity', 'heartrate', 'nutrition', 'sleep'], // TODO: temperature, heartrate, sleep
 };
 
 export default function Home() {
@@ -35,9 +35,17 @@ export default function Home() {
   const [dailyStepGoal, setDailyStepGoal] = React.useState('');
   const [water, setWater] = React.useState('');
   const [dailyWaterGoal, setDailyWaterGoal] = React.useState('');
+  const [dailyHRV, setDailyHRV] = React.useState('');
+  const [dailySleep, setDailySleep] = React.useState('');
 
   const date = new Date(); 
   const todayDateString = format(date, 'yyyy-MM-dd');
+
+  const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   dispatch(authorizeProfile());
+  // }, [])
   
   // TODO: export login into separate function 
   const handleFitbitLogin = async () => {
@@ -164,7 +172,6 @@ export default function Home() {
           });
 
           const tokenJSON = await tokenResponse.json();
-          console.log(tokenJSON);
           return tokenJSON;
         } catch(error) {
           console.log('Error in GET request for daily activity: ', error);
@@ -185,6 +192,40 @@ export default function Home() {
           return tokenJSON;
         } catch(error) {
           console.log('Error in GET request for daily water goal: ', error);
+        }
+      }
+
+      // async function getDailyHRVRequest(tokenEndpoint) {
+      //   try {
+      //     const accessToken = 'Bearer ' + tokenEndpoint.access_token;
+      //     const tokenResponse = await fetch(`https://api.fitbit.com/1/user/-/hrv/date/${todayDateString}.json`, {
+      //       method: 'GET',
+      //       headers: {
+      //         'Authorization': accessToken,
+      //       },
+      //     });
+
+      //     const tokenJSON = await tokenResponse.json();
+      //     return tokenJSON;
+      //   } catch(error) {
+      //     console.log('Error in GET request for daily HRV: ', error);
+      //   }
+      // }
+
+      async function getDailySleepRequest(tokenEndpoint) {
+        try {
+          const accessToken = 'Bearer ' + tokenEndpoint.access_token;
+          const tokenResponse = await fetch(`https://api.fitbit.com/1.2/user/-/sleep/date/${todayDateString}.json`, {
+            method: 'GET',
+            headers: {
+              'Authorization': accessToken,
+            },
+          });
+
+          const tokenJSON = await tokenResponse.json();
+          return tokenJSON;
+        } catch(error) {
+          console.log('Error in GET request for daily sleep: ', error);
         }
       }
 
@@ -249,6 +290,19 @@ export default function Home() {
             setDailyWaterGoal(dailyWaterGoalData.goal.goal);
           })
           .catch(error => console.log('Error fetching daily water goal: ', error));
+
+          // getDailyHRVRequest(tokenEndpoint)
+          // .then( dailyHRVData => {
+          //   setDailyHRV(dailyHRVData.hrv.value.dailyRmssd);
+          // })
+          // .catch(error => console.log('Error fetching daily HRV: ', error));
+
+          getDailySleepRequest(tokenEndpoint)
+          .then( dailySleepData => {
+            console.log(dailySleepData.summary.totalMinutesAsleep);
+            setDailySleep(dailySleepData.summary.totalMinutesAsleep);
+          })
+          .catch(error => console.log('Error fetching daily HRV: ', error));
         })
         .catch(error =>
           console.log('Error making login request: ', error)
@@ -260,16 +314,18 @@ export default function Home() {
   }
 
   const allGoals = useSelector(state => state.userReducer);
-  
+
   return (
     <ScrollView style={{backgroundColor: Theme.primaryBackground, }}> 
-      <View style={{ flex: 1, paddingBottom: 75, }}>
+      <View style={{ flex: 1, paddingTop: 50, paddingBottom: 75, }}>
       {name ? (
         <View style={{margin: 20}}>
-            <Text style={Theme.pageTitle}>Good morning</Text>
+          <Text style={Theme.pageTitle}>Good morning</Text>
 
-            {/* Circle summary graph  */}
-            { circlePlaceholder }
+          {/* Circle summary graph  */}
+          { circlePlaceholder }
+
+          <Text>{dailyHRV}</Text>
 
           {/* Container for daily stats (4 circles) */}
           <DailyStatContainer 

@@ -43,25 +43,25 @@ export const sampleGoalsIcons = [
         <MaterialCommunityIcons name='cup-water' color={Theme.blue} size={50} />
     ), title: 'Drink 7 Glasses of Water / Daily'},
     {id: 4, icon: (
-        <Ionicons name='scale-sharp' color={Theme.primaryGray} size={50} />
-    ), title: 'Reduce Fat %'},
+        <MaterialCommunityIcons name="power-sleep" color={Theme.yellow} size={50} />
+    ), title: 'Sleep 7 hours/ Daily'},
     {id: 5, icon: (
         <MaterialCommunityIcons name="heart-pulse" color={Theme.lightRed} size={50} />
     ), title: 'Meditate for 15mins / Daily'},
 ]
-export const sampleGoals = [
-    {id: 1, iconLibrary: 'MaterialCommunityIcons', iconName: 'weight-lifter', title: 'Exercise for 3 times/ Week'},
-    {id: 2, iconLibrary: 'FontAwesome6', iconName: 'person-walking', title: 'Move 10,000 Steps/ Daily'},
-    {id: 3, iconLibrary: 'MaterialCommunityIcons', iconName: 'cup-water',  title: 'Drink 7 Glasses of Water / Daily'},
-    {id: 4, iconLibrary: 'Ionicons', iconName: 'scale-sharp',  title: 'Reduce Fat %'},
-    {id: 5, iconLibrary: 'MaterialCommunityIcons', iconName: 'heart-pulse',  title: 'Meditate for 15mins / Daily'},
-]
+// export const sampleGoals = [
+//     {id: 1, iconLibrary: 'MaterialCommunityIcons', iconName: 'weight-lifter', title: 'Exercise for 3 times/ Week'},
+//     {id: 2, iconLibrary: 'FontAwesome6', iconName: 'person-walking', title: 'Move 10,000 Steps/ Daily'},
+//     {id: 3, iconLibrary: 'MaterialCommunityIcons', iconName: 'cup-water',  title: 'Drink 7 Glasses of Water / Daily'},
+//     {id: 4, iconLibrary: 'Ionicons', iconName: 'scale-sharp',  title: 'Reduce Fat %'},
+//     {id: 5, iconLibrary: 'MaterialCommunityIcons', iconName: 'heart-pulse',  title: 'Meditate for 15mins / Daily'},
+// ]
 
 export const allGoals = [ 
     {id: 1, category: 'EXERCISE', title: 'Exercise for 3 times/ Week', isSelected: false}, 
     {id: 2, category: 'STEPS', title: 'Move 10,000 Steps/ Daily', isSelected: false},
     {id: 3, category: 'WATER', title: 'Drink 7 Glasses of Water / Daily', isSelected: false},
-    {id: 4, category: 'FAT', title: 'Reduce Fat %', isSelected: false},
+    {id: 4, category: 'Sleep', title: 'Sleep 7 hours/ Daily', isSelected: false},
     {id: 5, category: 'HRV', title: 'Meditate for 15mins / Daily', isSelected: false},
 ]
 
@@ -69,9 +69,15 @@ export const GoalCategory = Object.freeze( {
     EXERCISE: 'exercise', 
     STEPS: 'steps',
     WATER: 'water',
-    FAT: 'fat',
+    SLEEP: 'sleep',
     HRV: 'hrv'
-})
+});
+
+export const ViewDateRange = Object.freeze( {
+    TODAY: 'Today', 
+    WEEKLY: 'Weekly', 
+    MONTHLY: 'Monthly'
+});
 
 export const circlePlaceholder = (
     <View style={{ marginVertical: 20, alignSelf: 'center', borderColor: Theme.secondaryGray, borderWidth: 4, borderRadius: 250, height: 250, width: 250 }}>
