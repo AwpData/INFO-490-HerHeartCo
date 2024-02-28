@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, Text, View, ScrollView, useEffect } from 'react-native';
+import { Button, Text, View, ScrollView, useEffect, Modal, Image, TouchableOpacity } from 'react-native';
 import * as AuthSession from 'expo-auth-session';
 import * as WebBrowser from 'expo-web-browser';
 import pkceChallenge from 'react-native-pkce-challenge';
@@ -12,6 +12,7 @@ import { circlePlaceholder, rectPlaceholder, sampleGoals } from '../../constants
 import ShadowBox from '../general/ShadowBox';
 import DailyStatContainer from './DailyStatContainer';
 import { useSelector, useDispatch } from 'react-redux';
+import LandingPage from './LandingPage';
 import authorizeProfile from '../fitbitAPI/read/authorizeProfile';
 
 // TODO: hard coding this for now, but there may be security concerns when we release the app
@@ -325,8 +326,6 @@ export default function Home() {
           {/* Circle summary graph  */}
           { circlePlaceholder }
 
-          <Text>{dailyHRV}</Text>
-
           {/* Container for daily stats (4 circles) */}
           <DailyStatContainer 
             dailySteps={dailySteps} dailyStepGoal={dailyStepGoal}
@@ -362,7 +361,23 @@ export default function Home() {
           <Button title="Authorize Fitbit" onPress={handleFitbitLogin} />
         </View>
       ) : (
-        <Button title="Authorize Fitbit" onPress={handleFitbitLogin} />
+        // <View style={{flex: 1, backgroundColor: Theme.primaryBackground, height: '100%'}}> 
+        //     <Modal animationType="slide"
+        //       transparent={false}
+        //       visible={true}
+        //       presentationStyle='fullScreen'> 
+        //       <View style={{flexDirection: 'column', flex: 1, paddingTop: 70, justifyContent: 'center', alignItems: 'center', backgroundColor: Theme.primaryBackground}}>
+        //         <Image source={require('../../../assets/HHC_Logo.png')} style={{resizeMode: 'contain', height: '12%', margin: 20}} />
+
+        //         <TouchableOpacity onPress={handleFitbitLogin} style={{backgroundColor: Theme.primaryTint, padding: 20, borderRadius: 20, marginTop: 50}}>
+        //             <Text style={{color: Theme.primaryBackground, fontSize: 16, fontWeight: 'bold'}}>Sign in with Fitbit</Text>
+        //         </TouchableOpacity>
+        //       </View>
+        //   </Modal>
+        // </View>
+        <LandingPage handleFitbitLogin={handleFitbitLogin} />
+        
+        
       )}
       </View>
     </ScrollView>
