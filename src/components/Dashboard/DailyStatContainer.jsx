@@ -18,6 +18,8 @@ export default function DailyStatContainer( {
 }) {
   const [modalVisible, setModalVisible] = useState(false);
   const allGoals = useSelector(state => state.userReducer);
+  const totalWater = useSelector(state => state.editGoalsReducer.totalWater);
+  const totalHRVMin = useSelector(state => state.editGoalsReducer.totalHRVMin); 
 
   const dateRangeOptions = ['Today', 'Weekly', 'Monthly'];
   const [selectedDateOption, setSelectedDateOption] = useState('Today');
@@ -97,10 +99,10 @@ export default function DailyStatContainer( {
                         <DailyStat 
                           key={goal.id}
                           statTitle='Water Intake' 
-                          measurement={Math.ceil(dailyWaterSummary / 29.6)} 
-                          goal={Math.ceil(dailyWaterGoal / 29.6)} 
+                          measurement={totalWater} 
+                          goal={7} 
                           icon={waterIcon} 
-                          unit='oz' />
+                          unit='glasses' />
                       );
                     case('SLEEP'): 
                         return ( 
@@ -117,10 +119,10 @@ export default function DailyStatContainer( {
                         <DailyStat 
                           key={goal.id}
                           statTitle='HRV Training' 
-                          measurement={sleep} 
-                          goal={sleepGoal} 
+                          measurement={totalHRVMin} 
+                          goal={15} 
                           icon={hrvTrainingIcon} 
-                          unit={(sleep % 60).toString() + 'min'} />
+                          unit={'min'} />
                       );
                     default: 
                       return;    

@@ -6,9 +6,6 @@ import EditDailyGoalsNavBar from '../EditDailyGoals/EditDailyGoalsNavBar';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { setGoals, updateGoals } from '../../redux/actions';
-import { addNewWater } from '../fitbitAPI/write/addWater';
-import { editNewGlucose } from '../fitbitAPI/write/editGlucose';
-import { goals } from '../editGoalActions/goals';
 
 import { sampleGoalsIcons } from '../../constants';
 

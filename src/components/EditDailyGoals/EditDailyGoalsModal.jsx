@@ -20,7 +20,7 @@ export default function EditDailyGoalsModal ({
             <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: Theme.primaryBackground, }}>
                 <EditDailyGoalsNavBar onRequestClose={onRequestClose} onSubmitClose={onRequestClose} />
                 
-                <ScrollView automaticallyAdjustKeyboardInsets={true}>
+                <ScrollView automaticallyAdjustKeyboardInsets={true} keyboardShouldPersistTaps='handled' >
                     {/* TODO: export the date navigator to a separate component  */}
                     <View style={{padding: 20, alignItems: 'center'}}>
                         {/* <View style={{flexDirection: 'row', justifyContent: 'space-between'}}> */}

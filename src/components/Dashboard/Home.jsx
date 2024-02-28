@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, Text, View, ScrollView } from 'react-native';
+import { Button, Text, View, ScrollView, useEffect } from 'react-native';
 import * as AuthSession from 'expo-auth-session';
 import * as WebBrowser from 'expo-web-browser';
 import pkceChallenge from 'react-native-pkce-challenge';
@@ -41,7 +41,7 @@ export default function Home() {
   const date = new Date(); 
   const todayDateString = format(date, 'yyyy-MM-dd');
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   // useEffect(() => {
   //   dispatch(authorizeProfile());
@@ -316,7 +316,7 @@ export default function Home() {
   const allGoals = useSelector(state => state.userReducer);
 
   return (
-    <ScrollView style={{backgroundColor: Theme.primaryBackground, }}> 
+    <ScrollView style={{backgroundColor: Theme.secondaryBackground, }}> 
       <View style={{ flex: 1, paddingTop: 50, paddingBottom: 75, }}>
       {name ? (
         <View style={{margin: 20}}>

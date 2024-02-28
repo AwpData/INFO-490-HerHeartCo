@@ -115,7 +115,7 @@ export default function Profile() {
   }
 
   return (
-    <ScrollView style={{backgroundColor: '#fef7f4', }}> 
+    <ScrollView style={{backgroundColor: Theme.secondaryBackground, }}> 
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', padding: 20, marginHorizontal: 0 }}>
         <View style={{height: 100}}></View>
       {name ? (

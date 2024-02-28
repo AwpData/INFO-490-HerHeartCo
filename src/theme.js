@@ -89,7 +89,7 @@ export const dailyStatIcon = {
 
 export const shadowBoxStyle = {
     shadowRadius: 10, shadowOpacity: 0.2, shadowOffset: { height: 3 },
-    backgroundColor: 'white', 
+    backgroundColor: primaryBackground, 
     padding: 20, borderRadius: 10, 
     marginVertical: 20,
     minWidth: '100%',

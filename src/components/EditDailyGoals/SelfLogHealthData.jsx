@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, Text, View, StyleSheet, Modal, TouchableOpacity, } from 'react-native';
 
 import * as Theme from '../../theme';
-import { grayChevronRight, redChevronDown } from "../../constants"
+import { grayChevronDown, redChevronUp } from "../../constants"
 import ExpandableView from './ExpandableView';
 
 
@@ -28,7 +28,7 @@ export default function SelfLogHealthData({
                         </View>
                     </View>
                 <View style={{flex: 1}} />
-                    {isExpanded ? redChevronDown : grayChevronRight}
+                    {isExpanded ? redChevronUp : grayChevronDown}
                 </View>
             </TouchableOpacity>
             <ExpandableView expanded={isExpanded} expandedContent={expandedContent}/>

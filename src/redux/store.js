@@ -1,16 +1,14 @@
 import { configureStore, combineReducers, applyMiddleware } from '@reduxjs/toolkit';
 import thunk from 'redux-thunk';
-import waterReducer from '../components/fitbitAPI/write/addWater'; 
-import glucoseReducer from '../components/fitbitAPI/write/editGlucose';
-import goalReducer from '../components/editGoalActions/goals';
+import editGoalsReducer from '../components/editGoalActions/editGoals';
 
 import userReducer from './reducers';
 
 const rootReducer = combineReducers({
   userReducer,
-  waterReducer, 
-  glucoseReducer
+  editGoalsReducer
 });
+
 export const Store = configureStore({reducer: rootReducer, middleware: (getDefaultMiddleware) => getDefaultMiddleware({
   serializableCheck: false,
 })});

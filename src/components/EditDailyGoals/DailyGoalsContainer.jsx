@@ -1,19 +1,21 @@
 import React, { useState } from 'react';
 import { View, Animated, Text, TextInput } from 'react-native';
-import { foodIcon, glucoseIcon, goalsIcon, waterIcon, bpIcon } from '../../constants';
+import { foodIcon, glucoseIcon, goalsIcon, waterIcon, bpIcon, sleepIcon, hrvTrainingIcon } from '../../constants';
 import AddDataRow from './DailyGoalsRow';
 import NavBarAddButton from '../NavigationBar/NavBarAddButton';
 import EditDailyGoalsModal from './EditDailyGoalsModal';
 import SelfLogHealthData from './SelfLogHealthData';
 import * as Theme from '../../theme';
-import AddDataExpandedView from './EditDailyGoalsExpandedView';
+import DailyGoalsRow from './DailyGoalsRow';
+import EditDailyGoalsExpandedView from './EditDailyGoalsExpandedView';
 import { useSelector, useDispatch } from 'react-redux';
 
 
 export default function DailyGoalsContainer() {
     const [modalVisible, setModalVisible] = useState(false);
-    // const newWater = useSelector( state => state.water.value );
-    // const newGlucose = useSelector( state => state.glucose.value );
+    const water = useSelector(state => state.editGoalsReducer.totalWater);
+    const glucose = useSelector(state => state.editGoalsReducer.glucose);
+    const hrv = useSelector(state => state.editGoalsReducer.totalHRVMin);
 
   const openModal = () => {
     setModalVisible(true);
@@ -30,20 +32,24 @@ export default function DailyGoalsContainer() {
         <NavBarAddButton openModal={openModal} />
         <EditDailyGoalsModal visible={modalVisible} onRequestClose={closeModal}>
             <View style={{alignItems: 'center', marginVertical: 40, }}>
-                <AddDataRow
+                {/* <DailyGoalsRow
                   icon={goalsIcon} title='Goals' value={8} goal={8} unit='goals'
-                  expandedContent={<Text>Expanded goals</Text>} />
-                <AddDataRow
-                  // icon={waterIcon} title='Hydration' value={newWater} goal={64} unit='oz'
-                  icon={waterIcon} title='Hydration' value={12} goal={64} unit='oz'
-                  expandedContent={ <AddDataExpandedView unit='water' />} />
-                <AddDataRow
+                  expandedContent={<Text>Expanded goals</Text>} /> */}
+                <DailyGoalsRow
+                  icon={waterIcon} title='Hydration' value={water} goal={7} unit='glasses'
+                  expandedContent={ <EditDailyGoalsExpandedView unit='water' />} />
+                <DailyGoalsRow
                   icon={foodIcon} title='Food' value={3} goal={3} unit='meals'
                   expandedContent={<Text>Expanded food</Text>}/>
                 <SelfLogHealthData 
-                  // icon={glucoseIcon} title='Glucose' value1={newGlucose} unit='mg/dL'
-                  icon={glucoseIcon} title='Glucose' value1={105} unit='mg/dL'
-                  expandedContent={ <AddDataExpandedView unit='glucose' />} />
+                  icon={glucoseIcon} title='Glucose' value1={glucose} unit='mg/dL'
+                  expandedContent={ <EditDailyGoalsExpandedView unit='glucose' />} />
+                <DailyGoalsRow
+                  icon={sleepIcon} title='Sleep' value={3} goal={3} unit='min'
+                  expandedContent={<Text>Expanded sleep</Text>}/>
+                <DailyGoalsRow
+                  icon={hrvTrainingIcon} title='HRV Training' value={hrv} goal={15} unit='min'
+                  expandedContent={<EditDailyGoalsExpandedView unit='hrv' />}/>
             </View>
         </EditDailyGoalsModal>
     </View>

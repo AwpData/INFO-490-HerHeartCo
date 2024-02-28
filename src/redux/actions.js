@@ -13,3 +13,27 @@ export const updateGoals = goalsList => dispatch => {
         payload: goalsList
     })
 }
+
+export const ADD_WATER = 'ADD_WATER';
+export const addWater = newAmount => dispatch => {
+    dispatch({
+        type: ADD_WATER, 
+        payload: newAmount
+    })
+}
+
+export const UPDATE_GLUCOSE = 'UPDATE_GLUCOSE'; 
+export const updateGlucose = newGlucose => dispatch => {
+    dispatch({
+        type: UPDATE_GLUCOSE, 
+        payload: newGlucose
+    })
+}
+
+export const ADD_HRV = 'ADD_HRV'; 
+export const addHRV = newAmount => dispatch => {
+    dispatch({
+        type: ADD_HRV, 
+        payload: newAmount
+    })
+}

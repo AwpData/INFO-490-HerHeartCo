@@ -49,13 +49,6 @@ export const sampleGoalsIcons = [
         <MaterialCommunityIcons name="heart-pulse" color={Theme.lightRed} size={50} />
     ), title: 'Meditate for 15mins / Daily'},
 ]
-// export const sampleGoals = [
-//     {id: 1, iconLibrary: 'MaterialCommunityIcons', iconName: 'weight-lifter', title: 'Exercise for 3 times/ Week'},
-//     {id: 2, iconLibrary: 'FontAwesome6', iconName: 'person-walking', title: 'Move 10,000 Steps/ Daily'},
-//     {id: 3, iconLibrary: 'MaterialCommunityIcons', iconName: 'cup-water',  title: 'Drink 7 Glasses of Water / Daily'},
-//     {id: 4, iconLibrary: 'Ionicons', iconName: 'scale-sharp',  title: 'Reduce Fat %'},
-//     {id: 5, iconLibrary: 'MaterialCommunityIcons', iconName: 'heart-pulse',  title: 'Meditate for 15mins / Daily'},
-// ]
 
 export const allGoals = [ 
     {id: 1, category: 'EXERCISE', title: 'Exercise for 3 times/ Week', isSelected: false}, 
@@ -193,7 +186,7 @@ export const grayChevronRight = (
 );
 
 export const grayChevronDown = (
-    <MaterialIcons name='chevron-down' color={Theme.secondaryGray} size={30} />
+    <MaterialCommunityIcons name='chevron-down' color={Theme.secondaryGray} size={30} />
 );
 
 export const redChevronRight = (
