@@ -15,6 +15,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import LandingPage from './LandingPage';
 import authorizeProfile from '../fitbitAPI/read/authorizeProfile';
 
+
 // TODO: hard coding this for now, but there may be security concerns when we release the app
 // OPTION 1: 
 // const fitbitConfig = {
@@ -360,25 +361,9 @@ export default function Home() {
 
           <Button title="Authorize Fitbit" onPress={handleFitbitLogin} />
         </View>
-      ) : (
-        // <View style={{flex: 1, backgroundColor: Theme.primaryBackground, height: '100%'}}> 
-        //     <Modal animationType="slide"
-        //       transparent={false}
-        //       visible={true}
-        //       presentationStyle='fullScreen'> 
-        //       <View style={{flexDirection: 'column', flex: 1, paddingTop: 70, justifyContent: 'center', alignItems: 'center', backgroundColor: Theme.primaryBackground}}>
-        //         <Image source={require('../../../assets/HHC_Logo.png')} style={{resizeMode: 'contain', height: '12%', margin: 20}} />
-
-        //         <TouchableOpacity onPress={handleFitbitLogin} style={{backgroundColor: Theme.primaryTint, padding: 20, borderRadius: 20, marginTop: 50}}>
-        //             <Text style={{color: Theme.primaryBackground, fontSize: 16, fontWeight: 'bold'}}>Sign in with Fitbit</Text>
-        //         </TouchableOpacity>
-        //       </View>
-        //   </Modal>
-        // </View>
+      ) : 
         <LandingPage handleFitbitLogin={handleFitbitLogin} />
-        
-        
-      )}
+      }
       </View>
     </ScrollView>
   );
