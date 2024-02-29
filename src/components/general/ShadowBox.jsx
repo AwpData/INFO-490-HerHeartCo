@@ -12,7 +12,10 @@ export default function ShadowBox( {
                         {primaryTitle}</Text>
             { secondaryTitle.length != 0 && 
                 <Text style={Theme.shadowBoxSecondaryTitle}>{secondaryTitle}</Text> }
-            {content}
+            <View style={{alignSelf: 'center'}}>
+                {content}
+            </View>
+            
         </View>
     );
 }

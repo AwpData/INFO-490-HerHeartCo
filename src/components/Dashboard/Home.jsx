@@ -413,7 +413,9 @@ export default function Home() {
             primaryTitle='Sleep Schedule' 
             // isBold={false} 
             secondaryTitle='1/29/24 - 2/10/24' // placeholder date range
-            content={ rectPlaceholder } />
+            content={ <Image source={require('../../../assets/sample_sleep.png')} style={{resizeMode: 'contain', height: 260, margin: 20}} />  } />
+
+
 
           <Button title="Authorize Fitbit" onPress={handleFitbitLogin} />
         </View>
