@@ -20,6 +20,7 @@ export default function DailyStatContainer( {
   const allGoals = useSelector(state => state.userReducer);
   const exercise = useSelector(state => state.editGoalsReducer.exercise);
   const totalWater = useSelector(state => state.editGoalsReducer.totalWater);
+  // const sleep = useSelector(state => state.editGoalsReducer.sleep);
   const totalHRVMin = useSelector(state => state.editGoalsReducer.totalHRVMin); 
 
   const dateRangeOptions = ['Today', 'Week', 'Month'];
@@ -94,10 +95,10 @@ export default function DailyStatContainer( {
                           <DailyStat 
                             key={goal.id}
                             statTitle='Sleep' 
-                            measurement={1} 
-                            goal={1} 
+                            measurement={Number(sleep)} 
+                            goal={420} 
                             icon={sleepIcon} 
-                            unit='%' />
+                            unit={`${sleep % 60}m`} />
                         );
                     case('HRV'): 
                       return (

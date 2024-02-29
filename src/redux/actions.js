@@ -38,6 +38,14 @@ export const updateGlucose = newGlucose => dispatch => {
     })
 }
 
+export const EDIT_SLEEP = 'EDIT_SLEEP'; 
+export const editSleep = newSleep => dispatch => {
+    dispatch({
+        type: EDIT_SLEEP,
+        payload: newSleep
+    })
+}
+
 export const ADD_HRV = 'ADD_HRV'; 
 export const addHRV = newAmount => dispatch => {
     dispatch({

@@ -14,6 +14,7 @@ import DailyStatContainer from './DailyStatContainer';
 import { useSelector, useDispatch } from 'react-redux';
 import LandingPage from './LandingPage';
 import authorizeProfile from '../fitbitAPI/read/authorizeProfile';
+import { editSleep } from '../../redux/actions';
 
 import { VictoryPie, VictoryLabel } from "victory-native";
 
@@ -43,10 +44,11 @@ export default function Home() {
   const [dailyHRV, setDailyHRV] = React.useState('');
   const [dailySleep, setDailySleep] = React.useState('');
 
+  const sleep = useSelector(state => state.editGoalsReducer.sleep);
+  const dispatch = useDispatch();
+
   const date = new Date(); 
   const todayDateString = format(date, 'yyyy-MM-dd');
-
-  // const dispatch = useDispatch();
 
   // useEffect(() => {
   //   dispatch(authorizeProfile());
@@ -304,10 +306,11 @@ export default function Home() {
 
           getDailySleepRequest(tokenEndpoint)
           .then( dailySleepData => {
-            console.log(dailySleepData.summary.totalMinutesAsleep);
+            dispatch(editSleep(dailySleepData.summary.totalMinutesAsleep));            
             setDailySleep(dailySleepData.summary.totalMinutesAsleep);
           })
-          .catch(error => console.log('Error fetching daily HRV: ', error));
+          .catch(error => console.log('Error fetching daily sleep: ', error));
+          
         })
         .catch(error =>
           console.log('Error making login request: ', error)
@@ -352,9 +355,7 @@ export default function Home() {
                     // text={({ datum }) => [`${datum.label}`, `${datum.status}`]}
                   />
                 }
-                  
                 labelRadius={150}
-                // labelPosition={"centroid"}
               />
             </View>
             <View style={{position: 'absolute'}}>
@@ -366,8 +367,6 @@ export default function Home() {
                   { label: 'Good', x:1, y: 1,},
                   { label: 'Perfect', x: 1, y: 1, },
                 ]}
-                // labels={() => ['Low', 'Good', 'Perfect', 'Perfect']}
-                label
                 height={350}
                 labelComponent={<VictoryLabel transform={'translate(0, 25)'}
                   style={[{fontSize: 18, fill: Theme.red, fontFamily:'sans-serif', fontWeight: 'bold'},
@@ -386,8 +385,7 @@ export default function Home() {
           {/* Container for daily stats (4 circles) */}
           <DailyStatContainer 
             dailySteps={dailySteps} dailyStepGoal={dailyStepGoal}
-            sleep='400' sleepGoal='480' // in minutes
-            // dailyWaterSummary='2400' dailyWaterGoal={dailyWaterGoal} /> 
+            sleep={sleep} sleepGoal='420' // in minutes
             dailyWaterSummary={water} dailyWaterGoal={dailyWaterGoal} />
 
           <ShadowBox 
