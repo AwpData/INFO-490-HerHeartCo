@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Animated, Text, TextInput } from 'react-native';
-import { foodIcon, glucoseIcon, goalsIcon, waterIcon, bpIcon, sleepIcon, hrvTrainingIcon } from '../../constants';
+import { foodIcon, glucoseIcon, goalsIcon, waterIcon, bpIcon, sleepIcon, hrvTrainingIcon, exerciseIcon } from '../../constants';
 import AddDataRow from './DailyGoalsRow';
 import NavBarAddButton from '../NavigationBar/NavBarAddButton';
 import EditDailyGoalsModal from './EditDailyGoalsModal';
@@ -9,10 +9,12 @@ import * as Theme from '../../theme';
 import DailyGoalsRow from './DailyGoalsRow';
 import EditDailyGoalsExpandedView from './EditDailyGoalsExpandedView';
 import { useSelector, useDispatch } from 'react-redux';
+import CheckExercise from './CheckExercise';
 
 
 export default function DailyGoalsContainer() {
     const [modalVisible, setModalVisible] = useState(false);
+    const exercise = useSelector(state => state.editGoalsReducer.exercise);
     const water = useSelector(state => state.editGoalsReducer.totalWater);
     const glucose = useSelector(state => state.editGoalsReducer.glucose);
     const hrv = useSelector(state => state.editGoalsReducer.totalHRVMin);
@@ -35,6 +37,13 @@ export default function DailyGoalsContainer() {
                 {/* <DailyGoalsRow
                   icon={goalsIcon} title='Goals' value={8} goal={8} unit='goals'
                   expandedContent={<Text>Expanded goals</Text>} /> */}
+                {/* <DailyGoalsRow
+                  icon={exerciseIcon} title='Exercise' value={exercise} goal={1} unit='time'
+                  expandedContent={ <CheckExercise />} /> */}
+                  <CheckExercise 
+                    icon={exerciseIcon}
+                    title='Exercise'
+                  />
                 <DailyGoalsRow
                   icon={waterIcon} title='Hydration' value={water} goal={7} unit='glasses'
                   expandedContent={ <EditDailyGoalsExpandedView unit='water' />} />

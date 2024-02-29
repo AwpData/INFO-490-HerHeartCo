@@ -20,11 +20,12 @@ export default function DailyStat( {
                 
                 <View style={Theme.dailyStatIcon}> 
                     {icon}
-                    <Text style={Theme.dailyStat}>
-                    {statTitle != 'Sleep' ? 
-                        measurement : 
-                        Math.floor(measurement / 60).toString() + 'h' }
-                    </Text> 
+                    { statTitle != 'Exercise' && (
+                        <Text style={Theme.dailyStat}>
+                        {statTitle != 'Sleep' ? 
+                            measurement : 
+                            Math.floor(measurement / 60).toString() + 'h' }
+                        </Text> ) }
                     <Text style={Theme.dailyStatLabel}>{unit}</Text>
                 </View>           
             </View>

@@ -70,7 +70,7 @@ export const dailyStat = {
 }
 
 export const dailyStatLabel = {
-    fontSize: 14,
+    fontSize: 13,
     color: primaryTint
 }
 
@@ -143,7 +143,7 @@ export const addDataRowStyle = {
 export const addDataRowTitle = {
     fontWeight: 'bold', 
     fontSize: 18,
-    color: primaryTint
+    color: primaryTint,
 }
 
 export const addDataCurrentValue = {

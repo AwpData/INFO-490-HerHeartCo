@@ -1,6 +1,7 @@
-import { ADD_WATER, UPDATE_GLUCOSE, ADD_HRV } from "../../redux/actions";
+import { ADD_WATER, UPDATE_GLUCOSE, ADD_HRV, TOGGLE_EXERCISE } from "../../redux/actions";
 
 const initialState = {
+    exercise: false, 
     totalWater: 0, 
     glucose: 0, 
     totalHRVMin: 0
@@ -8,6 +9,9 @@ const initialState = {
 
 function editGoalsReducer(state = initialState, action) {
     switch (action.type) {
+        case TOGGLE_EXERCISE: 
+            let newExercise = action.payload; 
+            return {...state, exercise: newExercise};
         case ADD_WATER: 
             let newWater = state.totalWater + action.payload; 
             return {...state, totalWater: newWater}; 

@@ -18,6 +18,7 @@ export default function DailyStatContainer( {
 }) {
   const [modalVisible, setModalVisible] = useState(false);
   const allGoals = useSelector(state => state.userReducer);
+  const exercise = useSelector(state => state.editGoalsReducer.exercise);
   const totalWater = useSelector(state => state.editGoalsReducer.totalWater);
   const totalHRVMin = useSelector(state => state.editGoalsReducer.totalHRVMin); 
 
@@ -63,10 +64,10 @@ export default function DailyStatContainer( {
                           <DailyStat 
                             key={goal.id}
                             statTitle='Exercise' 
-                            measurement={0} 
-                            goal={3} 
+                            measurement={1} 
+                            goal={1} 
                             icon={exerciseIcon} 
-                            unit='times' />
+                            unit='Complete' />
                         );
                     case('STEPS'): 
                         return (

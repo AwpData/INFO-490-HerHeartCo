@@ -6,6 +6,14 @@ export const toggleObjectBoolean = objectId => dispatch => {
     })
 }
 
+export const TOGGLE_EXERCISE = 'TOGGLE_EXERCISE'; 
+export const toggleExercise = goalsList => dispatch => {
+    dispatch({ 
+        type: TOGGLE_EXERCISE, 
+        payload: goalsList
+    })
+}
+
 export const UPDATE_GOALS = 'UPDATE_GOALS'; 
 export const updateGoals = goalsList => dispatch => {
     dispatch({

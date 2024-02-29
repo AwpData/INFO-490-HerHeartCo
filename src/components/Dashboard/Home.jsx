@@ -15,7 +15,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import LandingPage from './LandingPage';
 import authorizeProfile from '../fitbitAPI/read/authorizeProfile';
 
-import { VictoryBar, VictoryChart, VictoryTheme, VictoryPie, VictoryLabel } from "victory-native";
+import { VictoryPie, VictoryLabel } from "victory-native";
 
 
 

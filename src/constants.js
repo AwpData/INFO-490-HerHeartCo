@@ -204,3 +204,11 @@ export const redChevronDown = (
 export const redChevronUp = (
     <MaterialCommunityIcons name='chevron-up' color={Theme.secondaryTint} size={30} />
 );
+
+export const checkboxTrue = (
+    <MaterialCommunityIcons name='checkbox-marked' color={Theme.secondaryTint} size={40} />
+); 
+
+export const checkboxFalse = (
+    <MaterialCommunityIcons name='checkbox-blank-outline' color={Theme.secondaryTint} size={40} />
+); 
