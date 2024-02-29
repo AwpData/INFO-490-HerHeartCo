@@ -15,6 +15,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import LandingPage from './LandingPage';
 import authorizeProfile from '../fitbitAPI/read/authorizeProfile';
 
+import { VictoryBar, VictoryChart, VictoryTheme, VictoryPie, VictoryLabel } from "victory-native";
+
+
 
 // TODO: hard coding this for now, but there may be security concerns when we release the app
 // OPTION 1: 
@@ -322,10 +325,63 @@ export default function Home() {
       <View style={{ flex: 1, paddingTop: 50, paddingBottom: 75, }}>
       {name ? (
         <View style={{margin: 20}}>
-          <Text style={Theme.pageTitle}>Good morning</Text>
+          <Text style={Theme.pageTitle}>Good Morning!</Text>
+
+          <View style={{position: 'relative', alignSelf: 'center', justifyContent: 'center',}}>
+            <View style={{ position: 'absolute', marginTop: 20, marginBottom: 50, alignSelf: 'center', borderColor: Theme.secondaryGray, borderWidth: 4, borderRadius: 250, height: 250, width: 250 , }} />
+
+            <View >
+              <VictoryPie
+                radius={({ datum }) => (datum.stat / datum.goal) * 121 }
+                data={[
+                  { label: 'Sleep', x: 1, y: 1, status: 'Low', stat: 4, goal: 7},
+                  { label: 'HRV', x: 1, y: 1, status: 'Good', stat: 30, goal: 40 },
+                  { label: 'Glucose', x:1, y: 1, status: 'Good', stat: 50, goal: 60 },
+                  { label: 'Temp', x: 1, y: 1, status: 'Perfect', stat: 89, goal: 89 },
+                ]}
+                colorScale={[Theme.yellow, Theme.red, Theme.secondaryTint, Theme.primaryTint]}
+                // cornerRadius={5}
+
+                height={350}
+                // labelPosition={10}
+
+                labelComponent={
+                  <VictoryLabel 
+                    style={ 
+                      [{fontSize: 20, fontFamily:'sans-serif', fontWeight: 'bold'}, ] } 
+                    // text={({ datum }) => [`${datum.label}`, `${datum.status}`]}
+                  />
+                }
+                  
+                labelRadius={150}
+                // labelPosition={"centroid"}
+              />
+            </View>
+            <View style={{position: 'absolute'}}>
+              <VictoryPie
+                radius={({ datum }) => (datum.stat / datum.goal) * 121 }
+                data={[
+                  { label: 'Low', x: 1, y: 1, },
+                  { label: 'Good', x: 1, y: 1, },
+                  { label: 'Good', x:1, y: 1,},
+                  { label: 'Perfect', x: 1, y: 1, },
+                ]}
+                // labels={() => ['Low', 'Good', 'Perfect', 'Perfect']}
+                label
+                height={350}
+                labelComponent={<VictoryLabel transform={'translate(0, 25)'}
+                  style={[{fontSize: 18, fill: Theme.red, fontFamily:'sans-serif', fontWeight: 'bold'},
+                  ] } />}
+                labelRadius={150}
+              />
+            </View>
+            <View style={{position: 'absolute', alignSelf: 'center', backgroundColor: Theme.primaryBackground, height: 90, width: 90, borderRadius: 100, justifyContent: 'center', shadowRadius: 10, shadowOpacity: 0.4, shadowOffset: { height: 3 }}}>
+              <Text style={{textAlign: 'center', fontWeight: 'bold', fontSize: 36}}>92</Text>
+            </View>
+          </View>
 
           {/* Circle summary graph  */}
-          { circlePlaceholder }
+          {/* { circlePlaceholder } */}
 
           {/* Container for daily stats (4 circles) */}
           <DailyStatContainer 

@@ -21,7 +21,7 @@ export default function DailyStatContainer( {
   const totalWater = useSelector(state => state.editGoalsReducer.totalWater);
   const totalHRVMin = useSelector(state => state.editGoalsReducer.totalHRVMin); 
 
-  const dateRangeOptions = ['Today', 'Weekly', 'Monthly'];
+  const dateRangeOptions = ['Today', 'Week', 'Month'];
   const [selectedDateOption, setSelectedDateOption] = useState('Today');
 
   const openModal = () => {
@@ -32,24 +32,9 @@ export default function DailyStatContainer( {
     setModalVisible(false);
   };
 
-  const date = moment();
-  const now = date.format('ddd MMM DD');
-  const startOfWeek = date.startOf('week').format('ddd MMM DD');
-  const startOfMonth = date.startOf('month').format('ddd MMM DD');
-
-  function displayDateSubtitle(dateOption) {
-    switch (dateOption) {
-      case ('Weekly'): 
-        return (<Text style={{fontSize: 16, fontWeight: 'bold', color: Theme.secondaryTint, textAlign: 'center', marginTop: 10}}>{`${startOfWeek} - Today, ${now}`}</Text>);
-      case ('Monthly'): 
-        return (<Text style={{fontSize: 16, fontWeight: 'bold', color: Theme.secondaryTint, textAlign: 'center', marginTop: 10}}>{`${startOfMonth} - Today, ${now}`}</Text>)
-      default: 
-        return; 
-    }
-  }
 
     return (
-      <View style={{flexDirection: 'column'}}>
+      <View style={{flexDirection: 'column', marginTop: 20}}>
         <View style={{flexDirection: 'row', justifyContent: 'space-between', marginVertical: 15}}>
           <Text style={{fontSize: 28, fontWeight: 'bold', color: Theme.primaryTint, }}>My Goals</Text>
           <TouchableOpacity onPress={openModal}>
@@ -58,18 +43,17 @@ export default function DailyStatContainer( {
         </View>
         <View style={{flexDirection: 'column'}} >
           {allGoals.filter(goal => goal.isSelected === false).length < 5 && 
-            <View style={{flexDirection: 'row', alignSelf: 'center'}} >
+            <View style={{flexDirection: 'row', alignSelf: 'center', backgroundColor: Theme.primaryBackground, borderRadius: 20, borderWidth: 0.5, borderColor: Theme.primaryGray, marginVertical: 5}} >
               { dateRangeOptions.map((selection, j) => {
                 return (
                   <TouchableOpacity key={j} onPress={() => { setSelectedDateOption(selection) }} style={{backgroundColor: selectedDateOption === selection ? Theme.primaryTint : Theme.primaryBackground, borderRadius: 30, padding: 10, paddingHorizontal: 24, alignItems: 'center'}}>
                     <Text style={{color: selectedDateOption === selection ? Theme.primaryBackground : Theme.primaryTint, fontWeight: 'bold', fontSize: 16}}>{selection}</Text>
                   </TouchableOpacity> )
-              })
-              
+                })
               }
             </View>
           }
-          {displayDateSubtitle(selectedDateOption)}
+          
           <View style={Theme.dailyStatsSection}> 
               { allGoals.map((goal) => {
                 if (goal.isSelected) {
