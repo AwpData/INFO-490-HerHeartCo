@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Button, Text, TextInput, Pressable, TouchableOpacity, Keyboard } from 'react-native';
 
 import { useSelector, useDispatch, connect } from 'react-redux';
-import { addWater } from '../../redux/actions';
+import { addWater, editSleep } from '../../redux/actions';
 import { updateGlucose } from '../../redux/actions';
 import { addHRV } from '../../redux/actions';
 
@@ -10,6 +10,7 @@ import * as Theme from '../../theme';
 
 export default function EditDailyGoalsExpandedView({unit}) {
     const [inputValue, setInputValue] = useState('');
+    const [inputValue2, setInputValue2] = useState('');
     const dispatch = useDispatch();
 
     function primaryButtonText() {
@@ -20,6 +21,8 @@ export default function EditDailyGoalsExpandedView({unit}) {
                 return 'Update';
             case ('hrv'):  
                 return 'Add';
+            case ('sleep'): 
+                return 'Update';
             default: return;
         }
     }
@@ -50,6 +53,11 @@ export default function EditDailyGoalsExpandedView({unit}) {
                 dispatch(addHRV(Number(inputValue) || 0)); 
                 console.log('hrv');
                 break; 
+            case ('sleep'): 
+                let totalSleepMin = (Number(inputValue) * 60) + (Number(inputValue2));
+                dispatch(editSleep(totalSleepMin || 0)); 
+                console.log('updated sleep');
+                break;
             default: break; 
         }
     }
@@ -57,19 +65,55 @@ export default function EditDailyGoalsExpandedView({unit}) {
     // TODO: refactor style
 
     return (
+        
         <View style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'center', }}>
+            {console.log(unit)}
             <View style={{borderColor: Theme.secondaryGray, borderWidth: 0.5, minWidth: '90%', marginBottom: 20}} />
-            <TextInput
-                style={{backgroundColor: 'white', fontSize: 48, fontWeight: 'bold', padding: 15, minWidth: 100, textAlign: 'center', borderRadius: 15, borderWidth: 3, borderColor: Theme.secondaryGray}}
-                value={inputValue.toString()}
-                onChangeText={setInputValue}
-                placeholder="0"
-                keyboardType={"number-pad"}
-                returnKeyType='done'
-                clearTextOnFocus={true}
-            />
+            { unit != 'sleep' ? (
+                <View style={{flexDirection: 'column', alignItems: 'center',}} >
+                <TextInput
+                    style={{backgroundColor: 'white', fontSize: 48, fontWeight: 'bold', padding: 15, minWidth: 100, textAlign: 'center', borderRadius: 15, borderWidth: 3, borderColor: Theme.secondaryGray}}
+                    value={inputValue.toString()}
+                    onChangeText={setInputValue}
+                    placeholder="0"
+                    keyboardType={"number-pad"}
+                    returnKeyType='done'
+                    clearTextOnFocus={true}
+                />
 
-            <Text style={{fontSize: 16, paddingTop: 10, fontWeight: 'bold', color: Theme.primaryTint}}>{unitLabel()}</Text>
+                <Text style={{fontSize: 16, paddingTop: 10, fontWeight: 'bold', color: Theme.primaryTint}}>{unitLabel()}</Text>
+                </View>
+            ) : (
+                
+                <View style={{flexDirection: 'row', alignContent: 'center', }} >
+                    <TextInput
+                        style={{backgroundColor: 'white', fontSize: 48, fontWeight: 'bold', padding: 15, minWidth: 100, textAlign: 'center', borderRadius: 15, borderWidth: 3, borderColor: Theme.secondaryGray}}
+                        value={inputValue.toString()}
+                        onChangeText={setInputValue}
+                        placeholder="0"
+                        keyboardType={"number-pad"}
+                        returnKeyType='done'
+                        clearTextOnFocus={true}
+                    />
+                    <View style={{justifyContent:'center', paddingRight: 15}}>
+                        <Text style={{fontSize: 36, fontWeight: 'bold', color: Theme.primaryTint, paddingLeft: 5 }}>h</Text>
+                    </View>
+
+                    <TextInput
+                        style={{backgroundColor: 'white', fontSize: 48, fontWeight: 'bold', padding: 15, minWidth: 100, textAlign: 'center', borderRadius: 15, borderWidth: 3, borderColor: Theme.secondaryGray}}
+                        value={inputValue2.toString()}
+                        onChangeText={setInputValue2}
+                        placeholder="0"
+                        keyboardType={"number-pad"}
+                        returnKeyType='done'
+                        clearTextOnFocus={true}
+                    />
+                    <View style={{justifyContent:'center', paddingLeft: 5}}>
+                        <Text style={{fontSize: 36, fontWeight: 'bold', color: Theme.primaryTint, justifyContent:'center' }}>m</Text>
+                    </View>
+                    </View>
+            )}
+            
         
             <View style={{flexDirection: 'row', justifyContent: 'center', margin: 15, }} >
                 <TouchableOpacity onPress={ () => { 

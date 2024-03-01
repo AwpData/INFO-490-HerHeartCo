@@ -18,6 +18,7 @@ export default function DailyGoalsContainer() {
     const water = useSelector(state => state.editGoalsReducer.totalWater);
     const glucose = useSelector(state => state.editGoalsReducer.glucose);
     const hrv = useSelector(state => state.editGoalsReducer.totalHRVMin);
+    const sleep = useSelector(state => state.editGoalsReducer.sleep);
 
   const openModal = () => {
     setModalVisible(true);
@@ -37,13 +38,10 @@ export default function DailyGoalsContainer() {
                 {/* <DailyGoalsRow
                   icon={goalsIcon} title='Goals' value={8} goal={8} unit='goals'
                   expandedContent={<Text>Expanded goals</Text>} /> */}
-                {/* <DailyGoalsRow
-                  icon={exerciseIcon} title='Exercise' value={exercise} goal={1} unit='time'
-                  expandedContent={ <CheckExercise />} /> */}
-                  <CheckExercise 
-                    icon={exerciseIcon}
-                    title='Exercise'
-                  />
+                <CheckExercise 
+                  icon={exerciseIcon}
+                  title='Exercise'
+                />
                 <DailyGoalsRow
                   icon={waterIcon} title='Hydration' value={water} goal={7} unit='glasses'
                   expandedContent={ <EditDailyGoalsExpandedView unit='water' />} />
@@ -54,8 +52,8 @@ export default function DailyGoalsContainer() {
                   icon={glucoseIcon} title='Glucose' value1={glucose} unit='mg/dL'
                   expandedContent={ <EditDailyGoalsExpandedView unit='glucose' />} />
                 <DailyGoalsRow
-                  icon={sleepIcon} title='Sleep' value={3} goal={3} unit='min'
-                  expandedContent={<Text>Expanded sleep</Text>}/>
+                  icon={sleepIcon} title='Sleep' value={sleep} goal={7} unit='h'
+                  expandedContent={<EditDailyGoalsExpandedView unit='sleep' />}/>
                 <DailyGoalsRow
                   icon={hrvTrainingIcon} title='HRV Training' value={hrv} goal={15} unit='min'
                   expandedContent={<EditDailyGoalsExpandedView unit='hrv' />}/>

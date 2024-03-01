@@ -93,13 +93,23 @@ export default function DailyStatContainer( {
                       );
                     case('SLEEP'): 
                         return ( 
-                          <DailyStat 
+                          sleep % 60 != 0 ? (
+                            <DailyStat 
                             key={goal.id}
                             statTitle='Sleep' 
                             measurement={Number(sleep)} 
                             goal={420} 
                             icon={sleepIcon} 
                             unit={`${sleep % 60}m`} />
+                          ) : (
+                            <DailyStat 
+                            key={goal.id}
+                            statTitle='Sleep' 
+                            measurement={Number(sleep)} 
+                            goal={420} 
+                            icon={sleepIcon} 
+                            unit={''} />
+                          )
                         );
                     case('HRV'): 
                       return (
