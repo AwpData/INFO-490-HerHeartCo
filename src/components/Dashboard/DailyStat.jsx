@@ -17,6 +17,8 @@ export default function DailyStat( {
                     tintColor={Theme.secondaryTint}
                     backgroundColor={Theme.secondaryGray} 
                 />
+
+                {console.log(statTitle, ' ', measurement)}
                 
                 <View style={Theme.dailyStatIcon}> 
                     {icon}

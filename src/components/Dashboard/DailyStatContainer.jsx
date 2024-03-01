@@ -61,14 +61,15 @@ export default function DailyStatContainer( {
                 if (goal.isSelected) {
                   switch (goal.category) {
                     case('EXERCISE'): 
+                        console.log('exercise: ', exercise);
                         return (
                           <DailyStat 
                             key={goal.id}
                             statTitle='Exercise' 
-                            measurement={1} 
+                            measurement={exercise ? 1 : 0} 
                             goal={1} 
                             icon={exerciseIcon} 
-                            unit='Complete' />
+                            unit={exercise ? 'Complete' : 'Incomplete'} />
                         );
                     case('STEPS'): 
                         return (
