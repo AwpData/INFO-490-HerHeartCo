@@ -43,7 +43,7 @@ export const sampleGoalsIcons = [
         <MaterialCommunityIcons name='cup-water' color={Theme.blue} size={50} />
     ), title: 'Drink 7 Glasses of Water / Daily'},
     {id: 4, icon: (
-        <MaterialCommunityIcons name="power-sleep" color={Theme.yellow} size={50} />
+        <MaterialCommunityIcons name="power-sleep" color={Theme.purple} size={50} />
     ), title: 'Sleep 7 hours/ Daily'},
     {id: 5, icon: (
         <MaterialCommunityIcons name="heart-pulse" color={Theme.lightRed} size={50} />
@@ -121,7 +121,7 @@ export const rectPlaceholder = (
 )
 
 export const exerciseIcon = (
-    <MaterialCommunityIcons name="weight-lifter" color='black' size={30}/>
+    <MaterialCommunityIcons name="weight-lifter" color='black' size={35}/>
 );
 
 export const goalsIcon = (
@@ -133,11 +133,12 @@ export const stepsIcon = (
 )
 
 export const sleepIcon = (
-    <MaterialCommunityIcons name="power-sleep" color={Theme.yellow} size={30} />
+    // <MaterialCommunityIcons name="power-sleep" color={Theme.purple} size={30} />
+    <Ionicons name="moon" color={Theme.purple} size={30} />
 );
 
 export const hrvTrainingIcon = (
-    <MaterialCommunityIcons name="heart-pulse" color={Theme.lightRed} size={30} />
+    <MaterialCommunityIcons name="heart-pulse" color={Theme.lightRed} size={35 } />
 );
 
 export const reduceFatIcon = (

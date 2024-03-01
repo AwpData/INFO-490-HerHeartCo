@@ -39,7 +39,7 @@ export default function Home() {
   const [name, setName] = React.useState('');
   const [dailySteps, setDailySteps] = React.useState('');
   const [dailyStepGoal, setDailyStepGoal] = React.useState('');
-  const [water, setWater] = React.useState('');
+  const [water, setWater] = React.useState(325);
   const [dailyWaterGoal, setDailyWaterGoal] = React.useState('');
   const [dailyHRV, setDailyHRV] = React.useState('');
   const [dailySleep, setDailySleep] = React.useState('');
@@ -331,9 +331,11 @@ export default function Home() {
           <Text style={Theme.pageTitle}>Good Morning!</Text>
 
           <View style={{position: 'relative', alignSelf: 'center', justifyContent: 'center',}}>
-            <View style={{ position: 'absolute', marginTop: 20, marginBottom: 50, alignSelf: 'center', borderColor: Theme.secondaryGray, borderWidth: 4, borderRadius: 250, height: 250, width: 250 , }} />
-
-            <View >
+            <View style={{ position: 'absolute', marginTop: 20, marginBottom: 50, alignSelf: 'center', borderColor: Theme.secondaryGray, borderWidth: 4, borderRadius: 250, height: 250, width: 250 , }}>
+            <View style={{ position: 'absolute', left: '50%', height: '100%', width: 1, borderColor: Theme.secondaryGray, borderWidth: 1 }} />
+            <View style={{ position: 'absolute', top: '50%', width: '100%', height: 1, borderColor: Theme.secondaryGray, borderWidth: 1 }} />
+            </View>
+            <View>
               <VictoryPie
                 radius={({ datum }) => (datum.stat / datum.goal) * 121 }
                 data={[
@@ -342,9 +344,9 @@ export default function Home() {
                   { label: 'Glucose', x:1, y: 1, status: 'Good', stat: 50, goal: 60 },
                   { label: 'Temp', x: 1, y: 1, status: 'Perfect', stat: 89, goal: 89 },
                 ]}
-                colorScale={[Theme.yellow, Theme.red, Theme.secondaryTint, Theme.primaryTint]}
+                colorScale={[Theme.red, Theme.darkYellow, Theme.pigmentGreen, Theme.pigmentGreen]}
                 // cornerRadius={5}
-
+                
                 height={350}
                 // labelPosition={10}
 

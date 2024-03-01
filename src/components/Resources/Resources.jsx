@@ -17,7 +17,7 @@ export default function Resources() {
             <Text style={{color: Theme.primaryTint, fontWeight: 'bold', fontSize: 16, margin: 10}}>Connections</Text>
             {
               connectionsButtonTitles.map((title, i) => {
-                return (<TouchableOpacity key={i} style={{flexDirection: 'row', justifyContent: 'space-between', backgroundColor: Theme.primaryBackground, padding: 20, borderRadius: 10, borderWidth: 2, borderColor: Theme.secondaryGray, width: '100%', marginBottom: 10}}>
+                return (<TouchableOpacity key={i} style={{flexDirection: 'row', justifyContent: 'space-between', backgroundColor: Theme.primaryBackground, padding: 20, borderRadius: 10, borderWidth: 2, borderColor: Theme.secondaryGray, width: '100%', marginBottom: 10, alignItems: 'center'}}>
                   <Text style={{color: Theme.primaryTint, fontSize: 20, fontWeight: 'bold', textAlignVertical: 'center'}}>{title}</Text>
                   {grayChevronRight}
                 </TouchableOpacity>)
@@ -29,7 +29,7 @@ export default function Resources() {
             <Text style={{color: Theme.primaryTint, fontWeight: 'bold', fontSize: 16, margin: 10}}>Information</Text>
             {
               informationButtonTitles.map((title, i) => {
-                return (<TouchableOpacity key={i} style={{flexDirection: 'row', justifyContent: 'space-between', backgroundColor: Theme.primaryBackground, padding: 20, borderRadius: 10, borderWidth: 2, borderColor: Theme.secondaryGray, width: '100%', marginBottom: 10}}>
+                return (<TouchableOpacity key={i} style={{flexDirection: 'row', justifyContent: 'space-between', backgroundColor: Theme.primaryBackground, padding: 20, borderRadius: 10, borderWidth: 2, borderColor: Theme.secondaryGray, width: '100%', marginBottom: 10, alignItems: 'center'}}>
                   <Text style={{color: Theme.primaryTint, fontSize: 20, fontWeight: 'bold', textAlignVertical: 'center'}}>{title}</Text>
                   {grayChevronRight}
                 </TouchableOpacity>)

@@ -20,12 +20,18 @@ export const lightRed = '#FC6B6D';
 export const gold = '#E2AD47';
 // Yellow 
 export const yellow = '#FFC90C';
+// Purple
+export const purple = '#6E5597'
 // Green
 export const green = '#45B957';
 // Blue
 export const blue = '#1EA7F4';
 // Brown 
 export const brown = '#D38003';
+// Pigment Green - Dashboard
+export const pigmentGreen = '#1AA82F';
+// Dark goldenrod - Dashboard
+export const darkYellow = '#AD8800';
 
 
 export const pageTitle = {
@@ -155,7 +161,7 @@ export const addDataCurrentValue = {
 export const addDataRowGoal = {
     fontWeight: 'bold', 
     fontSize: 20, 
-    color: secondaryTint, 
+    color: primaryTint, 
     paddingBottom: 5
 }
 

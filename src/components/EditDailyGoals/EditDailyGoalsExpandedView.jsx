@@ -66,11 +66,11 @@ export default function EditDailyGoalsExpandedView({unit}) {
 
     return (
         
-        <View style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'center', }}>
+        <View style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
             {console.log(unit)}
             <View style={{borderColor: Theme.secondaryGray, borderWidth: 0.5, minWidth: '90%', marginBottom: 20}} />
             { unit != 'sleep' ? (
-                <View style={{flexDirection: 'column', alignItems: 'center',}} >
+                <View style={{flexDirection: 'column', alignItems: 'center'}} >
                 <TextInput
                     style={{backgroundColor: 'white', fontSize: 48, fontWeight: 'bold', padding: 15, minWidth: 100, textAlign: 'center', borderRadius: 15, borderWidth: 3, borderColor: Theme.secondaryGray}}
                     value={inputValue.toString()}
@@ -81,11 +81,10 @@ export default function EditDailyGoalsExpandedView({unit}) {
                     clearTextOnFocus={true}
                 />
 
-                <Text style={{fontSize: 16, paddingTop: 10, fontWeight: 'bold', color: Theme.primaryTint}}>{unitLabel()}</Text>
+                <Text style={{fontSize: 18, paddingTop: 10, fontWeight: 'bold', color: Theme.primaryTint}}>{unitLabel() }</Text>
                 </View>
-            ) : (
-                
-                <View style={{flexDirection: 'row', alignContent: 'center', }} >
+            ) : (   
+                <View style={{flexDirection: 'row', alignContent: 'center'}} >
                     <TextInput
                         style={{backgroundColor: 'white', fontSize: 48, fontWeight: 'bold', padding: 15, minWidth: 100, textAlign: 'center', borderRadius: 15, borderWidth: 3, borderColor: Theme.secondaryGray}}
                         value={inputValue.toString()}
@@ -96,7 +95,7 @@ export default function EditDailyGoalsExpandedView({unit}) {
                         clearTextOnFocus={true}
                     />
                     <View style={{justifyContent:'center', paddingRight: 15}}>
-                        <Text style={{fontSize: 36, fontWeight: 'bold', color: Theme.primaryTint, paddingLeft: 5 }}>h</Text>
+                        <Text style={{fontSize: 18, fontWeight: 'bold', color: Theme.primaryTint, paddingLeft: 5 }}> h</Text>
                     </View>
 
                     <TextInput
@@ -109,16 +108,19 @@ export default function EditDailyGoalsExpandedView({unit}) {
                         clearTextOnFocus={true}
                     />
                     <View style={{justifyContent:'center', paddingLeft: 5}}>
-                        <Text style={{fontSize: 36, fontWeight: 'bold', color: Theme.primaryTint, justifyContent:'center' }}>m</Text>
+                        <Text style={{fontSize: 18, fontWeight: 'bold', color: Theme.primaryTint, justifyContent:'center' }}> m</Text>
                     </View>
                     </View>
             )}
             
         
-            <View style={{flexDirection: 'row', justifyContent: 'center', margin: 15, }} >
+            <View style={{flexDirection: 'row', justifyContent: 'space-between', margin: 15}} >
                 <TouchableOpacity onPress={ () => { 
                         setInputValue(''); 
-                        Keyboard.dismiss(); } }>
+                        Keyboard.dismiss(); }} 
+                        style={{
+                            marginRight: 50
+                    }}>
                     <Text style={{color: Theme.primaryTint, fontSize: 20, paddingVertical: 10, paddingHorizontal: 20}}>Cancel</Text>
                 </TouchableOpacity>
 
@@ -126,6 +128,9 @@ export default function EditDailyGoalsExpandedView({unit}) {
                     editAction()
                     setInputValue('');
                     Keyboard.dismiss();
+                    }}
+                    style={{
+                        marginLeft: 50
                 }}>
                     <Text style={{color: Theme.primaryTint, fontSize: 20, fontWeight: 'bold', paddingVertical: 10, paddingHorizontal: 20}}>
                         {primaryButtonText()}
