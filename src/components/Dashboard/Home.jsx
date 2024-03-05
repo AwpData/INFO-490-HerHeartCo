@@ -339,9 +339,9 @@ export default function Home() {
               <VictoryPie
                 radius={({ datum }) => (datum.stat / datum.goal) * 121 }
                 data={[
-                  { label: 'Sleep', x: 1, y: 1, status: 'Low', stat: 4, goal: 7},
-                  { label: 'HRV', x: 1, y: 1, status: 'Good', stat: 30, goal: 40 },
-                  { label: 'Glucose', x:1, y: 1, status: 'Good', stat: 50, goal: 60 },
+                  { label: 'Sleep', x: 1, y: 1, status: 'Low', stat: 7, goal: 7},
+                  { label: 'HRV', x: 1, y: 1, status: 'Good', stat: 40, goal: 40 },
+                  { label: 'Glucose', x:1, y: 1, status: 'Good', stat: 60, goal: 60 },
                   { label: 'Temp', x: 1, y: 1, status: 'Perfect', stat: 89, goal: 89 },
                 ]}
                 colorScale={[Theme.red, Theme.darkYellow, Theme.pigmentGreen, Theme.pigmentGreen]}
@@ -391,13 +391,13 @@ export default function Home() {
             dailyWaterSummary={water} dailyWaterGoal={dailyWaterGoal} />
 
           <ShadowBox 
-              primaryTitle='Reminders / Goals / Alerts' 
+              primaryTitle='Reminders' 
               isBold={true} 
               secondaryTitle='' 
               content={
                 allGoals.map((item, i) => { 
                   return item.isSelected ? ( 
-                    <Text key={i} style={{ fontSize: 16, paddingBottom: 5, color: Theme.primaryTint }}>• {item.recommendation}</Text>
+                    <Text key={i} style={{ fontSize: 16, paddingBottom: 5, color: Theme.primaryTint}}>• {item.recommendation}</Text>
                   ) : null }) } />
 
 

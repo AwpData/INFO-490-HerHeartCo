@@ -27,9 +27,9 @@ export default function DailyGoalsRow ({ icon, title, value, goal, unit, expande
                         <Text style={Theme.addDataCurrentValue}>{value}</Text>
                         <Text style={Theme.addDataRowGoal}> / {goal} {unit}</Text>
                     </View>) : (<View style={{flexDirection: 'row', alignItems: 'flex-end',}}>
-                        <Text style={Theme.addDataCurrentValue}>{`${Math.floor(sleep / 60)}h `}</Text>
+                        <Text style={Theme.addDataCurrentValue}>{`${Math.floor(sleep / 60)} h `}</Text>
                         { sleep % 60 != 0 && 
-                            <Text style={Theme.addDataCurrentValue}>{`${sleep % 60}m`}</Text>
+                            <Text style={Theme.addDataCurrentValue}>{`${sleep % 60} min`}</Text>
                         }
                         <Text style={Theme.addDataRowGoal}> / {goal} {unit}</Text>
                     </View>)}

@@ -30,11 +30,11 @@ export default function EditDailyGoalsExpandedView({unit}) {
     function unitLabel() {
         switch(unit) {
             case('water'):
-                return 'glasses';
+                return 'Glasses';
             case('glucose'):
                 return 'mg/dL';
             case ('hrv'):  
-                return 'min';
+                return 'Minutes';
             default: return;
         }
     }
@@ -43,20 +43,16 @@ export default function EditDailyGoalsExpandedView({unit}) {
         switch(unit) {
             case('water'): 
                 dispatch(addWater(Number(inputValue) || 0));
-                console.log("water");
                 break;
             case('glucose'): 
                 dispatch(updateGlucose(Number(inputValue) || 0));
-                console.log("glucose");
                 break;
             case ('hrv'): 
                 dispatch(addHRV(Number(inputValue) || 0)); 
-                console.log('hrv');
                 break; 
             case ('sleep'): 
                 let totalSleepMin = (Number(inputValue) * 60) + (Number(inputValue2));
                 dispatch(editSleep(totalSleepMin || 0)); 
-                console.log('updated sleep');
                 break;
             default: break; 
         }
@@ -83,6 +79,9 @@ export default function EditDailyGoalsExpandedView({unit}) {
 
                 <Text style={{fontSize: 18, paddingTop: 10, fontWeight: 'bold', color: Theme.primaryTint}}>{unitLabel() }</Text>
                 </View>
+            ) : (
+                
+                <View style={{flexDirection: 'column', alignContent: 'center', }} >
             ) : (   
                 <View style={{flexDirection: 'row', alignContent: 'center'}} >
                     <TextInput
@@ -95,7 +94,7 @@ export default function EditDailyGoalsExpandedView({unit}) {
                         clearTextOnFocus={true}
                     />
                     <View style={{justifyContent:'center', paddingRight: 15}}>
-                        <Text style={{fontSize: 18, fontWeight: 'bold', color: Theme.primaryTint, paddingLeft: 5 }}> h</Text>
+                        <Text style={{fontSize: 36, fontWeight: 'bold', color: Theme.primaryTint, paddingLeft: 5 }}>Hours</Text>
                     </View>
 
                     <TextInput
@@ -108,7 +107,7 @@ export default function EditDailyGoalsExpandedView({unit}) {
                         clearTextOnFocus={true}
                     />
                     <View style={{justifyContent:'center', paddingLeft: 5}}>
-                        <Text style={{fontSize: 18, fontWeight: 'bold', color: Theme.primaryTint, justifyContent:'center' }}> m</Text>
+                        <Text style={{fontSize: 36, fontWeight: 'bold', color: Theme.primaryTint, justifyContent:'center' }}>Minutes</Text>
                     </View>
                     </View>
             )}
