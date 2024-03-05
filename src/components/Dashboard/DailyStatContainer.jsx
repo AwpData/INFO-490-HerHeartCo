@@ -37,13 +37,8 @@ export default function DailyStatContainer( {
   };
 
   const openEditDailyGoalsModal = () => {
-    console.log("pressed")
     setGoalsOpen(true);
-    console.log('**** goals open: ', goalsOpen);
     setEditDailyGoalsModalVisible(true);
-    console.log('**** edit modal: ', editDailyGoalsModalVisible);
-    
-    
   };
 
   const closeEditDailyGoalsModal = () => {
@@ -55,9 +50,6 @@ export default function DailyStatContainer( {
     <View style={{flexDirection: 'column', marginTop: 20}}>
       <View style={{flexDirection: 'row', justifyContent: 'space-between', marginVertical: 15}}>
         <Text style={{fontSize: 28, fontWeight: 'bold', color: Theme.primaryTint, }}>Goal Progress</Text>
-        {/* <TouchableOpacity onPress={openModal}>
-          <MaterialCommunityIcons name='plus-circle' color={Theme.secondaryTint} size={30} />
-        </TouchableOpacity> */}
       </View>
       <View style={{flexDirection: 'column'}} >
         {allGoals.filter(goal => goal.isSelected === false).length < 5 && 
@@ -151,7 +143,6 @@ export default function DailyStatContainer( {
                 {plusFilled}
             </TouchableOpacity>
           }
-
           </View>
         </View>
         <SelectDailyGoalsModal visible={selectDailyGoalsModalVisible} onRequestClose={closeSelectDailyGoalsModal} />

@@ -1,5 +1,6 @@
 import { View, Modal, Image, TouchableOpacity, Text } from 'react-native';
 import * as Theme from '../../theme';
+import HHC_01_Component from '../../../assets/HHC-01-Component';
 
 
 export default function LandingPage({handleFitbitLogin}) {
@@ -18,10 +19,7 @@ export default function LandingPage({handleFitbitLogin}) {
                 alignItems: 'center', 
                 backgroundColor: Theme.primaryBackground
               }}>
-                <Image 
-                  source={require('../../../assets/HHC_Logo.png')} 
-                  style={{resizeMode: 'contain', height: '12%', margin: 20
-                }} />
+                <HHC_01_Component width={370} height={200}/>
 
                 {/* Create an Account button */}
                 <TouchableOpacity style={{
