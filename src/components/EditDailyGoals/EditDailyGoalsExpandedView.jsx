@@ -80,9 +80,6 @@ export default function EditDailyGoalsExpandedView({unit}) {
                 <Text style={{fontSize: 18, paddingTop: 10, fontWeight: 'bold', color: Theme.primaryTint}}>{unitLabel() }</Text>
                 </View>
             ) : (
-                
-                <View style={{flexDirection: 'column', alignContent: 'center', }} >
-            ) : (   
                 <View style={{flexDirection: 'row', alignContent: 'center'}} >
                     <TextInput
                         style={{backgroundColor: 'white', fontSize: 48, fontWeight: 'bold', padding: 15, minWidth: 100, textAlign: 'center', borderRadius: 15, borderWidth: 3, borderColor: Theme.secondaryGray}}
