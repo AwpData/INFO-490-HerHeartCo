@@ -45,7 +45,6 @@ export const h1 = {
     fontWeight: 'bold',
     color: primaryTint,
     textAlign: 'center', 
-    paddingBottom: 20
 }
 
 export const dailyStatsSection = {

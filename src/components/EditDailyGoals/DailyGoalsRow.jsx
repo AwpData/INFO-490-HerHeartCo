@@ -2,7 +2,6 @@ import React, { useState, useRef } from 'react';
 import { Button, Text, View, StyleSheet, Modal, TouchableOpacity, Animated } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
-
 import * as Theme from '../../theme';
 import { grayChevronDown, redChevronUp } from "../../constants"
 import ExpandableView from './ExpandableView';

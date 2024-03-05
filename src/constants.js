@@ -213,3 +213,7 @@ export const checkboxTrue = (
 export const checkboxFalse = (
     <MaterialCommunityIcons name='checkbox-blank-outline' color={Theme.secondaryTint} size={40} />
 ); 
+
+export const plusFilled = (
+    <MaterialCommunityIcons name='plus-circle-outline' color={Theme.primaryTint} size={60} />
+)

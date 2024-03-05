@@ -1,14 +1,30 @@
-import { Text, View, Modal, ScrollView } from 'react-native';
+import React, { useState } from 'react';
+
+import { Text, View, Modal, ScrollView, TouchableOpacity } from 'react-native';
 import { format } from 'date-fns';
 import EditDailyGoalsNavBar from './EditDailyGoalsNavBar';
-import { redChevronRight, redChevronLeft } from '../../constants';
+import { exerciseIcon, waterIcon, foodIcon, glucoseIcon, sleepIcon, hrvTrainingIcon } from '../../constants';
 import * as Theme from '../../theme';
+import { useSelector, useDispatch } from 'react-redux';
+import ExpandableView from './ExpandableView';
+import CheckExercise from './CheckExercise';
+import DailyGoalsRow from './DailyGoalsRow';
+import EditDailyGoalsExpandedView from './EditDailyGoalsExpandedView';
+import SelfLogHealthData from './SelfLogHealthData';
+import SelectGoalsToView from './SelectGoalsToView';
+
 
 const todayDate = new Date();
 
 export default function EditDailyGoalsModal ({ 
-    children, visible, onRequestClose 
+    visible, onRequestClose, goalsOpen
 }) {
+    const exercise = useSelector(state => state.editGoalsReducer.exercise);
+    const water = useSelector(state => state.editGoalsReducer.totalWater);
+    const glucose = useSelector(state => state.editGoalsReducer.glucose);
+    const hrv = useSelector(state => state.editGoalsReducer.totalHRVMin);
+    const sleep = useSelector(state => state.editGoalsReducer.sleep);
+
     return (
         <Modal
             animationType="slide"
@@ -21,16 +37,33 @@ export default function EditDailyGoalsModal ({
                 <EditDailyGoalsNavBar onRequestClose={onRequestClose} onSubmitClose={onRequestClose} />
                 
                 <ScrollView automaticallyAdjustKeyboardInsets={true} keyboardShouldPersistTaps='handled' >
-                    {/* TODO: export the date navigator to a separate component  */}
                     <View style={{padding: 20, alignItems: 'center'}}>
-                        {/* <View style={{flexDirection: 'row', justifyContent: 'space-between'}}> */}
-                            {/* TODO: make chevrons as functional buttons  */}
-                            {/* {redChevronLeft} */}
-                            <Text style={Theme.addPageDateFormat}>{format(todayDate, 'EEEE, MMMM dd')}</Text>
-                            {/* {redChevronRight} */}
-                        {/* </View> */}
+                        <Text style={Theme.addPageDateFormat}>{format(todayDate, 'EEEE, MMMM dd')}</Text>
 
-                        {children}
+                        <View style={{alignItems: 'center', marginVertical: 40, }}>
+                            <SelectGoalsToView goalsOpen={goalsOpen} />
+
+                            <View style={{borderColor: Theme.secondaryGray, borderWidth: 0.5, minWidth: '95%', marginVertical: 20, marginBottom: 30}} />
+
+                            <CheckExercise 
+                                icon={exerciseIcon}
+                                title='Exercise' />
+                            <DailyGoalsRow
+                                icon={waterIcon} title='Hydration' value={water} goal={7} unit='glasses'
+                                expandedContent={ <EditDailyGoalsExpandedView unit='water' />} />
+                            <DailyGoalsRow
+                                icon={foodIcon} title='Food' value={3} goal={3} unit='meals'
+                                expandedContent={<Text>Expanded food</Text>}/>
+                            <SelfLogHealthData 
+                                icon={glucoseIcon} title='Glucose' value1={glucose} unit='mg/dL'
+                                expandedContent={ <EditDailyGoalsExpandedView unit='glucose' />} />
+                            <DailyGoalsRow
+                                icon={sleepIcon} title='Sleep' value={sleep} goal={7} unit='h'
+                                expandedContent={<EditDailyGoalsExpandedView unit='sleep' />}/>
+                            <DailyGoalsRow
+                                icon={hrvTrainingIcon} title='HRV Training' value={hrv} goal={15} unit='min'
+                                expandedContent={<EditDailyGoalsExpandedView unit='hrv' />}/>
+                        </View>
                     </View>
                 </ScrollView>
             </View>

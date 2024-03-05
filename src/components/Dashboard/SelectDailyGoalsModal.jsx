@@ -33,11 +33,26 @@ export default function SelectDailyGoalsModal ({
             transparent={false}
             visible={visible}
             onRequestClose={handleCancel}
-            presentationStyle='pageSheet'
+            presentationStyle='fullscreen'
         >
             <View style={{flex: 1, flexDirection: 'column', backgroundColor: Theme.primaryBackground, }}>
-                <EditDailyGoalsNavBar onRequestClose={handleCancel} onSubmitClose={handleSubmit} />
-                <Text style={Theme.h1}>Select your goals</Text>
+                <View style={{flexDirection:'row', paddingTop: 60, paddingHorizontal: 20, justifyContent: 'flex-end'}}>
+                    { tempState.filter(goal => goal.isSelected === true).length < 1 ? 
+                        (<View style={{backgroundColor: tempState.filter(goal => goal.isSelected === true).length < 1 ? Theme.primaryGray : Theme.secondaryTint, paddingHorizontal: 30, paddingVertical: 12, borderRadius: 15}}>
+                        <Text style={{color: Theme.primaryBackground, fontSize: 18, fontWeight: 'bold', }}>Save</Text> 
+                        </View>) : 
+                        (<TouchableOpacity onPress={handleSubmit} style={{backgroundColor: tempState.filter(goal => goal.isSelected === true).length < 1 ? Theme.primaryGray : Theme.secondaryTint, paddingHorizontal: 30, paddingVertical: 12, borderRadius: 15}} >
+                            <Text style={{color: Theme.primaryBackground, fontSize: 18, fontWeight: 'bold', }}>Save</Text>
+                        </TouchableOpacity>) }
+                </View>
+
+
+                <View style={{padding: 20}}>
+                    <Text style={Theme.h1}>Welcome to HerHeartCo!</Text>
+                    <Text style={{fontWeight: 'bold', fontSize: 20, color: Theme.primaryTint, textAlign: 'center', paddingTop: 5}}>Begin by selecting at least 1 goal:</Text>
+                </View>
+                
+
                 <View style={{flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around', alignSelf: 'center', marginHorizontal: 18}}>
                     { tempState.map((item) => ( 
                         <TouchableOpacity key={item.id} 

@@ -8,6 +8,7 @@ import { addHRV } from '../../redux/actions';
 
 import * as Theme from '../../theme';
 
+
 export default function EditDailyGoalsExpandedView({unit}) {
     const [inputValue, setInputValue] = useState('');
     const [inputValue2, setInputValue2] = useState('');
@@ -63,7 +64,6 @@ export default function EditDailyGoalsExpandedView({unit}) {
     return (
         
         <View style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
-            {console.log(unit)}
             <View style={{borderColor: Theme.secondaryGray, borderWidth: 0.5, minWidth: '90%', marginBottom: 20}} />
             { unit != 'sleep' ? (
                 <View style={{flexDirection: 'column', alignItems: 'center'}} >
@@ -80,33 +80,36 @@ export default function EditDailyGoalsExpandedView({unit}) {
                 <Text style={{fontSize: 18, paddingTop: 10, fontWeight: 'bold', color: Theme.primaryTint}}>{unitLabel() }</Text>
                 </View>
             ) : (
-                <View style={{flexDirection: 'row', alignContent: 'center'}} >
-                    <TextInput
-                        style={{backgroundColor: 'white', fontSize: 48, fontWeight: 'bold', padding: 15, minWidth: 100, textAlign: 'center', borderRadius: 15, borderWidth: 3, borderColor: Theme.secondaryGray}}
-                        value={inputValue.toString()}
-                        onChangeText={setInputValue}
-                        placeholder="0"
-                        keyboardType={"number-pad"}
-                        returnKeyType='done'
-                        clearTextOnFocus={true}
-                    />
-                    <View style={{justifyContent:'center', paddingRight: 15}}>
-                        <Text style={{fontSize: 36, fontWeight: 'bold', color: Theme.primaryTint, paddingLeft: 5 }}>Hours</Text>
+                <View style={{flexDirection: 'row'}}>
+                    <View style={{flexDirection: 'column', alignItems: 'center', marginHorizontal: 10}} >
+                        <TextInput
+                            style={{backgroundColor: 'white', fontSize: 48, fontWeight: 'bold', padding: 15, minWidth: 100, textAlign: 'center', borderRadius: 15, borderWidth: 3, borderColor: Theme.secondaryGray}}
+                            value={inputValue.toString()}
+                            onChangeText={setInputValue}
+                            placeholder="0"
+                            keyboardType={"number-pad"}
+                            returnKeyType='done'
+                            clearTextOnFocus={true}
+                        />
+                        <View style={{justifyContent:'center', paddingRight: 15}}>
+                            <Text style={{fontSize: 18, fontWeight: 'bold', color: Theme.primaryTint, paddingLeft: 5, paddingTop: 10}}>Hours</Text>
+                        </View>
                     </View>
-
-                    <TextInput
-                        style={{backgroundColor: 'white', fontSize: 48, fontWeight: 'bold', padding: 15, minWidth: 100, textAlign: 'center', borderRadius: 15, borderWidth: 3, borderColor: Theme.secondaryGray}}
-                        value={inputValue2.toString()}
-                        onChangeText={setInputValue2}
-                        placeholder="0"
-                        keyboardType={"number-pad"}
-                        returnKeyType='done'
-                        clearTextOnFocus={true}
-                    />
-                    <View style={{justifyContent:'center', paddingLeft: 5}}>
-                        <Text style={{fontSize: 36, fontWeight: 'bold', color: Theme.primaryTint, justifyContent:'center' }}>Minutes</Text>
+                    <View style={{flexDirection: 'column', alignItems: 'center', marginHorizontal: 10}} >
+                        <TextInput
+                            style={{backgroundColor: 'white', fontSize: 48, fontWeight: 'bold', padding: 15, minWidth: 100, textAlign: 'center', borderRadius: 15, borderWidth: 3, borderColor: Theme.secondaryGray}}
+                            value={inputValue2.toString()}
+                            onChangeText={setInputValue2}
+                            placeholder="0"
+                            keyboardType={"number-pad"}
+                            returnKeyType='done'
+                            clearTextOnFocus={true}
+                        />
+                        <View style={{justifyContent:'center', paddingLeft: 5}}>
+                            <Text style={{fontSize: 18, fontWeight: 'bold', color: Theme.primaryTint, justifyContent:'center', paddingTop: 10 }}>Minutes</Text>
+                        </View>
                     </View>
-                    </View>
+                </View>
             )}
             
         
