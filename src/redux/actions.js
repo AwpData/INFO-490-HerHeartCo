@@ -53,3 +53,27 @@ export const addHRV = newAmount => dispatch => {
         payload: newAmount
     })
 }
+
+export const UPDATE_BREAKFAST = 'UPDATE_BREAKFAST';
+export const updateBreakfast = newPicture => dispatch => {
+    dispatch({
+        type: UPDATE_BREAKFAST, 
+        payload: newPicture
+    })
+}
+
+export const UPDATE_LUNCH = 'UPDATE_LUNCH';
+export const updateLunch = newPicture => dispatch => {
+    dispatch({
+        type: UPDATE_LUNCH, 
+        payload: newPicture
+    })
+}
+
+export const UPDATE_DINNER = 'UPDATE_DINNER';
+export const updateDinner = newPicture => dispatch => {
+    dispatch({
+        type: UPDATE_DINNER, 
+        payload: newPicture
+    })
+}

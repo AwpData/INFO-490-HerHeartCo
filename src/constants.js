@@ -217,3 +217,7 @@ export const checkboxFalse = (
 export const plusFilled = (
     <MaterialCommunityIcons name='plus-circle-outline' color={Theme.primaryTint} size={60} />
 )
+
+export const imageIcon = (
+    <FontAwesome6 name='image' color='black' size={30} />
+);

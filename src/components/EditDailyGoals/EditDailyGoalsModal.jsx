@@ -12,6 +12,7 @@ import DailyGoalsRow from './DailyGoalsRow';
 import EditDailyGoalsExpandedView from './EditDailyGoalsExpandedView';
 import SelfLogHealthData from './SelfLogHealthData';
 import SelectGoalsToView from './SelectGoalsToView';
+import InsertMealPicture from './InsertMealPicture';
 
 
 const todayDate = new Date();
@@ -53,7 +54,7 @@ export default function EditDailyGoalsModal ({
                                 expandedContent={ <EditDailyGoalsExpandedView unit='water' />} />
                             <DailyGoalsRow
                                 icon={foodIcon} title='Food' value={3} goal={3} unit='meals'
-                                expandedContent={<Text>Expanded food</Text>}/>
+                                expandedContent={<InsertMealPicture />}/>
                             <SelfLogHealthData 
                                 icon={glucoseIcon} title='Glucose' value1={glucose} unit='mg/dL'
                                 expandedContent={ <EditDailyGoalsExpandedView unit='glucose' />} />
