@@ -26,6 +26,28 @@ export default function EditDailyGoalsModal ({
     const hrv = useSelector(state => state.editGoalsReducer.totalHRVMin);
     const sleep = useSelector(state => state.editGoalsReducer.sleep);
 
+    const breakfast = useSelector(state => state.editGoalsReducer.breakfast);
+    const lunch = useSelector(state => state.editGoalsReducer.lunch);
+    const dinner = useSelector(state => state.editGoalsReducer.dinner);
+
+    function calculateMeals() {
+        let total = 0; 
+
+        if (breakfast != undefined) {
+            total++; 
+        }
+
+        if (lunch != undefined) {
+            total++;
+        }
+
+        if (dinner != undefined) {
+            total++;
+        }
+
+        return total;
+    }
+
     return (
         <Modal
             animationType="slide"
@@ -50,10 +72,10 @@ export default function EditDailyGoalsModal ({
                                 icon={exerciseIcon}
                                 title='Exercise' />
                             <DailyGoalsRow
-                                icon={waterIcon} title='Hydration' value={water} goal={7} unit='glasses'
+                                icon={waterIcon} title='Hydration' value={water} goal={7} unit='cups'
                                 expandedContent={ <EditDailyGoalsExpandedView unit='water' />} />
                             <DailyGoalsRow
-                                icon={foodIcon} title='Food' value={3} goal={3} unit='meals'
+                                icon={foodIcon} title='Food' value={calculateMeals()} goal={3} unit='meals'
                                 expandedContent={<InsertMealPicture />}/>
                             <SelfLogHealthData 
                                 icon={glucoseIcon} title='Glucose' value1={glucose} unit='mg/dL'

@@ -21,17 +21,18 @@ export default function DailyGoalsRow ({ icon, title, value, goal, unit, expande
                 
                 <View style={{flexDirection: 'column', paddingHorizontal: 15, }}>
                     <Text style={Theme.addDataRowTitle}>{title}</Text>
-                    { title != 'Sleep' ? (<View style={{flexDirection: 'row', alignItems: 'flex-end',}}>
-                        
-                        <Text style={Theme.addDataCurrentValue}>{value}</Text>
-                        <Text style={Theme.addDataRowGoal}> / {goal} {unit}</Text>
-                    </View>) : (<View style={{flexDirection: 'row', alignItems: 'flex-end',}}>
-                        <Text style={Theme.addDataCurrentValue}>{`${Math.floor(sleep / 60)} h `}</Text>
-                        { sleep % 60 != 0 && 
-                            <Text style={Theme.addDataCurrentValue}>{`${sleep % 60} min`}</Text>
-                        }
-                        <Text style={Theme.addDataRowGoal}> / {goal} {unit}</Text>
-                    </View>)}
+                    { title != 'Sleep' ? (
+                        <View style={{flexDirection: 'row', alignItems: 'flex-end',}}>
+                            <Text style={Theme.addDataCurrentValue}>{value}</Text>
+                            <Text style={Theme.addDataRowGoal}> / {goal} {unit}</Text>
+                        </View>) : (
+                        <View style={{flexDirection: 'row', alignItems: 'flex-end',}}>
+                            <Text style={Theme.addDataCurrentValue}>{`${Math.floor(sleep / 60)} h `}</Text>
+                            { sleep % 60 != 0 && 
+                                <Text style={Theme.addDataCurrentValue}>{`${sleep % 60} min`}</Text>
+                            }
+                            <Text style={Theme.addDataRowGoal}> / {goal} {unit}</Text>
+                        </View>)}
                     
                 </View>
                 <View style={{flex: 1}} />

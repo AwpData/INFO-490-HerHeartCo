@@ -19,23 +19,14 @@ import { editSleep } from '../../redux/actions';
 import { VictoryPie, VictoryLabel } from "victory-native";
 
 
-
-// TODO: hard coding this for now, but there may be security concerns when we release the app
-// OPTION 1: 
-// const fitbitConfig = {
-//   clientId: '23RTKC', // replace with your Fitbit app's client ID
-//   clientSecret: '3518afc3120b575c7370f51d12e208f5', // replace with your Fitbit app's client secret
-//   scopes: ['profile', 'activity', 'heartrate', 'nutrition', 'sleep'], // TODO: temperature
-// };
-// OPTION 2: - switch between the 2 if you run out of API calls 
+// TODO: hard coding this for now
 const fitbitConfig = {
-  clientId: '23RVLG', // replace with your Fitbit app's client ID
-  clientSecret: 'bc5a3f429816d44b1b1b7ca2f71ab8b0', // replace with your Fitbit app's client secret
-  scopes: ['profile', 'activity', 'heartrate', 'nutrition', 'sleep'], // TODO: temperature, heartrate, sleep
+  clientId: '23RVLG', // Fitbit client ID
+  clientSecret: 'bc5a3f429816d44b1b1b7ca2f71ab8b0', // Fitbit client secret
+  scopes: ['profile', 'activity', 'heartrate', 'nutrition', 'sleep'], // TODO: temperature 
 };
 
 export default function Home() {
-  // TODO: look into using redux to handle state across the app 
   const [name, setName] = React.useState('');
   const [dailySteps, setDailySteps] = React.useState('');
   const [dailyStepGoal, setDailyStepGoal] = React.useState('');

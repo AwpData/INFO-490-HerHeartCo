@@ -31,7 +31,7 @@ export default function EditDailyGoalsExpandedView({unit}) {
     function unitLabel() {
         switch(unit) {
             case('water'):
-                return 'Glasses';
+                return 'Cups';
             case('glucose'):
                 return 'mg/dL';
             case ('hrv'):  
@@ -67,17 +67,20 @@ export default function EditDailyGoalsExpandedView({unit}) {
             <View style={{borderColor: Theme.secondaryGray, borderWidth: 0.5, minWidth: '90%', marginBottom: 20}} />
             { unit != 'sleep' ? (
                 <View style={{flexDirection: 'column', alignItems: 'center'}} >
-                <TextInput
-                    style={{backgroundColor: 'white', fontSize: 48, fontWeight: 'bold', padding: 15, minWidth: 100, textAlign: 'center', borderRadius: 15, borderWidth: 3, borderColor: Theme.secondaryGray}}
-                    value={inputValue.toString()}
-                    onChangeText={setInputValue}
-                    placeholder="0"
-                    keyboardType={"number-pad"}
-                    returnKeyType='done'
-                    clearTextOnFocus={true}
-                />
+                    <TextInput
+                        style={{backgroundColor: 'white', fontSize: 48, fontWeight: 'bold', padding: 15, minWidth: 100, textAlign: 'center', borderRadius: 15, borderWidth: 3, borderColor: Theme.secondaryGray}}
+                        value={inputValue.toString()}
+                        onChangeText={setInputValue}
+                        placeholder="0"
+                        keyboardType={"number-pad"}
+                        returnKeyType='done'
+                        clearTextOnFocus={true}
+                    />
 
-                <Text style={{fontSize: 18, paddingTop: 10, fontWeight: 'bold', color: Theme.primaryTint}}>{unitLabel() }</Text>
+                    <Text style={{fontSize: 18, paddingTop: 10, fontWeight: 'bold', color: Theme.primaryTint}}>{unitLabel() }</Text>
+                    { unit == 'water' && 
+                        <Text style={{fontSize: 18, paddingTop: 10, fontWeight: 'bold', color: Theme.primaryGray}}>1 cup = 8 oz = 237 mL</Text>
+                    }
                 </View>
             ) : (
                 <View style={{flexDirection: 'row'}}>
