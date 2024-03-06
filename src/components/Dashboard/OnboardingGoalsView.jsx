@@ -8,9 +8,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setGoals, updateGoals } from '../../redux/actions';
 
 import { sampleGoalsIcons } from '../../constants';
+import { FlatList } from 'react-native';
 
 
-export default function SelectDailyGoalsModal ({ 
+export default function OnboardingGoalsView ({ 
     visible, onRequestClose 
 }) {
     const dispatch = useDispatch();
@@ -27,8 +28,6 @@ export default function SelectDailyGoalsModal ({
         onRequestClose(); 
     }
 
-    const goalLimit = 4; 
-
     return (
         <Modal
             animationType="slide"
@@ -37,25 +36,14 @@ export default function SelectDailyGoalsModal ({
             onRequestClose={handleCancel}
             presentationStyle='fullscreen'
         >
-            <View style={{flex: 1, flexDirection: 'column', backgroundColor: Theme.primaryBackground, }}>
-                <View style={{flexDirection:'row', paddingTop: 60, paddingHorizontal: 20, justifyContent: 'flex-end'}}>
-                    { tempState.filter(goal => goal.isSelected === true).length < 1 ? 
-                        (<View style={{backgroundColor: tempState.filter(goal => goal.isSelected === true).length < 1 ? Theme.primaryGray : Theme.secondaryTint, paddingHorizontal: 30, paddingVertical: 12, borderRadius: 15}}>
-                            <Text style={{color: Theme.primaryBackground, fontSize: 18, fontWeight: 'bold', }}>Save</Text> 
-                        </View>) : 
-                        (<TouchableOpacity onPress={handleSubmit} style={{backgroundColor: tempState.filter(goal => goal.isSelected === true).length < 1 ? Theme.primaryGray : Theme.secondaryTint, paddingHorizontal: 30, paddingVertical: 12, borderRadius: 15}} >
-                            <Text style={{color: Theme.primaryBackground, fontSize: 18, fontWeight: 'bold', }}>Save</Text>
-                        </TouchableOpacity>) }
-                </View>
-
-
-                <View style={{padding: 20}}>
+            <View style={{flex: 1, flexDirection: 'column', backgroundColor: Theme.primaryBackground, paddingTop: 80}}>
+                <View style={{paddingHorizontal: 20}}>
                     <Text style={Theme.h1}>Welcome to HerHeartCo!</Text>
                     <Text style={{fontWeight: 'bold', fontSize: 20, color: Theme.secondaryTint, textAlign: 'center', paddingTop: 5}}>Begin by selecting up to 4 goals:</Text>
                 </View>
                 
-
-                <View style={{flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around', alignSelf: 'center', marginHorizontal: 18}}>
+                <View style={{flexDirection: 'column',}}>
+                <View style={{flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', alignContent: 'center', marginHorizontal: 18, }}>
                     { tempState.map((item) => ( 
                         <TouchableOpacity key={item.id} 
                             disabled={tempState.filter(goal => goal.isSelected).length > 3 && item.isSelected == false}
@@ -76,7 +64,17 @@ export default function SelectDailyGoalsModal ({
                                 <Text style={{fontSize: 18, fontWeight: 'bold', textAlign: 'center', paddingBottom: 10}}>{item.title}</Text>
                                 {sampleGoalsIcons[item.id-1].icon}
                         </TouchableOpacity>
+                        
                     ))}
+                </View>
+
+                { tempState.filter(goal => goal.isSelected === true).length < 1 ? 
+                        (<View style={{backgroundColor: tempState.filter(goal => goal.isSelected === true).length < 1 ? Theme.primaryGray : Theme.secondaryTint, paddingHorizontal: 30, paddingVertical: 12, borderRadius: 15, alignSelf: 'center'}}>
+                            <Text style={{color: Theme.primaryBackground, fontSize: 18, fontWeight: 'bold', }}>Save</Text> 
+                        </View>) : 
+                        (<TouchableOpacity onPress={handleSubmit} style={{backgroundColor: tempState.filter(goal => goal.isSelected === true).length < 1 ? Theme.primaryGray : Theme.secondaryTint, paddingHorizontal: 30, paddingVertical: 12, borderRadius: 15, alignSelf: 'center'}} >
+                            <Text style={{color: Theme.primaryBackground, fontSize: 18, fontWeight: 'bold', }}>Save</Text>
+                        </TouchableOpacity>) }
                 </View>
             </View>
         </Modal>

@@ -6,7 +6,7 @@ import DailyStat from './DailyStat';
 import * as Theme from '../../theme';
 
 import { exerciseIcon, hrvTrainingIcon, reduceFatIcon, stepsIcon, waterIcon, sleepIcon, ViewDateRange, plusFilled  } from '../../constants';
-import SelectDailyGoalsModal from './SelectDailyGoalsModal';
+import OnboardingGoalsView from './OnboardingGoalsView';
 import EditDailyGoalsModal from '../EditDailyGoals/EditDailyGoalsModal';
 
 export default function DailyStatContainer( {
@@ -144,7 +144,7 @@ export default function DailyStatContainer( {
           }
           </View>
         </View>
-        <SelectDailyGoalsModal visible={selectDailyGoalsModalVisible} onRequestClose={closeSelectDailyGoalsModal} />
+        <OnboardingGoalsView visible={selectDailyGoalsModalVisible} onRequestClose={closeSelectDailyGoalsModal} />
         
         <EditDailyGoalsModal visible={editDailyGoalsModalVisible} onRequestClose={closeEditDailyGoalsModal} goalsOpen={goalsOpen}/ >
       </View>

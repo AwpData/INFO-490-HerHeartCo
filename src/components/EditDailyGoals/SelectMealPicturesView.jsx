@@ -11,7 +11,7 @@ import { closeCircleFilledIconLarge, imageIcon, infoIcon } from '../../constants
 import { updateBreakfast, updateLunch, updateDinner } from '../../redux/actions';
 
 
-export default function InsertMealPicture() {
+export default function SelectMealPicturesView() {
     const dispatch = useDispatch();
 
     const breakfast = useSelector(state => state.userReducer.meals.breakfast);

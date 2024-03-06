@@ -8,7 +8,7 @@ import { toggleObjectBoolean } from '../../redux/actions';
 import ExpandableView from './ExpandableView';
 
 
-export default function SelectGoalsToView({goalsOpen}) {
+export default function SelectDailyGoalsExpandedView({goalsOpen}) {
     const goals = useSelector(state => state.userReducer.allGoals);
     const dispatch = useDispatch();
 

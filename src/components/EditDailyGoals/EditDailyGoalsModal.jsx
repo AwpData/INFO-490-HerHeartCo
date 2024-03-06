@@ -11,8 +11,8 @@ import CheckExerciseView from './CheckExerciseView';
 import DailyGoalsRow from './DailyGoalsRow';
 import EditDailyGoalsExpandedView from './EditDailyGoalsExpandedView';
 import LogGlucoseView from './LogGlucoseView';
-import SelectGoalsToView from './SelectGoalsToView';
-import InsertMealPicture from './InsertMealPicture';
+import SelectDailyGoalsExpandedView from './SelectDailyGoalsExpandedView';
+import SelectMealPicturesView from './SelectMealPicturesView';
 
 
 const todayDate = new Date();
@@ -54,9 +54,9 @@ export default function EditDailyGoalsModal ({
             transparent={false}
             visible={visible}
             onRequestClose={onRequestClose}
-            presentationStyle='pageSheet'
+            presentationStyle='fullScreen'
         >
-            <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: Theme.primaryBackground, }}>
+            <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: Theme.primaryBackground, paddingTop: 40}}>
                 <EditDailyGoalsNavBar onRequestClose={onRequestClose} onSubmitClose={onRequestClose} />
                 
                 <ScrollView automaticallyAdjustKeyboardInsets={true} keyboardShouldPersistTaps='handled' >
@@ -64,7 +64,7 @@ export default function EditDailyGoalsModal ({
                         <Text style={Theme.addPageDateFormat}>{format(todayDate, 'EEEE, MMMM dd')}</Text>
 
                         <View style={{alignItems: 'center', marginVertical: 40, }}>
-                            <SelectGoalsToView goalsOpen={goalsOpen} />
+                            <SelectDailyGoalsExpandedView goalsOpen={goalsOpen} />
 
                             <View style={{borderColor: Theme.secondaryGray, borderWidth: 0.5, minWidth: '95%', marginVertical: 20, marginBottom: 30}} />
 
@@ -76,7 +76,7 @@ export default function EditDailyGoalsModal ({
                                 expandedContent={ <EditDailyGoalsExpandedView unit='water' />} />
                             <DailyGoalsRow
                                 icon={foodIcon} title='Food' value={calculateMeals()} goal={3} unit='meals'
-                                expandedContent={<InsertMealPicture />}/>
+                                expandedContent={<SelectMealPicturesView />}/>
                             <LogGlucoseView 
                                 icon={glucoseIcon} value={glucose}
                                 expandedContent={ <EditDailyGoalsExpandedView unit='glucose' />} />
