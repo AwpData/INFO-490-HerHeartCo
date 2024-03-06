@@ -61,7 +61,7 @@ export default function EditDailyGoalsModal ({
                 
                 <ScrollView automaticallyAdjustKeyboardInsets={true} keyboardShouldPersistTaps='handled' >
                     <View style={{padding: 20, alignItems: 'center'}}>
-                        <Text style={Theme.addPageDateFormat}>{format(todayDate, 'EEEE, MMMM dd')}</Text>
+                        <Text style={Theme.title2Bold}>{format(todayDate, 'EEEE, MMMM dd')}</Text>
 
                         <View style={{alignItems: 'center', marginVertical: 40, }}>
                             <SelectDailyGoalsExpandedView goalsOpen={goalsOpen} />

@@ -20,11 +20,10 @@ export default function LogGlucoseView({
                     </View>
 
                     <View style={{flexDirection: 'column', paddingHorizontal: 15, }}>
-                        <Text style={Theme.addDataRowTitle}>Glucose</Text>
-                        <View style={{flexDirection: 'row', alignItems: 'flex-end',}}>
-                            <Text style={Theme.addDataRowGoal}>H:  </Text>
-                            <Text style={Theme.addDataCurrentValue}>{value}</Text>
-                            <Text style={Theme.logDataUnit}>  mg/dL</Text>
+                        <Text style={Theme.goalsRowSmall}>Glucose</Text>
+                        <View style={{flexDirection: 'row', alignItems: 'center',}}>
+                            <Text style={Theme.goalsRowSmall}>H:  </Text>
+                            <Text style={Theme.goalsRowLarge}>{value} mg/dL</Text>
                         </View>
                     </View>
                 <View style={{flex: 1}} />

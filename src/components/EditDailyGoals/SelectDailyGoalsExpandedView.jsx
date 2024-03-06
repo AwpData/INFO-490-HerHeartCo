@@ -23,7 +23,7 @@ export default function SelectDailyGoalsExpandedView({goalsOpen}) {
                     </View>
                     
                     <View style={{flexDirection: 'column', paddingHorizontal: 15, }}>
-                        <Text style={{fontSize: 20, color: Theme.primaryTint, fontWeight: 'bold'}}>Goals</Text>
+                        <Text style={Theme.goalsRowSmall}>Goals</Text>
                     </View>
 
                     <View style={{flex: 1}} />
@@ -40,8 +40,8 @@ export default function SelectDailyGoalsExpandedView({goalsOpen}) {
                 <View style={{width: '100%', paddingHorizontal: 20, paddingBottom: 20, flexDirection: 'column'}}>
                     { goals.map((goal) => (
                         <View key={goal.id} style={{flexDirection: 'row', justifyContent: 'space-between', marginVertical: 5, flexWrap: 'wrap', }} >
-                            <View style={{ width: '70%', justifyContent: 'center'}}>
-                                <Text style={{fontSize: 16, fontWeight: 'bold', opacity: goals.filter(item => item.isSelected).length > 3 && goal.isSelected == false ? 0.5 : 1}}>{goal.title}</Text>
+                            <View style={{ width: '68%', justifyContent: 'center'}}>
+                                <Text style={goals.filter(item => item.isSelected).length > 3 && goal.isSelected == false ? Theme.grayBoldBody : Theme.boldBody}>{goal.title}</Text>
                             </View>
                             
                             { goal.isSelected ? 
@@ -49,21 +49,21 @@ export default function SelectDailyGoalsExpandedView({goalsOpen}) {
                                     style={{padding: 10, borderRadius: 10, backgroundColor: Theme.primaryTint, width: '30%'}} 
                                     disabled={goals.filter(item => item.isSelected).length == 1}
                                     onPress={() => {dispatch(toggleObjectBoolean(goal))}}>
-                                    <Text style={{color: Theme.secondaryBackground, fontWeight: 'bold', textAlign: 'center', }}>Viewing</Text>
+                                    <Text style={{...Theme.boldBodyLight, textAlign: 'center'}}>Viewing</Text>
                                 </TouchableOpacity>) : 
                                 (<TouchableOpacity 
                                     style={{padding: 10, borderRadius: 10, backgroundColor: Theme.primaryGray, width: '30%', opacity: goals.filter(item => item.isSelected).length > 3 && goal.isSelected == false ? 0.5 : 1}} 
                                     disabled={goals.filter(item => item.isSelected).length > 3 && goal.isSelected == false}
                                     onPress={() => {dispatch(toggleObjectBoolean(goal))}}>
-                                    <Text style={{color: Theme.secondaryBackground, fontWeight: 'bold', textAlign: 'center', }}>Hidden</Text>
+                                    <Text style={{...Theme.boldBodyLight, textAlign: 'center'}}>Hidden</Text>
                                 </TouchableOpacity>)
                             }
                         </View>          
                     ))}
                     <View style={{flexDirection: 'row', alignSelf: 'flex-start', justifyContent: 'center', marginTop: 20, }}>
                         {infoIcon}
-                        <View style={{justifyContent: 'center', paddingLeft: 5}}>
-                            <Text style={{color: Theme.primaryTint}}>Select 1-4 goals</Text>
+                        <View style={{justifyContent: 'center', paddingLeft: 5, }}>
+                            <Text style={Theme.body}>Select 1-4 goals</Text>
                         </View>
                     </View>
                 </View>

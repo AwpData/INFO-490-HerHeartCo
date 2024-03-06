@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Button, Text, TextInput, Pressable, TouchableOpacity, Keyboard } from 'react-native';
+import { Platform, View, Button, Text, TextInput, Pressable, TouchableOpacity, Keyboard } from 'react-native';
 
 import { useSelector, useDispatch, connect } from 'react-redux';
 import { addWater, addWaterLog, editSleep, updateGlucose, addHRV, deleteWaterLog } from '../../redux/actions';
@@ -74,7 +74,15 @@ export default function EditDailyGoalsExpandedView({unit}) {
             { unit != 'sleep' ? (
                 <View style={{flexDirection: 'column', alignItems: 'center'}} >
                     <TextInput
-                        style={{backgroundColor: 'white', fontSize: 48, fontWeight: 'bold', padding: 15, minWidth: 100, textAlign: 'center', borderRadius: 15, borderWidth: 3, borderColor: Theme.secondaryGray}}
+                        style={{
+                            backgroundColor: 'white', 
+                            fontSize: 48, fontWeight: 'bold', 
+                            padding: 15, minWidth: 100, textAlign: 'center', 
+                            borderRadius: 15, borderWidth: 3, borderColor: Theme.secondaryGray,
+                            fontFamily: Platform.select({
+                                android: 'Lato_900Black',
+                                ios: 'Lato_900Black'
+                            }), marginBottom: 10}}
                         value={inputValue.toString()}
                         onChangeText={setInputValue}
                         placeholder="0"
@@ -83,16 +91,24 @@ export default function EditDailyGoalsExpandedView({unit}) {
                         clearTextOnFocus={true}
                     />
 
-                    <Text style={{fontSize: 18, paddingTop: 10, fontWeight: 'bold', color: Theme.primaryTint}}>{unitLabel() }</Text>
+                    <Text style={Theme.buttonText}>{unitLabel() }</Text>
                     { unit == 'water' && 
-                        <Text style={{fontSize: 18, paddingTop: 10, fontWeight: 'bold', color: Theme.primaryGray}}>1 cup = 8 oz = 237 mL</Text>
+                        <Text style={Theme.grayButtonText}>1 cup = 8 oz = 237 mL</Text>
                     }
                 </View>
             ) : (
                 <View style={{flexDirection: 'row'}}>
                     <View style={{flexDirection: 'column', alignItems: 'center', marginHorizontal: 10}} >
                         <TextInput
-                            style={{backgroundColor: 'white', fontSize: 48, fontWeight: 'bold', padding: 15, minWidth: 100, textAlign: 'center', borderRadius: 15, borderWidth: 3, borderColor: Theme.secondaryGray}}
+                            style={{
+                                backgroundColor: 'white', 
+                                fontSize: 48, fontWeight: 'bold', 
+                                padding: 15, minWidth: 100, textAlign: 'center', 
+                                borderRadius: 15, borderWidth: 3, borderColor: Theme.secondaryGray,
+                                fontFamily: Platform.select({
+                                    android: 'Lato_900Black',
+                                    ios: 'Lato_900Black'
+                                }), marginBottom: 10 }}
                             value={inputValue.toString()}
                             onChangeText={setInputValue}
                             placeholder="0"
@@ -101,12 +117,20 @@ export default function EditDailyGoalsExpandedView({unit}) {
                             clearTextOnFocus={true}
                         />
                         <View style={{justifyContent:'center', paddingRight: 15}}>
-                            <Text style={{fontSize: 18, fontWeight: 'bold', color: Theme.primaryTint, paddingLeft: 5, paddingTop: 10}}>Hours</Text>
+                            <Text style={Theme.buttonText}>Hours</Text>
                         </View>
                     </View>
                     <View style={{flexDirection: 'column', alignItems: 'center', marginHorizontal: 10}} >
                         <TextInput
-                            style={{backgroundColor: 'white', fontSize: 48, fontWeight: 'bold', padding: 15, minWidth: 100, textAlign: 'center', borderRadius: 15, borderWidth: 3, borderColor: Theme.secondaryGray}}
+                            style={{
+                                backgroundColor: 'white', 
+                                fontSize: 48, fontWeight: 'bold', 
+                                padding: 15, minWidth: 100, textAlign: 'center', 
+                                borderRadius: 15, borderWidth: 3, borderColor: Theme.secondaryGray,
+                                fontFamily: Platform.select({
+                                    android: 'Lato_900Black',
+                                    ios: 'Lato_900Black'
+                                }), marginBottom: 10 }}
                             value={inputValue2.toString()}
                             onChangeText={setInputValue2}
                             placeholder="0"
@@ -115,21 +139,21 @@ export default function EditDailyGoalsExpandedView({unit}) {
                             clearTextOnFocus={true}
                         />
                         <View style={{justifyContent:'center', paddingLeft: 5}}>
-                            <Text style={{fontSize: 18, fontWeight: 'bold', color: Theme.primaryTint, justifyContent:'center', paddingTop: 10 }}>Minutes</Text>
+                            <Text style={Theme.buttonText}>Minutes</Text>
                         </View>
                     </View>
                 </View>
             )}
             
         
-            <View style={{flexDirection: 'row', justifyContent: 'space-between', margin: 15}} >
+            <View style={{flexDirection: 'row', justifyContent: 'space-between', margin: 20}} >
                 <TouchableOpacity onPress={ () => { 
                         setInputValue(''); 
                         Keyboard.dismiss(); }} 
                         style={{
                             marginRight: 50
                     }}>
-                    <Text style={{color: Theme.primaryTint, fontSize: 20, paddingVertical: 10, paddingHorizontal: 20}}>Cancel</Text>
+                    <Text style={Theme.body}>Cancel</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity onPress={ () => {
@@ -140,30 +164,29 @@ export default function EditDailyGoalsExpandedView({unit}) {
                     style={{
                         marginLeft: 50
                 }}>
-                    <Text style={{color: Theme.primaryTint, fontSize: 20, fontWeight: 'bold', paddingVertical: 10, paddingHorizontal: 20}}>
+                    <Text style={Theme.buttonText}>
                         {primaryButtonText()}
                     </Text>
                 </TouchableOpacity> 
             </View> 
-
-            {console.log(waterLog)}
-
-            
         </View>
-        
+
         { unit == 'water' && waterLog.length > 0 && 
             <View style={{alignContent: 'flex-start', paddingBottom: 20}}>
                 <TouchableOpacity>
-                    <Text style={{color: Theme.primaryGray, fontWeight: 'bold', fontSize: 20, paddingBottom: 10}}>Water log</Text>
+                    <Text style={Theme.grayButtonText}>Water log</Text>
                 </TouchableOpacity>
                 { waterLog.map((entry) => (
                         <View key={entry.id} style={{flexDirection: 'row', paddingVertical: 5}}>
-                            <TouchableOpacity onPress={() => {dispatch(deleteWaterLog(entry))}}>
+                            <TouchableOpacity 
+                                key={entry.id} 
+                                onPress={() => {dispatch(deleteWaterLog(entry))}}
+                                style={{paddingRight: 10 }}>
                                 {closeCircleFilledIconSmall}
                             </TouchableOpacity>
                             
                             <View style={{justifyContent: 'center'}}>
-                                <Text style={{color: Theme.primaryTint, fontWeight: 'bold', fontSize: 20, paddingLeft: 10}}>{entry} cups</Text>
+                                <Text style={Theme.buttonText}>{entry} cups</Text>
                             </View>
                         </View>
                     ))

@@ -14,15 +14,18 @@ export default function CheckExerciseView({icon, title}) {
     
     return (
         <View style={Theme.addDataRowStyle}>
-        <TouchableOpacity onPress={ () => {
+        <TouchableOpacity 
+            onPress={ () => {
                 setInputValue(!inputValue);
-                dispatch(toggleExercise(!inputValue));
-        }} style={{justifyContent: 'center', padding: 15}} >
+                dispatch(toggleExercise(!inputValue)); }} 
+            style={{justifyContent: 'center', padding: 15}} >
             <View style={{flexDirection: 'row', alignItems: 'center', }}>
-                <View style={{maxWidth: 35, minWidth: 35, alignItems: 'center', }}>
+                <View style={{maxWidth: 35, minWidth: 35, alignItems: 'center' }}>
                     {icon}
                 </View>
-                <Text style={{ fontWeight: 'bold', fontSize: 18, color: Theme.primaryTint, paddingHorizontal: 15,}}>{title}</Text>
+                <View style={{paddingHorizontal: 15}}>
+                    <Text style={Theme.goalsRowSmall}>{title}</Text>
+                </View>
 
                 <View style={{flex: 1}} />
                 { exercise ? checkboxTrue : checkboxFalse }

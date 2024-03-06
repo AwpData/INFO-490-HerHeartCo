@@ -107,7 +107,7 @@ export default function SelectMealPicturesView() {
                                 ) : imageIcon}
                             </TouchableOpacity>
                         
-                        <Text style={{fontWeight: 'bold', color: Theme.primaryTint, paddingTop: 10}}>{meal.title}</Text>
+                        <Text style={{...Theme.boldBody, paddingTop: 10}}>{meal.title}</Text>
                     </View>
                 ))}
             </View>
@@ -115,7 +115,7 @@ export default function SelectMealPicturesView() {
             <View style={{flexDirection: 'row', alignSelf: 'flex-start', justifyContent: 'center', marginTop: 20, marginLeft: 15, }}>
                 {infoIcon}
                 <View style={{justifyContent: 'center', paddingLeft: 5}}>
-                    <Text style={{color: Theme.primaryTint}}>Upload pictures of your meals</Text>
+                    <Text style={Theme.body}>Upload pictures of your meals</Text>
                 </View>
             </View>
         </View>

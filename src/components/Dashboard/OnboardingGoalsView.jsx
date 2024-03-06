@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
 import { Text, View, Modal, ScrollView, TouchableOpacity, } from 'react-native';
 import * as Theme from '../../theme';
-import EditDailyGoalsNavBar from '../EditDailyGoals/EditDailyGoalsNavBar';
-
 
 import { useSelector, useDispatch } from 'react-redux';
-import { setGoals, updateGoals } from '../../redux/actions';
+import { updateGoals } from '../../redux/actions';
 
 import { sampleGoalsIcons } from '../../constants';
-import { FlatList } from 'react-native';
 
 
 export default function OnboardingGoalsView ({ 
@@ -37,9 +34,9 @@ export default function OnboardingGoalsView ({
             presentationStyle='fullscreen'
         >
             <View style={{flex: 1, flexDirection: 'column', backgroundColor: Theme.primaryBackground, paddingTop: 80}}>
-                <View style={{paddingHorizontal: 20}}>
-                    <Text style={Theme.h1}>Welcome to HerHeartCo!</Text>
-                    <Text style={{fontWeight: 'bold', fontSize: 20, color: Theme.secondaryTint, textAlign: 'center', paddingTop: 5}}>Begin by selecting up to 4 goals:</Text>
+                <View style={{paddingHorizontal: 20, alignItems: 'center'}}>
+                    <Text style={Theme.title2Bold}>Welcome to HerHeartCo!</Text>
+                    <Text style={Theme.headlineV2}>Begin by selecting up to 4 goals:</Text>
                 </View>
                 
                 <View style={{flexDirection: 'column',}}>
@@ -61,7 +58,7 @@ export default function OnboardingGoalsView ({
                                 borderRadius: 20, margin: 10, 
                                 alignItems: 'center', justifyContent: 'center',
                                 backgroundColor: Theme.secondaryBackground}}>
-                                <Text style={{fontSize: 18, fontWeight: 'bold', textAlign: 'center', paddingBottom: 10}}>{item.title}</Text>
+                                <Text style={{...Theme.boldBody, textAlign: 'center'}}>{item.title}</Text>
                                 {sampleGoalsIcons[item.id-1].icon}
                         </TouchableOpacity>
                         
@@ -70,10 +67,12 @@ export default function OnboardingGoalsView ({
 
                 { tempState.filter(goal => goal.isSelected === true).length < 1 ? 
                         (<View style={{backgroundColor: tempState.filter(goal => goal.isSelected === true).length < 1 ? Theme.primaryGray : Theme.secondaryTint, paddingHorizontal: 30, paddingVertical: 12, borderRadius: 15, alignSelf: 'center'}}>
-                            <Text style={{color: Theme.primaryBackground, fontSize: 18, fontWeight: 'bold', }}>Save</Text> 
+                            <Text style={Theme.lightButtonText}>Save</Text> 
                         </View>) : 
-                        (<TouchableOpacity onPress={handleSubmit} style={{backgroundColor: tempState.filter(goal => goal.isSelected === true).length < 1 ? Theme.primaryGray : Theme.secondaryTint, paddingHorizontal: 30, paddingVertical: 12, borderRadius: 15, alignSelf: 'center'}} >
-                            <Text style={{color: Theme.primaryBackground, fontSize: 18, fontWeight: 'bold', }}>Save</Text>
+                        (<TouchableOpacity 
+                            onPress={handleSubmit} 
+                            style={{backgroundColor: tempState.filter(goal => goal.isSelected === true).length < 1 ? Theme.primaryGray : Theme.secondaryTint, paddingHorizontal: 30, paddingVertical: 12, borderRadius: 15, alignSelf: 'center'}} >
+                            <Text style={Theme.lightButtonText}>Save</Text>
                         </TouchableOpacity>) }
                 </View>
             </View>

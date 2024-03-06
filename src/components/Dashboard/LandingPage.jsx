@@ -1,4 +1,4 @@
-import { View, Modal, Image, TouchableOpacity, Text } from 'react-native';
+import { Platform, View, Modal, Image, TouchableOpacity, Text } from 'react-native';
 import * as Theme from '../../theme';
 import HHC_01_Component from '../../../assets/HHC-01-Component';
 
@@ -34,11 +34,7 @@ export default function LandingPage({handleFitbitLogin}) {
                   shadowOpacity: 0.25,
                   shadowRadius: 4,
                   }}>
-                  <Text style={{
-                    color: Theme.primaryTint, 
-                    fontSize: 16, 
-                    fontWeight: 'bold'
-                  }}> 
+                  <Text style={Theme.boldBody}> 
                     Create an account
                   </Text>
                 </TouchableOpacity>
@@ -60,7 +56,7 @@ export default function LandingPage({handleFitbitLogin}) {
                     shadowRadius: 4,
                   }}
                 >
-                  <Text style={{color: Theme.primaryBackground, fontSize: 16, fontWeight: 'bold'}}>Sign in with Fitbit</Text>
+                  <Text style={Theme.boldBodyLight}>Sign in with Fitbit</Text>
                 </TouchableOpacity>
                   
                   {/* Manual Sign in button */}
@@ -76,7 +72,7 @@ export default function LandingPage({handleFitbitLogin}) {
                   shadowRadius: 4,
                   marginTop: 50
                 }}>
-                  <Text style={{color: Theme.primaryTint, fontSize: 16}}>Already have an account?</Text>
+                  <Text style={Theme.body}>Already have an account?</Text>
                   <TouchableOpacity style={{
                     backgroundColor: Theme.secondaryBackground, 
                     paddingTop: 10, 
@@ -86,12 +82,7 @@ export default function LandingPage({handleFitbitLogin}) {
                     borderRadius: 15, 
                     marginLeft: 10
                   }}>
-                    <Text style={{
-                      color: Theme.primaryTint, 
-                      fontSize: 16, 
-                      fontWeight: 'bold',
-                      alignSelf: 'center'
-                    }}>
+                    <Text style={Theme.boldBody}>
                       Sign in
                     </Text>
                   </TouchableOpacity>

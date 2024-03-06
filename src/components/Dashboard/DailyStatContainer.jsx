@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { Platform, View, Text, TouchableOpacity } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
 import DailyStat from './DailyStat';
@@ -49,15 +49,35 @@ export default function DailyStatContainer( {
   return (
     <View style={{flexDirection: 'column', marginTop: 20}}>
       <View style={{flexDirection: 'row', justifyContent: 'space-between', marginVertical: 15}}>
-        <Text style={{fontSize: 28, fontWeight: 'bold', color: Theme.primaryTint, }}>Goal Progress</Text>
+        <Text style={Theme.headline}>Goal Progress</Text>
       </View>
       <View style={{flexDirection: 'column'}} >
         {allGoals.filter(goal => goal.isSelected === false).length < 5 && 
           <View style={{flexDirection: 'row', alignSelf: 'center', backgroundColor: Theme.primaryBackground, borderRadius: 20, borderWidth: 0.5, borderColor: Theme.primaryGray, marginVertical: 5}} >
             { dateRangeOptions.map((selection, j) => {
               return (
-                <TouchableOpacity key={j} onPress={() => { setSelectedDateOption(selection) }} style={{backgroundColor: selectedDateOption === selection ? Theme.primaryTint : Theme.primaryBackground, borderRadius: 30, padding: 10, paddingHorizontal: 24, alignItems: 'center'}}>
-                  <Text style={{color: selectedDateOption === selection ? Theme.primaryBackground : Theme.primaryTint, fontWeight: 'bold', fontSize: 16}}>{selection}</Text>
+                <TouchableOpacity 
+                  key={j} 
+                  onPress={() => { setSelectedDateOption(selection) }} 
+                  style={{
+                    backgroundColor: selectedDateOption === selection ? Theme.primaryTint : Theme.primaryBackground, 
+                    fontFamily: Platform.select({
+                      android: 'Lato_900Black',
+                      ios: 'Lato_900Black'
+                    }),
+                    borderRadius: 30, 
+                    padding: 10, 
+                    paddingHorizontal: 24, 
+                    alignItems: 'center'}}>
+                  <Text 
+                    style={{
+                      color: selectedDateOption === selection ? Theme.primaryBackground : Theme.primaryTint, 
+                      fontFamily: Platform.select({
+                        android: 'Lato_900Black',
+                        ios: 'Lato_900Black'
+                    }),
+                      fontWeight: 'bold', fontSize: 16
+                  }}>{selection}</Text>
                 </TouchableOpacity> )
               })
             }

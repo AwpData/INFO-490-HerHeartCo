@@ -28,7 +28,8 @@ export default function NavigationBar() {
                     backgroundColor: Theme.primaryTint,
                     height: 95
                 },
-                tabBarLabelStyle: { fontWeight: 'bold', fontSize: 12, color: 'white' },
+                tabBarLabelStyle: Theme.whiteCaption,
+                headerTitleStyle: Theme.lightButtonText,
                 headerStyle: { backgroundColor: Theme.primaryTint, },
                 headerTintColor: 'white', }}>
             <Tab.Screen 

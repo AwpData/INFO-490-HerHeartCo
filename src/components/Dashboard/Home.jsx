@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Text, View, ScrollView, Modal, Image, TouchableOpacity } from 'react-native';
+import { Platform, Button, Text, View, ScrollView, Modal, Image, TouchableOpacity } from 'react-native';
 import * as AuthSession from 'expo-auth-session';
 import * as WebBrowser from 'expo-web-browser';
 import pkceChallenge from 'react-native-pkce-challenge';
@@ -386,7 +386,7 @@ export default function Home() {
       <View style={{ flex: 1, paddingTop: 50, paddingBottom: 75, }}>
       {name ? (
         <View style={{margin: 20}}>
-          <Text style={Theme.pageTitle}>{greeting}</Text>
+          <Text style={Theme.header}>{greeting}</Text>
 
           {/* Summary circle graph */}
           <View style={{position: 'relative', alignSelf: 'center', justifyContent: 'center',}}>
@@ -443,7 +443,7 @@ export default function Home() {
               <View style={{ position: 'absolute', top: '50%', width: '100%', height: 1, borderColor: Theme.secondaryGray, borderWidth: 1 }} />
             </View>
             <View style={{position: 'absolute', alignSelf: 'center', backgroundColor: Theme.primaryBackground, height: 90, width: 90, borderRadius: 100, justifyContent: 'center', shadowRadius: 10, shadowOpacity: 0.4, shadowOffset: { height: 3 }}}>
-              <Text style={{textAlign: 'center', fontWeight: 'bold', fontSize: 36}}>
+              <Text style={{...Theme.header, textAlign: 'center'}}>
                 {Math.ceil((
                   (calculatePercentage(sleep, 'Sleep') + 
                   calculatePercentage(dailyHRV, 'HRV') + 
@@ -462,12 +462,11 @@ export default function Home() {
 
           <ShadowBox 
               primaryTitle='Reminders' 
-              isBold={true} 
               secondaryTitle='' 
               content={
                 allGoals.map((item, i) => { 
                   return item.isSelected ? ( 
-                    <Text key={i} style={{ fontSize: 16, paddingBottom: 5, color: Theme.primaryTint}}>• {item.recommendation}</Text>
+                    <Text key={i} style={{...Theme.body, paddingBottom: 5}}>• {item.recommendation}</Text>
                   ) : null }) } />
 
 

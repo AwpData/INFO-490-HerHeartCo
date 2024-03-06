@@ -7,7 +7,7 @@ export default function DailyStat( {
 } ) {
     return (
         <View style={Theme.dailyStatContainer}> 
-            <Text style={Theme.dailyStatTitle}>{statTitle}</Text>
+            <Text style={Theme.captionBold}>{statTitle}</Text>
             <View style={Theme.dailyStatLayers}> 
                 <AnimatedCircularProgress
                     size={90}
@@ -23,12 +23,12 @@ export default function DailyStat( {
                 <View style={Theme.dailyStatIcon}> 
                     {icon}
                     { statTitle != 'Exercise' && (
-                        <Text style={Theme.dailyStat}>
+                        <Text style={Theme.buttonText}>
                         {statTitle != 'Sleep' ? 
                             measurement : 
-                            Math.floor(measurement / 60).toString() + 'h' }
+                            Math.floor(measurement / 60).toString() + ' h' }
                         </Text> ) }
-                    <Text style={Theme.dailyStatLabel}>{unit}</Text>
+                    <Text style={Theme.caption}>{unit}</Text>
                 </View>           
             </View>
         </View>
