@@ -1,4 +1,4 @@
-import { TOGGLE_BOOLEAN, UPDATE_GOALS, ADD_WATER, UPDATE_GLUCOSE, ADD_HRV, TOGGLE_EXERCISE, EDIT_SLEEP, UPDATE_BREAKFAST, UPDATE_LUNCH, UPDATE_DINNER } from "./actions";
+import { TOGGLE_BOOLEAN, UPDATE_GOALS, ADD_WATER, ADD_WATER_LOG, DELETE_WATER_LOG, UPDATE_GLUCOSE, ADD_HRV, TOGGLE_EXERCISE, EDIT_SLEEP, UPDATE_BREAKFAST, UPDATE_LUNCH, UPDATE_DINNER } from "./actions";
 
 
 const initialState = {
@@ -11,6 +11,7 @@ const initialState = {
     ], 
     exercise: false, 
     totalWater: 0, 
+    waterLog: [], 
     glucose: 0, 
     sleep: 0, 
     totalHRVMin: 0,
@@ -33,13 +34,22 @@ function userReducer(state = initialState, action) {
         case UPDATE_GOALS: 
             let newGoalsList = action.payload.map((goal) => goal);
             return {...state, allGoals: newGoalsList};
-        ;
         case TOGGLE_EXERCISE: 
             let newExercise = action.payload; 
             return {...state, exercise: newExercise};
         case ADD_WATER: 
             let newWater = state.totalWater + action.payload; 
             return {...state, totalWater: newWater}; 
+        case ADD_WATER_LOG: 
+            let newEntry = action.payload; 
+            let largerList = state.waterLog.map((entry) => entry);
+            largerList.push(newEntry);
+            return {...state, waterLog: largerList};
+        case DELETE_WATER_LOG: 
+            let deleteEntry = action.payload; 
+            let lessWater = state.totalWater - action.payload; 
+            let shrinkList = state.waterLog.filter((entry) => entry !== deleteEntry);
+            return {...state, totalWater: lessWater, waterLog: shrinkList};
         case UPDATE_GLUCOSE: 
             let newGlucose = action.payload; 
             return {...state, glucose: newGlucose}; 

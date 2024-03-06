@@ -30,6 +30,22 @@ export const addWater = newAmount => dispatch => {
     })
 }
 
+export const ADD_WATER_LOG = 'ADD_WATER_LOG';
+export const addWaterLog = newWaterEntry => dispatch => {
+    dispatch({
+        type: ADD_WATER_LOG, 
+        payload: newWaterEntry
+    })
+}
+
+export const DELETE_WATER_LOG = 'DELETE_WATER_LOG';
+export const deleteWaterLog = waterEntry => dispatch => {
+    dispatch({
+        type: DELETE_WATER_LOG, 
+        payload: waterEntry
+    })
+}
+
 export const UPDATE_GLUCOSE = 'UPDATE_GLUCOSE'; 
 export const updateGlucose = newGlucose => dispatch => {
     dispatch({

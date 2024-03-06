@@ -7,12 +7,11 @@ import { checkboxFalse, checkboxTrue } from '../../constants';
 import { toggleExercise } from '../../redux/actions';
 
 
-export default function CheckExercise({icon, title}) {
+export default function CheckExerciseView({icon, title}) {
     const exercise = useSelector(state => state.userReducer.exercise);
     const [inputValue, setInputValue] = useState(exercise);
     const dispatch = useDispatch()
     
-
     return (
         <View style={Theme.addDataRowStyle}>
         <TouchableOpacity onPress={ () => {

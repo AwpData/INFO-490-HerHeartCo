@@ -7,10 +7,10 @@ import { exerciseIcon, waterIcon, foodIcon, glucoseIcon, sleepIcon, hrvTrainingI
 import * as Theme from '../../theme';
 import { useSelector, useDispatch } from 'react-redux';
 import ExpandableView from './ExpandableView';
-import CheckExercise from './CheckExercise';
+import CheckExerciseView from './CheckExerciseView';
 import DailyGoalsRow from './DailyGoalsRow';
 import EditDailyGoalsExpandedView from './EditDailyGoalsExpandedView';
-import SelfLogHealthData from './SelfLogHealthData';
+import LogGlucoseView from './LogGlucoseView';
 import SelectGoalsToView from './SelectGoalsToView';
 import InsertMealPicture from './InsertMealPicture';
 
@@ -68,7 +68,7 @@ export default function EditDailyGoalsModal ({
 
                             <View style={{borderColor: Theme.secondaryGray, borderWidth: 0.5, minWidth: '95%', marginVertical: 20, marginBottom: 30}} />
 
-                            <CheckExercise 
+                            <CheckExerciseView 
                                 icon={exerciseIcon}
                                 title='Exercise' />
                             <DailyGoalsRow
@@ -77,8 +77,8 @@ export default function EditDailyGoalsModal ({
                             <DailyGoalsRow
                                 icon={foodIcon} title='Food' value={calculateMeals()} goal={3} unit='meals'
                                 expandedContent={<InsertMealPicture />}/>
-                            <SelfLogHealthData 
-                                icon={glucoseIcon} title='Glucose' value1={glucose} unit='mg/dL'
+                            <LogGlucoseView 
+                                icon={glucoseIcon} value={glucose}
                                 expandedContent={ <EditDailyGoalsExpandedView unit='glucose' />} />
                             <DailyGoalsRow
                                 icon={sleepIcon} title='Sleep' value={sleep} goal={7} unit='h'

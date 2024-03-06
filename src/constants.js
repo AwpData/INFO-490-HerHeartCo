@@ -226,6 +226,10 @@ export const infoIcon = (
     <MaterialCommunityIcons name='information-outline' color={Theme.primaryTint} size={25} />
 );
 
-export const closeCircleFilledIcon = (
+export const closeCircleFilledIconSmall = (
+    <MaterialCommunityIcons name='close-circle' color={Theme.secondaryTint} size={30} />
+)
+
+export const closeCircleFilledIconLarge = (
     <MaterialCommunityIcons name='close-circle' color={Theme.secondaryTint} size={40} />
 )

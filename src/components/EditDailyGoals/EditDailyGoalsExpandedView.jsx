@@ -2,17 +2,18 @@ import React, { useState } from 'react';
 import { View, Button, Text, TextInput, Pressable, TouchableOpacity, Keyboard } from 'react-native';
 
 import { useSelector, useDispatch, connect } from 'react-redux';
-import { addWater, editSleep } from '../../redux/actions';
-import { updateGlucose } from '../../redux/actions';
-import { addHRV } from '../../redux/actions';
+import { addWater, addWaterLog, editSleep, updateGlucose, addHRV, deleteWaterLog } from '../../redux/actions';
 
 import * as Theme from '../../theme';
+import { closeCircleFilledIconSmall } from '../../constants';
 
 
 export default function EditDailyGoalsExpandedView({unit}) {
     const [inputValue, setInputValue] = useState('');
     const [inputValue2, setInputValue2] = useState('');
     const dispatch = useDispatch();
+
+    const waterLog = useSelector(state => state.userReducer.waterLog);
 
     function primaryButtonText() {
         switch(unit) {
@@ -43,7 +44,11 @@ export default function EditDailyGoalsExpandedView({unit}) {
     function editAction() {
         switch(unit) {
             case('water'): 
-                dispatch(addWater(Number(inputValue) || 0));
+                let newEntry = Number(inputValue)
+                dispatch(addWater(newEntry || 0));
+                if (newEntry !== 0) {
+                    dispatch(addWaterLog(newEntry));
+                }
                 break;
             case('glucose'): 
                 dispatch(updateGlucose(Number(inputValue) || 0));
@@ -57,13 +62,14 @@ export default function EditDailyGoalsExpandedView({unit}) {
                 break;
             default: break; 
         }
+        setInputValue('');
     }
 
     // TODO: refactor style
 
     return (
-        
-        <View style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
+        <View>
+        <View style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'center', }}>
             <View style={{borderColor: Theme.secondaryGray, borderWidth: 0.5, minWidth: '90%', marginBottom: 20}} />
             { unit != 'sleep' ? (
                 <View style={{flexDirection: 'column', alignItems: 'center'}} >
@@ -138,7 +144,32 @@ export default function EditDailyGoalsExpandedView({unit}) {
                         {primaryButtonText()}
                     </Text>
                 </TouchableOpacity> 
-            </View>    
+            </View> 
+
+            {console.log(waterLog)}
+
+            
+        </View>
+        
+        { unit == 'water' && waterLog.length > 0 && 
+            <View style={{alignContent: 'flex-start', paddingBottom: 20}}>
+                <TouchableOpacity>
+                    <Text style={{color: Theme.primaryGray, fontWeight: 'bold', fontSize: 20, paddingBottom: 10}}>Water log</Text>
+                </TouchableOpacity>
+                { waterLog.map((entry) => (
+                        <View key={entry.id} style={{flexDirection: 'row', paddingVertical: 5}}>
+                            <TouchableOpacity onPress={() => {dispatch(deleteWaterLog(entry))}}>
+                                {closeCircleFilledIconSmall}
+                            </TouchableOpacity>
+                            
+                            <View style={{justifyContent: 'center'}}>
+                                <Text style={{color: Theme.primaryTint, fontWeight: 'bold', fontSize: 20, paddingLeft: 10}}>{entry} cups</Text>
+                            </View>
+                        </View>
+                    ))
+                }
+            </View>
+        }   
         </View>
     );
 }

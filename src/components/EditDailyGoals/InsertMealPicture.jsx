@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 import * as ImagePicker from 'expo-image-picker';
 
 import * as Theme from '../../theme';
-import { closeCircleFilledIcon, imageIcon, infoIcon } from '../../constants';
+import { closeCircleFilledIconLarge, imageIcon, infoIcon } from '../../constants';
 import { updateBreakfast, updateLunch, updateDinner } from '../../redux/actions';
 
 
@@ -99,7 +99,7 @@ export default function InsertMealPicture() {
                                         <Image source={{ uri: meal.pic }} style={{ width: 100, height: 100, marginHorizontal: 10, borderRadius: 15}} />
 
                                         <TouchableOpacity onPress={meal.remove} style={{position: 'absolute', alignSelf: 'flex-end', backgroundColor: Theme.secondaryBackground, shadowRadius: 3, shadowOpacity: 0.3, shadowOffset: { height: 3 },  borderRadius: 100}}>
-                                            {closeCircleFilledIcon}
+                                            {closeCircleFilledIconLarge}
                                         </TouchableOpacity>
                                         
                                     </View>
