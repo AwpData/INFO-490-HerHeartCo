@@ -45,6 +45,7 @@ export default function Home() {
   const [dailySleep, setDailySleep] = React.useState('');
 
   const sleep = useSelector(state => state.editGoalsReducer.sleep);
+  const glucose = useSelector(state => state.editGoalsReducer.glucose);
   const dispatch = useDispatch();
 
   const date = new Date(); 
@@ -202,22 +203,22 @@ export default function Home() {
         }
       }
 
-      // async function getDailyHRVRequest(tokenEndpoint) {
-      //   try {
-      //     const accessToken = 'Bearer ' + tokenEndpoint.access_token;
-      //     const tokenResponse = await fetch(`https://api.fitbit.com/1/user/-/hrv/date/${todayDateString}.json`, {
-      //       method: 'GET',
-      //       headers: {
-      //         'Authorization': accessToken,
-      //       },
-      //     });
+      async function getDailyHRVRequest(tokenEndpoint) {
+        try {
+          const accessToken = 'Bearer ' + tokenEndpoint.access_token;
+          const tokenResponse = await fetch(`https://api.fitbit.com/1/user/-/hrv/date/${todayDateString}.json`, {
+            method: 'GET',
+            headers: {
+              'Authorization': accessToken,
+            },
+          });
 
-      //     const tokenJSON = await tokenResponse.json();
-      //     return tokenJSON;
-      //   } catch(error) {
-      //     console.log('Error in GET request for daily HRV: ', error);
-      //   }
-      // }
+          const tokenJSON = await tokenResponse.json();
+          return tokenJSON;
+        } catch(error) {
+          console.log('Error in GET request for daily HRV: ', error);
+        }
+      }
 
       async function getDailySleepRequest(tokenEndpoint) {
         try {
@@ -298,15 +299,15 @@ export default function Home() {
           })
           .catch(error => console.log('Error fetching daily water goal: ', error));
 
-          // getDailyHRVRequest(tokenEndpoint)
-          // .then( dailyHRVData => {
-          //   setDailyHRV(dailyHRVData.hrv.value.dailyRmssd);
-          // })
-          // .catch(error => console.log('Error fetching daily HRV: ', error));
+          getDailyHRVRequest(tokenEndpoint)
+          .then( dailyHRVData => {
+            setDailyHRV(dailyHRVData.hrv[0].value.dailyRmssd);
+          })
+          .catch(error => console.log('Error fetching daily HRV: ', error));
 
           getDailySleepRequest(tokenEndpoint)
           .then( dailySleepData => {
-            dispatch(editSleep(dailySleepData.summary.totalMinutesAsleep));            
+            dispatch(editSleep(dailySleepData.summary.totalMinutesAsleep));  
             setDailySleep(dailySleepData.summary.totalMinutesAsleep);
           })
           .catch(error => console.log('Error fetching daily sleep: ', error));
@@ -322,6 +323,60 @@ export default function Home() {
   }
 
   const allGoals = useSelector(state => state.userReducer);
+  function glucoseScale(measurement) {
+    if (measurement > 180) {
+      return {scale: 'High', color: Theme.secondaryTint};
+    } else if (measurement > 120) {
+      return {scale: 'Poor', color: Theme.red};
+    } else if (measurement > 70) {
+      return {scale: 'Perfect', color: Theme.pigmentGreen};
+    } else { // 0-70
+      return {scale: 'Low', color: Theme.darkYellow};
+    }
+  }
+
+  function sleepScale(min) {
+    if (min / 420 > 0.9) {
+      return {scale: 'Perfect', color: Theme.pigmentGreen};
+    } else if (min / 420 > 0.8) {
+      return {scale: 'Good', color: Theme.green};
+    } else if (min / 420 > 0.6) {
+      return {scale: 'Fair', color: Theme.darkYellow};
+    } else { // < 0.6
+      return {scale: 'Low', color: Theme.secondaryTint};
+    }
+  }
+
+  function hrvScale(measurement) {
+    if (measurement > 70) {
+      return {scale: 'Excellent', color: Theme.pigmentGreen};
+    } else if (measurement > 40) {
+      return {scale: 'Perfect', color: Theme.green};
+    } else { // < 40
+      return {scale: 'Low', color: Theme.secondaryTint};
+    }
+  }
+
+  function calculatePercentage(stat, unit) {
+    let goal = 1
+
+    switch(unit) {
+      case('Sleep'): 
+        goal = 420;
+        break; 
+      case ('HRV'): 
+        goal = 70; 
+        break; 
+      case ('Glucose'):
+        goal = 70;
+        break; 
+      default: break; 
+    }
+
+    let percentage = (stat / goal) > 1 ? 1 : (stat / goal);
+    return percentage;
+  }
+
 
   return (
     <ScrollView style={{backgroundColor: Theme.secondaryBackground, }}> 
@@ -332,20 +387,25 @@ export default function Home() {
 
           <View style={{position: 'relative', alignSelf: 'center', justifyContent: 'center',}}>
             <View style={{ position: 'absolute', marginTop: 20, marginBottom: 50, alignSelf: 'center', borderColor: Theme.secondaryGray, borderWidth: 4, borderRadius: 250, height: 250, width: 250 , }}>
-            <View style={{ position: 'absolute', left: '50%', height: '100%', width: 1, borderColor: Theme.secondaryGray, borderWidth: 1 }} />
-            <View style={{ position: 'absolute', top: '50%', width: '100%', height: 1, borderColor: Theme.secondaryGray, borderWidth: 1 }} />
+              <View style={{ position: 'absolute', left: '50%', height: '100%', width: 1, borderColor: Theme.secondaryGray, borderWidth: 1 }} />
+              <View style={{ position: 'absolute', top: '50%', width: '100%', height: 1, borderColor: Theme.secondaryGray, borderWidth: 1 }} />
             </View>
             <View>
               <VictoryPie
-                radius={({ datum }) => (datum.stat / datum.goal) * 121 }
+                radius={({ datum }) => (calculatePercentage(datum.stat, datum.label)) * 121 }
                 data={[
-                  { label: 'Sleep', x: 1, y: 1, status: 'Low', stat: 7, goal: 7},
-                  { label: 'HRV', x: 1, y: 1, status: 'Good', stat: 40, goal: 40 },
-                  { label: 'Glucose', x:1, y: 1, status: 'Good', stat: 60, goal: 60 },
-                  { label: 'Temp', x: 1, y: 1, status: 'Perfect', stat: 89, goal: 89 },
+                  { label: 'Sleep', x: 1, y: 1, stat: sleep, goal: 420},
+                  { label: 'HRV', x: 1, y: 1, stat: dailyHRV, goal: 70 },
+                  { label: 'Glucose', x:1, y: 1, stat: glucose, goal: 70 },
+                  { label: 'Temp', x: 1, y: 1, stat: 89, goal: 89 },
                 ]}
-                colorScale={[Theme.red, Theme.darkYellow, Theme.pigmentGreen, Theme.pigmentGreen]}
-                // cornerRadius={5}
+                colorScale={[
+                  sleepScale(sleep).color, // Sleep
+                  hrvScale(dailyHRV).color, // HRV
+                  glucoseScale(glucose).color, // Glucose
+                  Theme.pigmentGreen // Temp
+                ]}
+                cornerRadius={10}
                 
                 height={350}
                 // labelPosition={10}
@@ -364,25 +424,29 @@ export default function Home() {
               <VictoryPie
                 radius={({ datum }) => (datum.stat / datum.goal) * 121 }
                 data={[
-                  { label: 'Low', x: 1, y: 1, },
-                  { label: 'Good', x: 1, y: 1, },
-                  { label: 'Good', x:1, y: 1,},
-                  { label: 'Perfect', x: 1, y: 1, },
+                  { label: sleepScale(sleep).scale, x: 1, y: 1, }, // sleep
+                  { label: hrvScale(dailyHRV).scale, x: 1, y: 1, }, // HRV
+                  { label: glucoseScale(glucose).scale, x:1, y: 1,}, // glucose 
+                  { label: 'Perfect', x: 1, y: 1, }, // temp 
                 ]}
                 height={350}
                 labelComponent={<VictoryLabel transform={'translate(0, 25)'}
-                  style={[{fontSize: 18, fill: Theme.red, fontFamily:'sans-serif', fontWeight: 'bold'},
+                  style={[{fontSize: 18, fill: Theme.red, fontFamily:'sans-serif', fontWeight: 'bold'}, 
                   ] } />}
                 labelRadius={150}
               />
             </View>
             <View style={{position: 'absolute', alignSelf: 'center', backgroundColor: Theme.primaryBackground, height: 90, width: 90, borderRadius: 100, justifyContent: 'center', shadowRadius: 10, shadowOpacity: 0.4, shadowOffset: { height: 3 }}}>
-              <Text style={{textAlign: 'center', fontWeight: 'bold', fontSize: 36}}>92</Text>
+              <Text style={{textAlign: 'center', fontWeight: 'bold', fontSize: 36}}>
+                {Math.ceil((
+                  (calculatePercentage(sleep, 'Sleep') + 
+                  calculatePercentage(dailyHRV, 'HRV') + 
+                  calculatePercentage(glucose, 'Glucose') + 
+                  1 ) / 4) 
+                  * 100)}
+              </Text>
             </View>
           </View>
-
-          {/* Circle summary graph  */}
-          {/* { circlePlaceholder } */}
 
           {/* Container for daily stats (4 circles) */}
           <DailyStatContainer 

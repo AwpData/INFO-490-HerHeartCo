@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 import * as ImagePicker from 'expo-image-picker';
 
 import * as Theme from '../../theme';
-import { imageIcon } from '../../constants';
+import { imageIcon, infoIcon } from '../../constants';
 import { updateBreakfast, updateLunch, updateDinner } from '../../redux/actions';
 
 
@@ -78,7 +78,7 @@ export default function InsertMealPicture() {
 
     return (
         
-        <View style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'center', paddingBottom: 20}}>
+        <View style={{flexDirection: 'column', justifyContent: 'center', paddingBottom: 20}}>
             <View style={{borderColor: Theme.secondaryGray, borderWidth: 0.5, minWidth: '90%', marginBottom: 20}} />
 
             <View style={{flexDirection: 'row'}}>
@@ -91,10 +91,16 @@ export default function InsertMealPicture() {
                                 {imageIcon}
                             </TouchableOpacity>
                         )}
-
                         <Text style={{fontWeight: 'bold', color: Theme.primaryTint, paddingTop: 5}}>{meal.title}</Text>
                     </View>
                 ))}
+            </View>
+
+            <View style={{flexDirection: 'row', alignSelf: 'flex-start', justifyContent: 'center', marginTop: 20, marginLeft: 20, }}>
+                {infoIcon}
+                <View style={{justifyContent: 'center', paddingLeft: 5}}>
+                    <Text style={{color: Theme.primaryTint}}>Upload pictures of your meals</Text>
+                </View>
             </View>
         </View>
     );
