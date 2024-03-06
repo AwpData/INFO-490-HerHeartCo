@@ -14,7 +14,7 @@ export default function SelectDailyGoalsModal ({
     visible, onRequestClose 
 }) {
     const dispatch = useDispatch();
-    const allGoals = useSelector(state => state.userReducer);
+    const allGoals = useSelector(state => state.userReducer.allGoals);
     const [tempState, setTempState] = useState(Array.from(allGoals));
 
     const handleCancel = () => {

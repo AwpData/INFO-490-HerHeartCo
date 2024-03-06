@@ -20,15 +20,15 @@ const todayDate = new Date();
 export default function EditDailyGoalsModal ({ 
     visible, onRequestClose, goalsOpen
 }) {
-    const exercise = useSelector(state => state.editGoalsReducer.exercise);
-    const water = useSelector(state => state.editGoalsReducer.totalWater);
-    const glucose = useSelector(state => state.editGoalsReducer.glucose);
-    const hrv = useSelector(state => state.editGoalsReducer.totalHRVMin);
-    const sleep = useSelector(state => state.editGoalsReducer.sleep);
+    const exercise = useSelector(state => state.userReducer.exercise);
+    const water = useSelector(state => state.userReducer.totalWater);
+    const glucose = useSelector(state => state.userReducer.glucose);
+    const hrv = useSelector(state => state.userReducer.totalHRVMin);
+    const sleep = useSelector(state => state.userReducer.sleep);
 
-    const breakfast = useSelector(state => state.editGoalsReducer.breakfast);
-    const lunch = useSelector(state => state.editGoalsReducer.lunch);
-    const dinner = useSelector(state => state.editGoalsReducer.dinner);
+    const breakfast = useSelector(state => state.userReducer.meals.breakfast);
+    const lunch = useSelector(state => state.userReducer.meals.lunch);
+    const dinner = useSelector(state => state.userReducer.meals.dinner);
 
     function calculateMeals() {
         let total = 0; 

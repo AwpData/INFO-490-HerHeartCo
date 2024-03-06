@@ -1,4 +1,5 @@
-import { TOGGLE_BOOLEAN, UPDATE_GOALS } from './actions';
+import { TOGGLE_BOOLEAN, UPDATE_GOALS, ADD_WATER, UPDATE_GLUCOSE, ADD_HRV, TOGGLE_EXERCISE, EDIT_SLEEP, UPDATE_BREAKFAST, UPDATE_LUNCH, UPDATE_DINNER } from "./actions";
+
 
 const initialState = {
     allGoals: [ 
@@ -8,22 +9,58 @@ const initialState = {
         {id: 4, category: 'SLEEP', title: 'Sleep 7 hours/ Daily', isSelected: false, recommendation: 'Sleep 7 hours a day'},
         {id: 5, category: 'HRV', title: 'Meditate for 15mins / Daily', isSelected: false, recommendation: 'HRV measures your resiliency to everyday stressors that are both internal and external. To increase your HRV, training your breathing patterns to have a slightly longer time exhaling than inhaling is essential and is called resonance breathing. To train, set aside 10-20 minutes, twice daily in a comfortable place. Inhale for a count of 4 and exhale for a count of 6.'},
     ], 
-  };
+    exercise: false, 
+    totalWater: 0, 
+    glucose: 0, 
+    sleep: 0, 
+    totalHRVMin: 0,
+    meals: {
+        breakfast: null, 
+        lunch: null, 
+        dinner: null
+    },
+}
 
-function userReducer(state = initialState.allGoals, action) {
+function userReducer(state = initialState, action) {
     switch (action.type) {
         case TOGGLE_BOOLEAN:
-            return state.map((goal) =>
+            let toggledGoalsList = state.allGoals.map((goal) =>
                 goal.id === action.payload.id
                 ? { ...goal, isSelected: !goal.isSelected }
                 : goal )
             ;
+            return {...state, allGoals: toggledGoalsList};
         case UPDATE_GOALS: 
-            return action.payload.map((goal) => goal );
+            let newGoalsList = action.payload.map((goal) => goal);
+            return {...state, allGoals: newGoalsList};
         ;
-        default:
-            return state;
+        case TOGGLE_EXERCISE: 
+            let newExercise = action.payload; 
+            return {...state, exercise: newExercise};
+        case ADD_WATER: 
+            let newWater = state.totalWater + action.payload; 
+            return {...state, totalWater: newWater}; 
+        case UPDATE_GLUCOSE: 
+            let newGlucose = action.payload; 
+            return {...state, glucose: newGlucose}; 
+        case EDIT_SLEEP: 
+            let newSleep = action.payload; 
+            return {...state, sleep: newSleep};
+        case ADD_HRV: 
+            let newHRVMin = state.totalHRVMin + action.payload; 
+            return {...state, totalHRVMin: newHRVMin}; 
+        case UPDATE_BREAKFAST:
+            let newBreakfast = action.payload; 
+            return {... state, meals: {...state.meals, breakfast: newBreakfast}};
+        case UPDATE_LUNCH: 
+            let newLunch = action.payload; 
+            return {...state, meals: {...state.meals, lunch: newLunch}};
+        case UPDATE_DINNER:
+            let newDinner = action.payload; 
+            return {...state, meals: {...state.meals, dinner: newDinner}};
+        default: 
+            return state; 
     }
 }
 
-export default userReducer;
+export default userReducer; 

@@ -14,16 +14,16 @@ import { updateBreakfast, updateLunch, updateDinner } from '../../redux/actions'
 export default function InsertMealPicture() {
     const dispatch = useDispatch();
 
-    const breakfast = useSelector(state => state.editGoalsReducer.breakfast);
-    const lunch = useSelector(state => state.editGoalsReducer.lunch);
-    const dinner = useSelector(state => state.editGoalsReducer.dinner);
+    const breakfast = useSelector(state => state.userReducer.meals.breakfast);
+    const lunch = useSelector(state => state.userReducer.meals.lunch);
+    const dinner = useSelector(state => state.userReducer.meals.dinner);
 
     useEffect(() => {
         (async () => {
-        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-        if (status !== 'granted') {
-            alert('Sorry, we need camera roll permissions to access your photos!');
-        }
+            const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+            if (status !== 'granted') {
+                alert('Sorry, we need camera roll permissions to access your photos!');
+            }
         })();
     }, []);
 

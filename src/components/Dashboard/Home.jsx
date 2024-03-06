@@ -35,8 +35,8 @@ export default function Home() {
   const [dailyHRV, setDailyHRV] = React.useState('');
   const [dailySleep, setDailySleep] = React.useState('');
 
-  const sleep = useSelector(state => state.editGoalsReducer.sleep);
-  const glucose = useSelector(state => state.editGoalsReducer.glucose);
+  const sleep = useSelector(state => state.userReducer.sleep);
+  const glucose = useSelector(state => state.userReducer.glucose);
   const dispatch = useDispatch();
 
   const date = new Date(); 
@@ -325,7 +325,7 @@ export default function Home() {
     }
   }
 
-  const allGoals = useSelector(state => state.userReducer);
+  const allGoals = useSelector(state => state.userReducer.allGoals);
   function glucoseScale(measurement) {
     if (measurement > 180) {
       return {scale: 'High', color: Theme.secondaryTint};

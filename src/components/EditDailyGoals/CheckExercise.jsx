@@ -8,7 +8,7 @@ import { toggleExercise } from '../../redux/actions';
 
 
 export default function CheckExercise({icon, title}) {
-    const exercise = useSelector(state => state.editGoalsReducer.exercise);
+    const exercise = useSelector(state => state.userReducer.exercise);
     const [inputValue, setInputValue] = useState(exercise);
     const dispatch = useDispatch()
     

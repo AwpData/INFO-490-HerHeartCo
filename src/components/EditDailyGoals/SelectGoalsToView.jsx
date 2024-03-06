@@ -9,9 +9,8 @@ import ExpandableView from './ExpandableView';
 
 
 export default function SelectGoalsToView({goalsOpen}) {
-    const goals = useSelector(state => state.userReducer);
+    const goals = useSelector(state => state.userReducer.allGoals);
     const dispatch = useDispatch();
-
 
     const [isGoalsOpen, setIsGoalsOpen] = useState(goalsOpen);
 
@@ -48,6 +47,7 @@ export default function SelectGoalsToView({goalsOpen}) {
                             { goal.isSelected ? 
                                 (<TouchableOpacity 
                                     style={{padding: 10, borderRadius: 10, backgroundColor: Theme.primaryTint, width: '30%'}} 
+                                    disabled={goals.filter(item => item.isSelected).length == 1}
                                     onPress={() => {dispatch(toggleObjectBoolean(goal))}}>
                                     <Text style={{color: Theme.secondaryBackground, fontWeight: 'bold', textAlign: 'center', }}>Viewing</Text>
                                 </TouchableOpacity>) : 
@@ -63,7 +63,7 @@ export default function SelectGoalsToView({goalsOpen}) {
                     <View style={{flexDirection: 'row', alignSelf: 'flex-start', justifyContent: 'center', marginTop: 20, }}>
                         {infoIcon}
                         <View style={{justifyContent: 'center', paddingLeft: 5}}>
-                            <Text style={{color: Theme.primaryTint}}>Select up to 4 goals</Text>
+                            <Text style={{color: Theme.primaryTint}}>Select 1-4 goals</Text>
                         </View>
                     </View>
                 </View>

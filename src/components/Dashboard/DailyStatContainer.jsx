@@ -19,11 +19,11 @@ export default function DailyStatContainer( {
   const [editDailyGoalsModalVisible, setEditDailyGoalsModalVisible] = useState(false);
   const [goalsOpen, setGoalsOpen] = useState(false);
 
-  const allGoals = useSelector(state => state.userReducer);
-  const exercise = useSelector(state => state.editGoalsReducer.exercise);
-  const totalWater = useSelector(state => state.editGoalsReducer.totalWater);
-  // const sleep = useSelector(state => state.editGoalsReducer.sleep);
-  const totalHRVMin = useSelector(state => state.editGoalsReducer.totalHRVMin); 
+  const allGoals = useSelector(state => state.userReducer.allGoals);
+  const exercise = useSelector(state => state.userReducer.exercise);
+  const totalWater = useSelector(state => state.userReducer.totalWater);
+  // const sleep = useSelector(state => state.userReducer.sleep);
+  const totalHRVMin = useSelector(state => state.userReducer.totalHRVMin); 
 
   const dateRangeOptions = ['Today', 'Week', 'Month'];
   const [selectedDateOption, setSelectedDateOption] = useState('Today');

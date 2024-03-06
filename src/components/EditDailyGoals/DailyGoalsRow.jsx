@@ -9,7 +9,7 @@ import ExpandableView from './ExpandableView';
 
 export default function DailyGoalsRow ({ icon, title, value, goal, unit, expandedContent }) {
     const [isExpanded, setIsExpanded] = useState(false);
-    const sleep = useSelector(state => state.editGoalsReducer.sleep);
+    const sleep = useSelector(state => state.userReducer.sleep);
 
     return (
       <View style={Theme.addDataRowStyle}>
