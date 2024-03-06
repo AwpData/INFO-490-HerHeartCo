@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { Button, Text, View, ScrollView, useEffect, Modal, Image, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { Button, Text, View, ScrollView, Modal, Image, TouchableOpacity } from 'react-native';
 import * as AuthSession from 'expo-auth-session';
 import * as WebBrowser from 'expo-web-browser';
 import pkceChallenge from 'react-native-pkce-challenge';
@@ -8,7 +8,7 @@ import qs from 'qs';
 import { format } from 'date-fns';
 
 import * as Theme from '../../theme';
-import { circlePlaceholder, rectPlaceholder, sampleGoals } from '../../constants';
+import { rectPlaceholder, sampleGoals } from '../../constants';
 import ShadowBox from '../general/ShadowBox';
 import DailyStatContainer from './DailyStatContainer';
 import { useSelector, useDispatch } from 'react-redux';
@@ -42,9 +42,24 @@ export default function Home() {
   const date = new Date(); 
   const todayDateString = format(date, 'yyyy-MM-dd');
 
-  // useEffect(() => {
-  //   dispatch(authorizeProfile());
-  // }, [])
+  const [greeting, setGreeting] = useState('Good Morning!');
+
+  function getGreeting() {
+    let now = date.getHours();
+    
+    if (now < 12) {
+      setGreeting('Good Morning!');
+    } else if (now < 17) {
+      setGreeting('Good Afternoon!');
+    } else {
+      setGreeting('Good Evening!');
+    }
+  }
+
+  // Only do this upon loading for the first time
+  useEffect(() => {
+    getGreeting();
+  }, [])
   
   // TODO: export login into separate function 
   const handleFitbitLogin = async () => {
@@ -104,8 +119,6 @@ export default function Home() {
           console.log('Error in POST request for logging in with Fitbit: ', error);
         }
       }
-
-      // TODO: get heart rate data 
 
       // Not used right now but this request is to get a summary of all of the user's Fitbit data ever. Can delete later if we don't need it
       async function getLifetimeActivityPostRequest(tokenEndpoint) {
@@ -240,7 +253,6 @@ export default function Home() {
           });
 
           const tokenJSON = await tokenResponse.json();
-          console.log('tokenJSON: ', tokenJSON);
           return tokenJSON;
         } catch(error) {
           console.log('Error in GET request for Fitbit profile data: ', error);
@@ -374,8 +386,9 @@ export default function Home() {
       <View style={{ flex: 1, paddingTop: 50, paddingBottom: 75, }}>
       {name ? (
         <View style={{margin: 20}}>
-          <Text style={Theme.pageTitle}>Good Morning!</Text>
+          <Text style={Theme.pageTitle}>{greeting}</Text>
 
+          {/* Summary circle graph */}
           <View style={{position: 'relative', alignSelf: 'center', justifyContent: 'center',}}>
             <View style={{ position: 'absolute', marginTop: 20, marginBottom: 50, alignSelf: 'center', borderColor: Theme.secondaryGray, borderWidth: 4, borderRadius: 250, height: 250, width: 250 , }}>
               <View style={{ position: 'absolute', left: '50%', height: '100%', width: 1, borderColor: Theme.secondaryGray, borderWidth: 1 }} />
@@ -459,20 +472,14 @@ export default function Home() {
           {/* HRV graph */}
           <ShadowBox 
             primaryTitle='Heart Rate' 
-            // isBold={false} 
             secondaryTitle='in BPM' 
             content={ rectPlaceholder } />
 
           {/* Sleep schedule graph */}
           <ShadowBox 
             primaryTitle='Sleep Schedule' 
-            // isBold={false} 
             secondaryTitle='1/29/24 - 2/10/24' // placeholder date range
             content={ <Image source={require('../../../assets/sample_sleep.png')} style={{resizeMode: 'contain', height: 260, margin: 20}} />  } />
-
-
-
-          <Button title="Authorize Fitbit" onPress={handleFitbitLogin} />
         </View>
       ) : 
         <LandingPage handleFitbitLogin={handleFitbitLogin} />

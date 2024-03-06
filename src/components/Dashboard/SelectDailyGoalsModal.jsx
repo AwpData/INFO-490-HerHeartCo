@@ -39,7 +39,7 @@ export default function SelectDailyGoalsModal ({
                 <View style={{flexDirection:'row', paddingTop: 60, paddingHorizontal: 20, justifyContent: 'flex-end'}}>
                     { tempState.filter(goal => goal.isSelected === true).length < 1 ? 
                         (<View style={{backgroundColor: tempState.filter(goal => goal.isSelected === true).length < 1 ? Theme.primaryGray : Theme.secondaryTint, paddingHorizontal: 30, paddingVertical: 12, borderRadius: 15}}>
-                        <Text style={{color: Theme.primaryBackground, fontSize: 18, fontWeight: 'bold', }}>Save</Text> 
+                            <Text style={{color: Theme.primaryBackground, fontSize: 18, fontWeight: 'bold', }}>Save</Text> 
                         </View>) : 
                         (<TouchableOpacity onPress={handleSubmit} style={{backgroundColor: tempState.filter(goal => goal.isSelected === true).length < 1 ? Theme.primaryGray : Theme.secondaryTint, paddingHorizontal: 30, paddingVertical: 12, borderRadius: 15}} >
                             <Text style={{color: Theme.primaryBackground, fontSize: 18, fontWeight: 'bold', }}>Save</Text>

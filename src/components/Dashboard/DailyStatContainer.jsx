@@ -69,7 +69,6 @@ export default function DailyStatContainer( {
               if (goal.isSelected) {
                 switch (goal.category) {
                   case('EXERCISE'): 
-                      console.log('exercise: ', exercise);
                       return (
                         <DailyStat 
                           key={goal.id}
