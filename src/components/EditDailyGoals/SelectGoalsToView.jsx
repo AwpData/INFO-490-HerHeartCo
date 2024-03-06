@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { Text, View, Modal, ScrollView, TouchableOpacity } from 'react-native';
-import { redChevronUp, grayChevronDown, goalsIcon, } from '../../constants';
+import { redChevronUp, grayChevronDown, goalsIcon, infoIcon, } from '../../constants';
 import * as Theme from '../../theme';
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleObjectBoolean } from '../../redux/actions';
@@ -42,19 +42,30 @@ export default function SelectGoalsToView({goalsOpen}) {
                     { goals.map((goal) => (
                         <View key={goal.id} style={{flexDirection: 'row', justifyContent: 'space-between', marginVertical: 5, flexWrap: 'wrap', }} >
                             <View style={{ width: '70%', justifyContent: 'center'}}>
-                                <Text style={{fontSize: 16, fontWeight: 'bold',}}>{goal.title}</Text>
+                                <Text style={{fontSize: 16, fontWeight: 'bold', opacity: goals.filter(item => item.isSelected).length > 3 && goal.isSelected == false ? 0.5 : 1}}>{goal.title}</Text>
                             </View>
                             
                             { goal.isSelected ? 
-                                (<TouchableOpacity style={{padding: 10, borderRadius: 10, backgroundColor: Theme.primaryTint, width: '30%'}} onPress={() => {dispatch(toggleObjectBoolean(goal))}}>
+                                (<TouchableOpacity 
+                                    style={{padding: 10, borderRadius: 10, backgroundColor: Theme.primaryTint, width: '30%'}} 
+                                    onPress={() => {dispatch(toggleObjectBoolean(goal))}}>
                                     <Text style={{color: Theme.secondaryBackground, fontWeight: 'bold', textAlign: 'center', }}>Viewing</Text>
                                 </TouchableOpacity>) : 
-                                (<TouchableOpacity style={{padding: 10, borderRadius: 10, backgroundColor: Theme.primaryGray, width: '30%'}} onPress={() => {dispatch(toggleObjectBoolean(goal))}}>
+                                (<TouchableOpacity 
+                                    style={{padding: 10, borderRadius: 10, backgroundColor: Theme.primaryGray, width: '30%', opacity: goals.filter(item => item.isSelected).length > 3 && goal.isSelected == false ? 0.5 : 1}} 
+                                    disabled={goals.filter(item => item.isSelected).length > 3 && goal.isSelected == false}
+                                    onPress={() => {dispatch(toggleObjectBoolean(goal))}}>
                                     <Text style={{color: Theme.secondaryBackground, fontWeight: 'bold', textAlign: 'center', }}>Hidden</Text>
                                 </TouchableOpacity>)
                             }
                         </View>          
                     ))}
+                    <View style={{flexDirection: 'row', alignSelf: 'flex-start', justifyContent: 'center', marginTop: 20, }}>
+                        {infoIcon}
+                        <View style={{justifyContent: 'center', paddingLeft: 5}}>
+                            <Text style={{color: Theme.primaryTint}}>Select up to 4 goals</Text>
+                        </View>
+                    </View>
                 </View>
             </View>}/>    
         </View>

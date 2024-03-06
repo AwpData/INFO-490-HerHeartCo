@@ -27,6 +27,8 @@ export default function SelectDailyGoalsModal ({
         onRequestClose(); 
     }
 
+    const goalLimit = 4; 
+
     return (
         <Modal
             animationType="slide"
@@ -49,23 +51,25 @@ export default function SelectDailyGoalsModal ({
 
                 <View style={{padding: 20}}>
                     <Text style={Theme.h1}>Welcome to HerHeartCo!</Text>
-                    <Text style={{fontWeight: 'bold', fontSize: 20, color: Theme.primaryTint, textAlign: 'center', paddingTop: 5}}>Begin by selecting at least 1 goal:</Text>
+                    <Text style={{fontWeight: 'bold', fontSize: 20, color: Theme.secondaryTint, textAlign: 'center', paddingTop: 5}}>Begin by selecting up to 4 goals:</Text>
                 </View>
                 
 
                 <View style={{flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around', alignSelf: 'center', marginHorizontal: 18}}>
                     { tempState.map((item) => ( 
                         <TouchableOpacity key={item.id} 
+                            disabled={tempState.filter(goal => goal.isSelected).length > 3 && item.isSelected == false}
                             onPress={(() => {
                                 setTempState(tempState.map((goal) => {
                                     return item.id === goal.id ? {...goal, isSelected: !goal.isSelected} : goal
                                 }))
                             })}
                             style={{
-                                borderWidth: 3, borderColor: item.isSelected ? Theme.secondaryTint : Theme.secondaryBackground, 
+                                borderWidth: 3, borderColor: item.isSelected ? Theme.secondaryTint : Theme.secondaryGray, 
                                 paddingVertical: 40, paddingHorizontal: 20, 
                                 width: '43%', 
-                                height: '28%',
+                                height: '25%',
+                                opacity: (tempState.filter(goal => goal.isSelected).length > 3 && item.isSelected == false) ? 0.5 : 1,
                                 borderRadius: 20, margin: 10, 
                                 alignItems: 'center', justifyContent: 'center',
                                 backgroundColor: Theme.secondaryBackground}}>
