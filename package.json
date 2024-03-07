@@ -12,6 +12,7 @@
     "@expo-google-fonts/lato": "^0.2.3",
     "@react-native-assets/slider": "^7.1.1",
     "@react-native-community/cli": "^12.3.6",
+    "@react-native-community/datetimepicker": "7.6.1",
     "@react-native-picker/picker": "^2.6.1",
     "@react-navigation/bottom-tabs": "^6.5.11",
     "@react-navigation/native": "^6.1.9",

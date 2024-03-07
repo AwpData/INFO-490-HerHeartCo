@@ -1,4 +1,4 @@
-import { TOGGLE_BOOLEAN, UPDATE_GOALS, ADD_WATER, ADD_WATER_LOG, DELETE_WATER_LOG, UPDATE_GLUCOSE, ADD_HRV, TOGGLE_EXERCISE, EDIT_SLEEP, UPDATE_BREAKFAST, UPDATE_LUNCH, UPDATE_DINNER } from "./actions";
+import { TOGGLE_BOOLEAN, UPDATE_GOALS, ADD_WATER, ADD_WATER_LOG, DELETE_WATER_LOG, UPDATE_GLUCOSE, ADD_GLUCOSE_LOG, DELETE_GLUCOSE_LOG, ADD_HRV, TOGGLE_EXERCISE, EDIT_SLEEP, UPDATE_BREAKFAST, UPDATE_LUNCH, UPDATE_DINNER } from "./actions";
 
 
 const initialState = {
@@ -13,6 +13,7 @@ const initialState = {
     totalWater: 0, 
     waterLog: [], 
     glucose: 0, 
+    glucoseLog: [],
     sleep: 0, 
     totalHRVMin: 0,
     meals: {
@@ -41,18 +42,27 @@ function userReducer(state = initialState, action) {
             let newWater = state.totalWater + action.payload; 
             return {...state, totalWater: newWater}; 
         case ADD_WATER_LOG: 
-            let newEntry = action.payload; 
-            let largerList = state.waterLog.map((entry) => entry);
-            largerList.push(newEntry);
-            return {...state, waterLog: largerList};
+            let newWaterEntry = action.payload; 
+            let largerWaterList = state.waterLog.map((entry) => entry);
+            largerWaterList.push(newWaterEntry);
+            return {...state, waterLog: largerWaterList};
         case DELETE_WATER_LOG: 
-            let deleteEntry = action.payload; 
-            let lessWater = state.totalWater - action.payload; 
-            let shrinkList = state.waterLog.filter((entry) => entry !== deleteEntry);
-            return {...state, totalWater: lessWater, waterLog: shrinkList};
+            let deleteWaterEntry = action.payload; 
+            let lessWater = state.totalWater - deleteWaterEntry; 
+            let shrinkWaterList = state.waterLog.filter((entry) => entry !== deleteWaterEntry);
+            return {...state, totalWater: lessWater, waterLog: shrinkWaterList};
         case UPDATE_GLUCOSE: 
             let newGlucose = action.payload; 
             return {...state, glucose: newGlucose}; 
+        case ADD_GLUCOSE_LOG: 
+            let newGlucoseEntry = action.payload; 
+            let largerGlucoseList = state.glucoseLog.map((entry) => entry); 
+            largerGlucoseList.push(newGlucoseEntry);
+            return {...state, glucoseLog: largerGlucoseList};
+        case DELETE_GLUCOSE_LOG: 
+            let deleteGlucoseEntry = action.payload; 
+            let shrinkGlucoseList = state.glucoseLog.filter((entry) => entry !== deleteGlucoseEntry);
+            return {...state, glucoseLog: shrinkGlucoseList};
         case EDIT_SLEEP: 
             let newSleep = action.payload; 
             return {...state, sleep: newSleep};

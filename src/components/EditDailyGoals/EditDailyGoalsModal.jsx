@@ -7,10 +7,10 @@ import { exerciseIcon, waterIcon, foodIcon, glucoseIcon, sleepIcon, hrvTrainingI
 import * as Theme from '../../theme';
 import { useSelector, useDispatch } from 'react-redux';
 import ExpandableView from './ExpandableView';
-import CheckExerciseView from './CheckExerciseView';
+import DailyExerciseRow from './DailyExerciseRow';
 import DailyGoalsRow from './DailyGoalsRow';
 import EditDailyGoalsExpandedView from './EditDailyGoalsExpandedView';
-import LogGlucoseView from './LogGlucoseView';
+import DailyGlucoseRow from './DailyGlucoseRow';
 import SelectDailyGoalsExpandedView from './SelectDailyGoalsExpandedView';
 import SelectMealPicturesView from './SelectMealPicturesView';
 
@@ -68,7 +68,7 @@ export default function EditDailyGoalsModal ({
 
                             <View style={{borderColor: Theme.secondaryGray, borderWidth: 0.5, minWidth: '95%', marginVertical: 20, marginBottom: 30}} />
 
-                            <CheckExerciseView 
+                            <DailyExerciseRow 
                                 icon={exerciseIcon}
                                 title='Exercise' />
                             <DailyGoalsRow
@@ -77,7 +77,7 @@ export default function EditDailyGoalsModal ({
                             <DailyGoalsRow
                                 icon={foodIcon} title='Food' value={calculateMeals()} goal={3} unit='meals'
                                 expandedContent={<SelectMealPicturesView />}/>
-                            <LogGlucoseView 
+                            <DailyGlucoseRow 
                                 icon={glucoseIcon} value={glucose}
                                 expandedContent={ <EditDailyGoalsExpandedView unit='glucose' />} />
                             <DailyGoalsRow

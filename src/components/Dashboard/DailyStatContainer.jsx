@@ -53,7 +53,12 @@ export default function DailyStatContainer( {
       </View>
       <View style={{flexDirection: 'column'}} >
         {allGoals.filter(goal => goal.isSelected === false).length < 5 && 
-          <View style={{flexDirection: 'row', alignSelf: 'center', backgroundColor: Theme.primaryBackground, borderRadius: 20, borderWidth: 0.5, borderColor: Theme.primaryGray, marginVertical: 5}} >
+          <View style={{
+            flexDirection: 'row', alignSelf: 'center', 
+            backgroundColor: Theme.primaryBackground, 
+            borderRadius: 20, borderWidth: 0.5, borderColor: Theme.primaryGray, 
+            marginVertical: 5}} >
+            
             { dateRangeOptions.map((selection, j) => {
               return (
                 <TouchableOpacity 
@@ -66,9 +71,9 @@ export default function DailyStatContainer( {
                       ios: 'Lato_900Black'
                     }),
                     borderRadius: 30, 
+                    width: '28%',
                     padding: 10, 
-                    paddingHorizontal: 24, 
-                    alignItems: 'center'}}>
+                    alignItems: 'center'}} >
                   <Text 
                     style={{
                       color: selectedDateOption === selection ? Theme.primaryBackground : Theme.primaryTint, 

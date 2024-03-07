@@ -1,19 +1,26 @@
 import React, { useState } from 'react';
-import { Platform, View, Button, Text, TextInput, Pressable, TouchableOpacity, Keyboard } from 'react-native';
+import { Platform, View, Text, TextInput, TouchableOpacity, Keyboard } from 'react-native';
+import { useSelector, useDispatch, } from 'react-redux';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
-import { useSelector, useDispatch, connect } from 'react-redux';
-import { addWater, addWaterLog, editSleep, updateGlucose, addHRV, deleteWaterLog } from '../../redux/actions';
-
+import { addWater, addWaterLog, editSleep, updateGlucose, addHRV, deleteWaterLog, addGlucoseLog, deleteGlucoseLog } from '../../redux/actions';
 import * as Theme from '../../theme';
-import { closeCircleFilledIconSmall } from '../../constants';
+import { closeCircleFilledIconSmall, } from '../../constants';
 
 
-export default function EditDailyGoalsExpandedView({unit}) {
+export default function EditDailyGoalsExpandedView( {unit} ) {
     const [inputValue, setInputValue] = useState('');
     const [inputValue2, setInputValue2] = useState('');
     const dispatch = useDispatch();
 
     const waterLog = useSelector(state => state.userReducer.waterLog);
+    const glucoseLog = useSelector(state => state.userReducer.glucoseLog);
+    const [glucoseTime, setGlucoseTime] = useState(new Date());
+
+    const onChangeTime = (selectedTime) => {
+        const currentTime = selectedTime || glucoseTime; 
+        setGlucoseTime(currentTime);
+    }
 
     function primaryButtonText() {
         switch(unit) {
@@ -44,14 +51,22 @@ export default function EditDailyGoalsExpandedView({unit}) {
     function editAction() {
         switch(unit) {
             case('water'): 
-                let newEntry = Number(inputValue)
-                dispatch(addWater(newEntry || 0));
-                if (newEntry !== 0) {
-                    dispatch(addWaterLog(newEntry));
+                let newWaterEntry = Number(inputValue);
+                
+                dispatch(addWater(newWaterEntry || 0));
+                if (newWaterEntry !== 0) {
+                    dispatch(addWaterLog(newWaterEntry));
                 }
                 break;
             case('glucose'): 
+                let newGlucose = Number(inputValue);
+                let selectedTime = glucoseTime.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'}); 
+                let newGlucoseEntry = {glucose: newGlucose, time: selectedTime};
+                
                 dispatch(updateGlucose(Number(inputValue) || 0));
+                if (newGlucose !== 0) {
+                    dispatch(addGlucoseLog(newGlucoseEntry));
+                }
                 break;
             case ('hrv'): 
                 dispatch(addHRV(Number(inputValue) || 0)); 
@@ -71,32 +86,8 @@ export default function EditDailyGoalsExpandedView({unit}) {
         <View>
         <View style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'center', }}>
             <View style={{borderColor: Theme.secondaryGray, borderWidth: 0.5, minWidth: '90%', marginBottom: 20}} />
-            { unit != 'sleep' ? (
-                <View style={{flexDirection: 'column', alignItems: 'center'}} >
-                    <TextInput
-                        style={{
-                            backgroundColor: 'white', 
-                            fontSize: 48, fontWeight: 'bold', 
-                            padding: 15, minWidth: 100, textAlign: 'center', 
-                            borderRadius: 15, borderWidth: 3, borderColor: Theme.secondaryGray,
-                            fontFamily: Platform.select({
-                                android: 'Lato_900Black',
-                                ios: 'Lato_900Black'
-                            }), marginBottom: 10}}
-                        value={inputValue.toString()}
-                        onChangeText={setInputValue}
-                        placeholder="0"
-                        keyboardType={"number-pad"}
-                        returnKeyType='done'
-                        clearTextOnFocus={true}
-                    />
 
-                    <Text style={Theme.buttonText}>{unitLabel() }</Text>
-                    { unit == 'water' && 
-                        <Text style={Theme.grayButtonText}>1 cup = 8 oz = 237 mL</Text>
-                    }
-                </View>
-            ) : (
+            { unit == 'sleep' ? (
                 <View style={{flexDirection: 'row'}}>
                     <View style={{flexDirection: 'column', alignItems: 'center', marginHorizontal: 10}} >
                         <TextInput
@@ -143,27 +134,84 @@ export default function EditDailyGoalsExpandedView({unit}) {
                         </View>
                     </View>
                 </View>
-            )}
-            
-        
-            <View style={{flexDirection: 'row', justifyContent: 'space-between', margin: 20}} >
-                <TouchableOpacity onPress={ () => { 
+            ) : ( unit == 'glucose' ? (
+                <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+                    <View style={{flexDirection: 'column', alignItems: 'center'}} >
+                        <TextInput
+                            style={{
+                                backgroundColor: 'white', 
+                                fontSize: 48, fontWeight: 'bold', 
+                                padding: 15, minWidth: 100, textAlign: 'center', 
+                                borderRadius: 15, borderWidth: 3, borderColor: Theme.secondaryGray,
+                                fontFamily: Platform.select({
+                                    android: 'Lato_900Black',
+                                    ios: 'Lato_900Black'
+                                }), marginBottom: 10}}
+                            value={inputValue.toString()}
+                            onChangeText={setInputValue}
+                            placeholder="0"
+                            keyboardType={"number-pad"}
+                            returnKeyType='done'
+                            clearTextOnFocus={true}
+                        />
+
+                        <Text style={Theme.buttonText}>{unitLabel() }</Text>
+                    </View>
+
+                    <Text style={{...Theme.boldBody, color: 'black', paddingLeft: 15, paddingRight: 5 , alignSelf: 'center'}}>at</Text>
+                    <DateTimePicker
+                        mode="time"
+                        value={glucoseTime}
+                        onChange={onChangeTime}
+                    />
+                </View>
+            ) : ( // default: water, hrv
+                <View style={{flexDirection: 'column', alignItems: 'center'}} >
+                    <TextInput
+                        style={{
+                            backgroundColor: 'white', 
+                            fontSize: 48, fontWeight: 'bold', 
+                            padding: 15, minWidth: 100, textAlign: 'center', 
+                            borderRadius: 15, borderWidth: 3, borderColor: Theme.secondaryGray,
+                            fontFamily: Platform.select({
+                                android: 'Lato_900Black',
+                                ios: 'Lato_900Black'
+                            }), marginBottom: 10}}
+                        value={inputValue.toString()}
+                        onChangeText={setInputValue}
+                        placeholder="0"
+                        keyboardType={"number-pad"}
+                        returnKeyType='done'
+                        clearTextOnFocus={true}
+                    />
+
+                    <Text style={Theme.buttonText}>{unitLabel()}</Text>
+                    { unit == 'water' && 
+                        <Text style={Theme.grayButtonText}>1 cup = 8 oz = 237 mL</Text>
+                    }
+                </View>
+            )) }
+
+            <View style={{flexDirection: 'row', justifyContent: 'space-between', }} >
+                <TouchableOpacity 
+                    onPress={ () => { 
                         setInputValue(''); 
                         Keyboard.dismiss(); }} 
-                        style={{
-                            marginRight: 50
+                    style={{
+                        marginRight: 50,
+                        marginVertical: 30
                     }}>
                     <Text style={Theme.body}>Cancel</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={ () => {
-                    editAction()
-                    setInputValue('');
-                    Keyboard.dismiss();
-                    }}
+                <TouchableOpacity 
+                    onPress={ () => {
+                        editAction()
+                        setInputValue('');
+                        Keyboard.dismiss(); }}
                     style={{
-                        marginLeft: 50
-                }}>
+                        marginLeft: 50,
+                        marginVertical: 30}} >
                     <Text style={Theme.buttonText}>
                         {primaryButtonText()}
                     </Text>
@@ -176,10 +224,9 @@ export default function EditDailyGoalsExpandedView({unit}) {
                 <TouchableOpacity>
                     <Text style={Theme.grayButtonText}>Water log</Text>
                 </TouchableOpacity>
-                { waterLog.map((entry) => (
+                { waterLog.map((entry, i) => (
                         <View key={entry.id} style={{flexDirection: 'row', paddingVertical: 5}}>
                             <TouchableOpacity 
-                                key={entry.id} 
                                 onPress={() => {dispatch(deleteWaterLog(entry))}}
                                 style={{paddingRight: 10 }}>
                                 {closeCircleFilledIconSmall}
@@ -187,6 +234,28 @@ export default function EditDailyGoalsExpandedView({unit}) {
                             
                             <View style={{justifyContent: 'center'}}>
                                 <Text style={Theme.buttonText}>{entry} cups</Text>
+                            </View>
+                        </View>
+                    ))
+                }
+            </View>
+        } 
+
+        { unit == 'glucose' && glucoseLog.length > 0 && 
+            <View style={{alignContent: 'flex-start', paddingBottom: 20}}>
+                <TouchableOpacity>
+                    <Text style={Theme.grayButtonText}>Glucose log</Text>
+                </TouchableOpacity>
+                { glucoseLog.map((entry) => (
+                        <View key={entry.id} style={{flexDirection: 'row', paddingVertical: 5}}>
+                            <TouchableOpacity 
+                                onPress={() => {dispatch(deleteGlucoseLog(entry))}}
+                                style={{paddingRight: 10 }}>
+                                {closeCircleFilledIconSmall}
+                            </TouchableOpacity>
+                            
+                            <View style={{justifyContent: 'center'}}>
+                                <Text style={Theme.buttonText}>{entry.time}       {entry.glucose} mg/dL</Text>
                             </View>
                         </View>
                     ))

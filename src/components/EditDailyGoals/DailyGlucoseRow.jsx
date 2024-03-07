@@ -6,7 +6,7 @@ import { grayChevronDown, redChevronUp } from "../../constants"
 import ExpandableView from './ExpandableView';
 
 
-export default function LogGlucoseView({
+export default function DailyGlucoseRow({
     icon, value, expandedContent
 }) {
     const [isExpanded, setIsExpanded] = useState(false);

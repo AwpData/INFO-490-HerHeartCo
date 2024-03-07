@@ -54,6 +54,22 @@ export const updateGlucose = newGlucose => dispatch => {
     })
 }
 
+export const ADD_GLUCOSE_LOG = 'ADD_GLUCOSE_LOG';
+export const addGlucoseLog = glucoseEntry => dispatch => {
+    dispatch({
+        type: ADD_GLUCOSE_LOG, 
+        payload: glucoseEntry
+    })
+}
+
+export const DELETE_GLUCOSE_LOG = 'DELETE_GLUCOSE_LOG'; 
+export const deleteGlucoseLog = glucoseEntry => dispatch => {
+    dispatch({
+        type: DELETE_GLUCOSE_LOG, 
+        payload: glucoseEntry
+    })
+}
+
 export const EDIT_SLEEP = 'EDIT_SLEEP'; 
 export const editSleep = newSleep => dispatch => {
     dispatch({
