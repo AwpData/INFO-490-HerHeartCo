@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { Button, Text, View, ScrollView } from 'react-native';
 
+import Dexcom from '../Dashboard/Dexcom';
+
 export default function Calendar() {
 
   return (
@@ -8,6 +10,7 @@ export default function Calendar() {
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
           <Text>Calendar will be inserted on this page</Text>
       </View>
+      {/* <Dexcom /> */}
     </ScrollView>
   );
 
