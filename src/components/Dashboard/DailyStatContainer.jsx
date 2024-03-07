@@ -49,7 +49,7 @@ export default function DailyStatContainer( {
   return (
     <View style={{flexDirection: 'column', marginTop: 20}}>
       <View style={{flexDirection: 'row', justifyContent: 'space-between', marginVertical: 15}}>
-        <Text style={Theme.headline}>Goal Progress</Text>
+        <Text style={{...Theme.headline, paddingBottom: 10}}>Goal Progress</Text>
       </View>
       <View style={{flexDirection: 'column'}} >
         {allGoals.filter(goal => goal.isSelected === false).length < 5 && 

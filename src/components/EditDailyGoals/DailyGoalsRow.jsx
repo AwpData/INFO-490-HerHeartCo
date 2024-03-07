@@ -39,9 +39,8 @@ export default function DailyGoalsRow ({ icon, title, value, goal, unit, expande
                     
                 </View>
                 <View style={{flex: 1}} />
-                    {isExpanded ? redChevronUp : grayChevronDown}
+                {isExpanded ? redChevronUp : grayChevronDown}
             </View>
-            
         </TouchableOpacity>
         <ExpandableView expanded={isExpanded} expandedContent={expandedContent}/>
       </View>

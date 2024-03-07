@@ -6,6 +6,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import Feather from 'react-native-vector-icons/Feather'; 
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Octicons from 'react-native-vector-icons/Octicons';
 
 import { LineChart } from 'react-native-chart-kit';
 
@@ -228,8 +229,16 @@ export const infoIcon = (
 
 export const closeCircleFilledIconSmall = (
     <MaterialCommunityIcons name='close-circle' color={Theme.secondaryTint} size={30} />
-)
+);
 
 export const closeCircleFilledIconLarge = (
     <MaterialCommunityIcons name='close-circle' color={Theme.secondaryTint} size={40} />
+);
+
+export const questionIconSmall = (
+    <Octicons name='question' color={Theme.primaryGray} size={20} />
+)
+
+export const closeIconRedLarge = (
+    <MaterialCommunityIcons name='close' color={Theme.secondaryTint} size={30} />
 )

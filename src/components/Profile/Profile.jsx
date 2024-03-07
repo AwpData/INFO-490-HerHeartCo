@@ -124,9 +124,9 @@ export default function Profile() {
 
           <ShadowBox primaryTitle='My Measurements' content={
             <View style={{paddingBottom: 60, }}>
-              <Text style={Theme.headline}>Age: {age}</Text>
+              <Text style={{...Theme.headline, paddingBottom: 10}}>Age: {age}</Text>
               <Text 
-                  style={Theme.headline}>Height: {Math.floor(height / 2.54 / 12)} ft {Math.ceil((height / 2.54) % 12)} in
+                  style={{...Theme.headline, paddingBottom: 10}}>Height: {Math.floor(height / 2.54 / 12)} ft {Math.ceil((height / 2.54) % 12)} in
               </Text>
               {/* <Text style={{fontSize: 22, fontWeight: 'bold', color: '#10526a'}}>Weight: {Math.ceil(weight * 2.2)} lbs</Text> */}
             </View>

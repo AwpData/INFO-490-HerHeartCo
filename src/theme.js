@@ -91,7 +91,6 @@ export const headline = {
         android: 'Lato_700Bold',
         ios: 'Lato_700Bold'
     }),
-    paddingBottom: 10,
 };
 
 export const headlineV2 = {

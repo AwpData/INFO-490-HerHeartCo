@@ -6,7 +6,7 @@ export default function ShadowBox( {
 } ) {
     return (
         <View style={Theme.shadowBoxStyle}>
-            <Text style={Theme.headline}>
+            <Text style={{...Theme.headline, paddingBottom: 10}}>
                 {primaryTitle}</Text>
             { secondaryTitle.length != 0 && 
                 <Text style={Theme.grayBody}>{secondaryTitle}</Text> }
