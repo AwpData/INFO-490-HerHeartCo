@@ -35,6 +35,10 @@ export default function App() {
     Lato_900Black
   });
 
+  if (!fontsLoaded) {
+    return null;
+  }
+
   return (
     <Provider store={Store} >
       <NavigationContainer >
