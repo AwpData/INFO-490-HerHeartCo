@@ -191,6 +191,10 @@ export const grayChevronDown = (
     <MaterialCommunityIcons name='chevron-down' color={Theme.secondaryGray} size={30} />
 );
 
+export const darkGrayChevronDown = (
+    <MaterialCommunityIcons name='chevron-down' color={Theme.primaryGray} size={30} />
+);
+
 export const redChevronRight = (
     <MaterialIcons name='chevron-right' color={Theme.secondaryTint} size={30} />
 );

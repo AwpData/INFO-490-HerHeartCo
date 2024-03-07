@@ -73,19 +73,19 @@ export default function EditDailyGoalsModal ({
                                 title='Exercise' />
                             <DailyGoalsRow
                                 icon={waterIcon} title='Hydration' value={water} goal={7} unit='cups'
-                                expandedContent={ <EditDailyGoalsExpandedView unit='water' />} />
+                                expandedContent={ <EditDailyGoalsExpandedView type='Water' />} />
                             <DailyGoalsRow
                                 icon={foodIcon} title='Food' value={calculateMeals()} goal={3} unit='meals'
                                 expandedContent={<SelectMealPicturesView />}/>
                             <DailyGlucoseRow 
                                 icon={glucoseIcon} value={glucose}
-                                expandedContent={ <EditDailyGoalsExpandedView unit='glucose' />} />
+                                expandedContent={ <EditDailyGoalsExpandedView type='Glucose' />} />
                             <DailyGoalsRow
                                 icon={sleepIcon} title='Sleep' value={sleep} goal={7} unit='h'
-                                expandedContent={<EditDailyGoalsExpandedView unit='sleep' />}/>
+                                expandedContent={<EditDailyGoalsExpandedView type='Sleep' />}/>
                             <DailyGoalsRow
                                 icon={hrvTrainingIcon} title='HRV Training' value={hrv} goal={15} unit='min'
-                                expandedContent={<EditDailyGoalsExpandedView unit='hrv' />}/>
+                                expandedContent={<EditDailyGoalsExpandedView type='HRV' />}/>
                         </View>
                     </View>
                 </ScrollView>
