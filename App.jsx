@@ -1,9 +1,12 @@
+// App.jsx
+
 import React from 'react';
+import { Provider } from 'react-redux'
+import { Store } from './src/redux/store';
+
 import { NavigationContainer } from '@react-navigation/native';
 import NavigationBar from './src/components/NavigationBar/NavigationBar';
 
-import { Provider } from 'react-redux'
-import { Store } from './src/redux/store';
 
 import { 
   useFonts, 
@@ -18,7 +21,7 @@ import {
   Lato_900Black_Italic, 
   Lato_900Black
 } from "@expo-google-fonts/lato";
-import { Text } from 'react-native';
+
 
 // TODO - whole app: add accessibilityLabel
 export default function App() {

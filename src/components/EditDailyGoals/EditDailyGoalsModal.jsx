@@ -1,16 +1,20 @@
-import React, { useState } from 'react';
+// EditDailyGoalsModal.jsx
+// 
+// Modal view that displays all rows of daily goals to edit
 
-import { Text, View, Modal, ScrollView, TouchableOpacity } from 'react-native';
+
+import React from 'react';
+import { useSelector, } from 'react-redux';
+import { Text, View, Modal, ScrollView, } from 'react-native';
 import { format } from 'date-fns';
-import EditDailyGoalsNavBar from './EditDailyGoalsNavBar';
-import { exerciseIcon, waterIcon, foodIcon, glucoseIcon, sleepIcon, hrvTrainingIcon } from '../../constants';
+
 import * as Theme from '../../theme';
-import { useSelector, useDispatch } from 'react-redux';
-import ExpandableView from './ExpandableView';
+import { exerciseIcon, waterIcon, foodIcon, glucoseIcon, sleepIcon, hrvTrainingIcon } from '../../constants';
+
+import EditDailyGoalsNavBar from './EditDailyGoalsNavBar';
 import DailyExerciseRow from './DailyExerciseRow';
 import DailyGoalsRow from './DailyGoalsRow';
 import EditDailyGoalsExpandedView from './EditDailyGoalsExpandedView';
-import DailyGlucoseRow from './DailyGlucoseRow';
 import SelectDailyGoalsExpandedView from './SelectDailyGoalsExpandedView';
 import SelectMealPicturesView from './SelectMealPicturesView';
 
@@ -30,6 +34,7 @@ export default function EditDailyGoalsModal ({
     const lunch = useSelector(state => state.userReducer.meals.lunch);
     const dinner = useSelector(state => state.userReducer.meals.dinner);
 
+    // Function to determine number of meals based on whether or not a picture has been uploaded for that neal
     function calculateMeals() {
         let total = 0; 
 
@@ -77,8 +82,8 @@ export default function EditDailyGoalsModal ({
                             <DailyGoalsRow
                                 icon={foodIcon} title='Food' value={calculateMeals()} goal={3} unit='meals'
                                 expandedContent={<SelectMealPicturesView />}/>
-                            <DailyGlucoseRow 
-                                icon={glucoseIcon} value={glucose}
+                            <DailyGoalsRow 
+                                icon={glucoseIcon} title='Glucose' value={glucose} unit='mg/dL'
                                 expandedContent={ <EditDailyGoalsExpandedView type='Glucose' />} />
                             <DailyGoalsRow
                                 icon={sleepIcon} title='Sleep' value={sleep} goal={7} unit='h'

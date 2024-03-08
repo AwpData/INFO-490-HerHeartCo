@@ -1,11 +1,16 @@
+// OnboardingGoalsView.jsx
+//
+// Screen that is displayed upon the user's first time joining HHC
+// Users must select 1-4 goals before moving forward to begin using the application
+
+
 import React, { useState } from 'react';
-import { Text, View, Modal, ScrollView, TouchableOpacity, } from 'react-native';
-import * as Theme from '../../theme';
-
 import { useSelector, useDispatch } from 'react-redux';
-import { updateGoals } from '../../redux/actions';
+import { Text, View, Modal, TouchableOpacity, } from 'react-native';
 
+import * as Theme from '../../theme';
 import { sampleGoalsIcons } from '../../constants';
+import { updateGoals } from '../../redux/actions';
 
 
 export default function OnboardingGoalsView ({ 
@@ -39,33 +44,35 @@ export default function OnboardingGoalsView ({
                     <Text style={Theme.headlineV2}>Begin by selecting up to 4 goals:</Text>
                 </View>
                 
+                {/* Display goal selection - select up to 4 goals */}
                 <View style={{flexDirection: 'column',}}>
-                <View style={{flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', alignContent: 'center', marginHorizontal: 18, }}>
-                    { tempState.map((item) => ( 
-                        <TouchableOpacity key={item.id} 
-                            disabled={tempState.filter(goal => goal.isSelected).length > 3 && item.isSelected == false}
-                            onPress={(() => {
-                                setTempState(tempState.map((goal) => {
-                                    return item.id === goal.id ? {...goal, isSelected: !goal.isSelected} : goal
-                                }))
-                            })}
-                            style={{
-                                borderWidth: 3, borderColor: item.isSelected ? Theme.secondaryTint : Theme.secondaryGray, 
-                                paddingVertical: 40, paddingHorizontal: 20, 
-                                width: '43%', 
-                                height: '25%',
-                                opacity: (tempState.filter(goal => goal.isSelected).length > 3 && item.isSelected == false) ? 0.5 : 1,
-                                borderRadius: 20, margin: 10, 
-                                alignItems: 'center', justifyContent: 'center',
-                                backgroundColor: Theme.secondaryBackground}}>
-                                <Text style={{...Theme.boldBody, textAlign: 'center'}}>{item.title}</Text>
-                                {sampleGoalsIcons[item.id-1].icon}
-                        </TouchableOpacity>
-                        
-                    ))}
-                </View>
+                    <View style={{flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', alignContent: 'center', marginHorizontal: 18, }}>
+                        { tempState.map((item) => ( 
+                            <TouchableOpacity key={item.id} 
+                                disabled={tempState.filter(goal => goal.isSelected).length > 3 && item.isSelected == false}
+                                onPress={(() => {
+                                    setTempState(tempState.map((goal) => {
+                                        return item.id === goal.id ? {...goal, isSelected: !goal.isSelected} : goal
+                                    }))
+                                })}
+                                style={{
+                                    borderWidth: 3, borderColor: item.isSelected ? Theme.secondaryTint : Theme.secondaryGray, 
+                                    paddingVertical: 40, paddingHorizontal: 20, 
+                                    width: '43%', 
+                                    height: '25%',
+                                    opacity: (tempState.filter(goal => goal.isSelected).length > 3 && item.isSelected == false) ? 0.5 : 1,
+                                    borderRadius: 20, margin: 10, 
+                                    alignItems: 'center', justifyContent: 'center',
+                                    backgroundColor: Theme.secondaryBackground}}
+                            >
+                                    <Text style={{...Theme.boldBody, textAlign: 'center'}}>{item.title}</Text>
+                                    {sampleGoalsIcons[item.id-1].icon}
+                            </TouchableOpacity>
+                        ))}
+                    </View>
 
-                { tempState.filter(goal => goal.isSelected === true).length < 1 ? 
+                    {/* Save button is disabled if you have no goals selected */}
+                    { tempState.filter(goal => goal.isSelected === true).length < 1 ? 
                         (<View style={{
                                 backgroundColor: tempState.filter(goal => goal.isSelected === true).length < 1 ? Theme.primaryGray : Theme.secondaryTint, 
                                 paddingHorizontal: 30, paddingVertical: 12, 

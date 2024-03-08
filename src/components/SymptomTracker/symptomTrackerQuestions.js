@@ -1,3 +1,8 @@
+// symptomTrackerQuestions.js
+// 
+// All symptom tracker categories and questions
+
+
 export default symptomTrackerQuestions = [
     { category: "Hormonal Health", 
     symptoms: [

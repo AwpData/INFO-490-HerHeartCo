@@ -1,7 +1,13 @@
+// NavBarAddButton.jsx
+// 
+// Creates the circular plus button in the navigation bar
+
+
 import { View, TouchableOpacity, } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import * as Theme from '../../theme';
+
 
 export default function NavBarAddButton({
     openModal

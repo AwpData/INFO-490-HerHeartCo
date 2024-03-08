@@ -1,7 +1,13 @@
-import React, { useEffect, useState } from "react";
+// ExpandableView.jsx
+// 
+// Container for any view that is hidden until expanded
+
+
+import React, { useState, } from "react";
 import {  View,  Animated,} from "react-native";
 
 import * as Theme from '../../theme';
+
 
 export default function ExpandableView ({ expanded = false, expandedContent }) {
   const [height] = useState(new Animated.Value(0));

@@ -1,3 +1,10 @@
+// constants.js
+// 
+// All constants used
+
+
+import { View, } from 'react-native';
+
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Fontisto from 'react-native-vector-icons/Fontisto';
@@ -9,8 +16,6 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Octicons from 'react-native-vector-icons/Octicons';
 
 import { LineChart } from 'react-native-chart-kit';
-
-import { View, Text, Dimensions} from 'react-native';
 
 import * as Theme from './theme';
 
@@ -190,6 +195,10 @@ export const grayChevronRight = (
 export const grayChevronDown = (
     <MaterialCommunityIcons name='chevron-down' color={Theme.secondaryGray} size={30} />
 );
+
+export const darkGrayChevronUp = (
+    <MaterialCommunityIcons name='chevron-up' color={Theme.primaryGray} size = {30} /> 
+)
 
 export const darkGrayChevronDown = (
     <MaterialCommunityIcons name='chevron-down' color={Theme.primaryGray} size={30} />

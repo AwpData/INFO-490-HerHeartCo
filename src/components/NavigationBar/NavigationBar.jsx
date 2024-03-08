@@ -1,19 +1,23 @@
+// NavigationBar.jsx
+// 
+// Navigation bar component
+
+
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import Home from '../Dashboard/Home';
-import Calendar from '../Calendar/Calendar';
-import DailyGoalsContainer from '../EditDailyGoals/DailyGoalsContainer';
-import Resources from '../Resources/Resources';
-import Profile from '../Profile/Profile';
-
 import * as Theme from '../../theme';
-
 import { 
     activeHomeIcon, inactiveHomeIcon, 
     activeCalendarIcon, inactiveCalendarIcon, 
     activeResourcesIcon, inactiveResourcesIcon,
     activeProfileIcon, inactiveProfileIcon } from '../../constants';
+
+import Home from '../Dashboard/Home';
+import Calendar from '../Calendar/Calendar';
+import DailyGoalsModalContainer from '../EditDailyGoals/DailyGoalsModalContainer';
+import Resources from '../Resources/Resources';
+import Profile from '../Profile/Profile';
 
 
 export default function NavigationBar() {
@@ -47,10 +51,10 @@ export default function NavigationBar() {
                         return focused ? activeCalendarIcon : inactiveCalendarIcon },}} />
             <Tab.Screen 
                 name="Add" 
-                component={DailyGoalsContainer} 
+                component={DailyGoalsModalContainer} 
                 options={{
                     tabBarIcon: () => { 
-                        return ( <DailyGoalsContainer /> ); }, }} />
+                        return ( <DailyGoalsModalContainer /> ); }, }} />
             <Tab.Screen 
                 name="Resources" 
                 component={Resources} 

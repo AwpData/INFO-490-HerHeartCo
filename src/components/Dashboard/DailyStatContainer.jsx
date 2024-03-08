@@ -1,16 +1,28 @@
+// DailyStatContainer.jsx
+// 
+// "Goals Progress" section of the dashboard for users to see progress on selected goals 
+// [To be finalized] Users can select a daily/weekly/monthly view that aggregates their progress over a time range
+
+
 import React, { useState } from 'react';
 import { Platform, View, Text, TouchableOpacity } from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, } from 'react-redux';
+
+import * as Theme from '../../theme';
+import { 
+  exerciseIcon, 
+  hrvTrainingIcon, 
+  stepsIcon, 
+  waterIcon, 
+  sleepIcon, 
+  plusFilled  } from '../../constants';
 
 import DailyStat from './DailyStat';
-import * as Theme from '../../theme';
-
-import { exerciseIcon, hrvTrainingIcon, reduceFatIcon, stepsIcon, waterIcon, sleepIcon, ViewDateRange, plusFilled  } from '../../constants';
 import OnboardingGoalsView from './OnboardingGoalsView';
 import EditDailyGoalsModal from '../EditDailyGoals/EditDailyGoalsModal';
 
+
 export default function DailyStatContainer( {
-    // heartRate, 
     dailySteps, dailyStepGoal, 
     sleep, sleepGoal, 
     dailyWaterSummary, dailyWaterGoal

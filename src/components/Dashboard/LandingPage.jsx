@@ -1,4 +1,11 @@
-import { Platform, View, Modal, Image, TouchableOpacity, Text } from 'react-native';
+// LandingPage.jsx [Not in scope for iSchool dev team]
+//
+// Landing page that prompts user to register/login upon opening the app for the first time
+// Currently is a placeholder screen that works for the frontend of the MVP
+
+
+import { View, Modal, TouchableOpacity, Text } from 'react-native';
+
 import * as Theme from '../../theme';
 import HHC_01_Component from '../../../assets/HHC-01-Component';
 
@@ -20,6 +27,7 @@ export default function LandingPage({handleFitbitLogin}) {
                 alignItems: 'center', 
                 backgroundColor: Theme.primaryBackground
               }}>
+                {/* Logo */}
                 <HHC_01_Component width={370} height={200}/>
 
                 {/* Create an Account button */}
@@ -60,7 +68,7 @@ export default function LandingPage({handleFitbitLogin}) {
                   <Text style={Theme.boldBodyLight}>Sign in with Fitbit</Text>
                 </TouchableOpacity>
                   
-                  {/* Manual Sign in button */}
+                {/* Manual Sign in button */}
                 <View style={{
                   flexDirection: 'row', 
                   alignItems: 'baseline', 

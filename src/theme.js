@@ -1,3 +1,8 @@
+// theme.js
+// 
+// HHC application themes (text hierarchies, colors, layouts)
+
+
 import { Platform } from 'react-native';
 
 

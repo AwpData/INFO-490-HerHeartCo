@@ -1,10 +1,16 @@
+// SymptomTrackerCategoryView.jsx [Not in scope for iSchool dev team]
+// 
+// A row component that displays a category from the symptom tracker 
+
+
 import React, { useState } from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
 
+import * as Theme from '../../theme';
+import { redChevronUp, grayChevronDown } from '../../constants';
+
 import ExpandableView from '../EditDailyGoals/ExpandableView';
 import QuestionView from './QuestionView';
-import { redChevronUp, grayChevronDown } from '../../constants';
-import * as Theme from '../../theme';
 
 
 export default function SymptomTrackerCategoryView( { symptomSet } ) {

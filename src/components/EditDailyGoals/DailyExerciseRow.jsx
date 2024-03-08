@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
-import { View, TouchableOpacity, Text } from "react-native";
-import { useDispatch, useSelector } from 'react-redux';
+// DailyExerciseRow.jsx
+// 
+// Row for user to select whether or not they exercised for that day
 
-import { toggleExercise } from '../../redux/actions';
+
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { View, TouchableOpacity, Text } from "react-native";
+
 import * as Theme from '../../theme';
 import { checkboxFalse, checkboxTrue } from '../../constants';
-
+import { toggleExercise } from '../../redux/actions';
 
 
 export default function DailyExerciseRow({icon, title}) {

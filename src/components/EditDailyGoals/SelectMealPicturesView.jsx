@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
-import { View, Button, Text, TextInput, Pressable, TouchableOpacity, Keyboard, ScrollView, Image } from 'react-native';
+// SelectMealPicturesView.jsx [Saving pictures is not in scope for iSchool dev team]
+// 
+// The expanded view for user to enter in pictures of their meals (breakfast, lunch, dinner)
+// Currently pictures can be selected from user's camera roll but are not saved, as photo storage to the database is not in scope for iSchool dev team
 
+
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch, } from 'react-redux';
-
-import { useEffect } from 'react';
+import { View, Text, TouchableOpacity, Image } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 
 import * as Theme from '../../theme';
@@ -18,6 +21,7 @@ export default function SelectMealPicturesView() {
     const lunch = useSelector(state => state.userReducer.meals.lunch);
     const dinner = useSelector(state => state.userReducer.meals.dinner);
 
+    // Prompt user for photo library permissions
     useEffect(() => {
         (async () => {
             const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -27,6 +31,7 @@ export default function SelectMealPicturesView() {
         })();
     }, []);
 
+    // Image picker for breakfast
     const pickBreakfast = async () => {
         const result = await ImagePicker.launchImageLibraryAsync({
           mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -40,10 +45,12 @@ export default function SelectMealPicturesView() {
         }
     }
 
+    // Delete image for breakfast
     const resetBreakfast = async () => {
         dispatch(updateBreakfast(undefined));
     }
 
+    // Image picker for lunch
     const pickLunch = async () => {
         const result = await ImagePicker.launchImageLibraryAsync({
           mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -57,10 +64,12 @@ export default function SelectMealPicturesView() {
         }
     }
 
+    // Delete image for lunch
     const resetLunch = async () => {
         dispatch(updateLunch(undefined));
     }
 
+    // Image picker for dinner 
     const pickDinner = async () => {
         const result = await ImagePicker.launchImageLibraryAsync({
           mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -74,6 +83,7 @@ export default function SelectMealPicturesView() {
         }
     }
 
+    // Delete image for dinner 
     const resetDinner = async () => {
         dispatch(updateDinner(undefined));
     }
@@ -86,10 +96,10 @@ export default function SelectMealPicturesView() {
     // TODO: refactor style
 
     return (
-        
         <View style={{flexDirection: 'column', justifyContent: 'center', paddingBottom: 20}}>
             <View style={{borderColor: Theme.secondaryGray, borderWidth: 0.5, minWidth: '90%', marginBottom: 20}} />
 
+            {/* Container for image picker buttons */}
             <View style={{flexDirection: 'row'}}>
                 { meals.map((meal, i) => (
                     <View key={i} style={{flexDirection: 'column', alignItems: 'center'}}> 
@@ -134,6 +144,7 @@ export default function SelectMealPicturesView() {
                 ))}
             </View>
 
+            {/* Info indicator */}
             <View style={{flexDirection: 'row', alignSelf: 'flex-start', justifyContent: 'center', marginTop: 20, marginLeft: 15, }}>
                 {infoIcon}
                 <View style={{justifyContent: 'center', paddingLeft: 5}}>

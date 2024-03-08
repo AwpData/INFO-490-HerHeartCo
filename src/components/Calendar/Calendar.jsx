@@ -1,12 +1,20 @@
+// Calendar.jsx [Not in scope for iSchool dev team]
+// 
+// Will show a calendar with a record of the user's goals 
+// Symptom tracker is displayed here for now, as the flow has not been finalized
+
+
 import React, { useState } from 'react';
-import { Button, Text, View, ScrollView, TouchableOpacity, } from 'react-native';
+import { Text, View, ScrollView, TouchableOpacity, } from 'react-native';
 import Modal from 'react-native-modal';
 
-import Dexcom from '../Dashboard/Dexcom';
-import symptomTrackerQuestions from '../SymptomTracker/symptomTrackerQuestions';
-import SymptomTrackerCategoryView from '../SymptomTracker/SymptomTrackerCategoryView';
+// import Dexcom from '../Dashboard/Dexcom';
 import * as Theme from '../../theme';
 import { closeIconRedLarge, questionIconSmall } from '../../constants';
+
+import symptomTrackerQuestions from '../SymptomTracker/symptomTrackerQuestions';
+import SymptomTrackerCategoryView from '../SymptomTracker/SymptomTrackerCategoryView';
+
 
 const symptomScale = ["Not present", "Weak", "Mild", "Moderate", "Strong", "Severe"];
 
@@ -15,6 +23,9 @@ export default function Calendar() {
 
   return (
     <ScrollView style={{backgroundColor: Theme.primaryBackground, }}> 
+      {/* <Dexcom /> */}
+
+      {/* Symptom tracker */}
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', padding: 10, marginBottom: 60 }}>
         <View style={{flexDirection: 'row', padding: 30, justifyContent: 'center'}}>
           <Text style={{...Theme.title2, }}>Symptom Tracker</Text>
@@ -24,14 +35,12 @@ export default function Calendar() {
             {questionIconSmall}
           </TouchableOpacity>
         </View>
-        { symptomTrackerQuestions.map((symptomSet) => (
-            <SymptomTrackerCategoryView key={symptomSet.id} symptomSet={symptomSet} />
+        { symptomTrackerQuestions.map((symptomSet, i) => (
+            <SymptomTrackerCategoryView key={i} symptomSet={symptomSet} />
           )) }
       </View>
-      {/* <Dexcom /> */}
 
-
-      {/* Pop up to display instructions */}
+      {/* Pop up to display symptom tracker instructions */}
       <Modal 
         animationIn={'fadeIn'}
         animationOut={'fadeOut'}

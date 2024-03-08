@@ -1,11 +1,22 @@
+// EditDailyGoalsExpandedView.jsx
+// 
+// Parent container for the view that appears when users want to edit data for a goal 
+// Will refactor
+
+
 import React, { useState } from 'react';
-import { Platform, View, Text, TextInput, TouchableOpacity, Keyboard } from 'react-native';
 import { useSelector, useDispatch, } from 'react-redux';
+import { Platform, View, Text, TextInput, TouchableOpacity, Keyboard } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Picker } from '@react-native-picker/picker';
 
-import { addWater, addWaterLog, editSleep, updateGlucose, addHRV, addGlucoseLog, } from '../../redux/actions';
 import * as Theme from '../../theme';
+import { 
+    addWater, addWaterLog, 
+    editSleep, 
+    updateGlucose, addGlucoseLog, 
+    addHRV, } from '../../redux/actions';
+
 import ExpandedLog from './ExpandedLog';
 
 
@@ -23,11 +34,13 @@ export default function EditDailyGoalsExpandedView( { type } ) {
     const hoursArray = Array.from({ length: 24 }, (_, i) => i);
     const minutesArray = Array.from({ length: 60 }, (_, i) => i);
 
+    // Handle time selection for glucose 
     const onChangeTime = (event, selectedTime) => {
         const currentTime = selectedTime || glucoseTime; 
         setGlucoseTime(currentTime);
     }
 
+    // Button text to display when updating data 
     function primaryButtonText() {
         switch(type) {
             case('Water'):
@@ -42,6 +55,7 @@ export default function EditDailyGoalsExpandedView( { type } ) {
         }
     }
 
+    // Label underneath field to enter data 
     function typeLabel() {
         switch(type) {
             case('Water'):
@@ -54,6 +68,7 @@ export default function EditDailyGoalsExpandedView( { type } ) {
         }
     }
 
+    // Redux action to perform to edit data 
     function editAction() {
         switch(type) {
             case('Water'): 
@@ -84,6 +99,16 @@ export default function EditDailyGoalsExpandedView( { type } ) {
             default: break; 
         }
         setInputValue('');
+    }
+
+    // Show log based on goal type
+    function showLog() {
+        switch(type) {
+            case ("Water"):
+                return (<ExpandedLog type="Water" log={waterLog} />);
+            case ("Glucose"): 
+                return (<ExpandedLog type="Glucose" log={glucoseLog} />);
+        }
     }
 
     // TODO: refactor style
@@ -147,6 +172,8 @@ export default function EditDailyGoalsExpandedView( { type } ) {
                         </View>
 
                         <Text style={{...Theme.boldBody, color: 'black', paddingLeft: 15, paddingRight: 5 , alignSelf: 'center'}}>at</Text>
+
+                        {/* Time picker for glucose log */}
                         <DateTimePicker
                             mode="time"
                             value={glucoseTime}
@@ -174,6 +201,8 @@ export default function EditDailyGoalsExpandedView( { type } ) {
                         />
 
                         <Text style={Theme.buttonText}>{typeLabel()}</Text>
+
+                        {/* Show water unit conversion */}
                         { type == 'Water' && 
                             <Text style={Theme.grayButtonText}>1 cup = 8 oz = 237 mL</Text>
                         }
@@ -211,8 +240,10 @@ export default function EditDailyGoalsExpandedView( { type } ) {
                 </View> 
             </View>
 
-            <ExpandedLog type="Water" log={waterLog} />
-            <ExpandedLog type="Glucose" log={glucoseLog} />
+            {/* Display water log or glucose log */}
+            <View style={{alignSelf: 'flex-start', paddingLeft: 20}}>
+                { showLog() }
+            </View>
         </>
     );
 }

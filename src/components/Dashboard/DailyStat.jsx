@@ -1,6 +1,13 @@
+// DailyStat.jsx 
+// 
+// A component that shows a progress ring of a user's selected goal with measurement and labels
+
+
 import { Text, View, } from 'react-native';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
+
 import * as Theme from '../../theme';
+
 
 export default function DailyStat( { 
     statTitle, measurement, goal, icon, unit
@@ -9,6 +16,7 @@ export default function DailyStat( {
         <View style={Theme.dailyStatContainer}> 
             <Text style={Theme.captionBold}>{statTitle}</Text>
             <View style={Theme.dailyStatLayers}> 
+                
                 {/* Progress ring */}
                 <AnimatedCircularProgress
                     size={90}

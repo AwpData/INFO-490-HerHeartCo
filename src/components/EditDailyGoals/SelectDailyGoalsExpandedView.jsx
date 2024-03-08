@@ -1,10 +1,16 @@
-import React, { useState } from 'react';
+// SelectDailyGoalsExpandedView.jsx
+// 
+// The expanded view for user to select which goals they want to view on their Dashboard
 
-import { Text, View, Modal, ScrollView, TouchableOpacity } from 'react-native';
-import { redChevronUp, grayChevronDown, goalsIcon, infoIcon, } from '../../constants';
-import * as Theme from '../../theme';
+
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Text, View, TouchableOpacity } from 'react-native';
+
+import * as Theme from '../../theme';
+import { redChevronUp, grayChevronDown, goalsIcon, infoIcon, } from '../../constants';
 import { toggleObjectBoolean } from '../../redux/actions';
+
 import ExpandableView from './ExpandableView';
 
 
@@ -16,6 +22,7 @@ export default function SelectDailyGoalsExpandedView({goalsOpen}) {
 
     return (
         <View style={Theme.addDataRowStyle}>
+            {/* "Goals" row that acts as a button to expand/collapse full list of goals to display/hide */}
             <TouchableOpacity onPress={() => { setIsGoalsOpen(!isGoalsOpen) }} style={{padding: 15 }} >
                 <View style={{flexDirection: 'row', alignItems: 'center', }}>
                     <View style={{maxWidth: 35, minWidth: 35, alignItems: 'center', }}>
@@ -33,6 +40,7 @@ export default function SelectDailyGoalsExpandedView({goalsOpen}) {
                 
             </TouchableOpacity>
             
+            {/* Expanded fiew that displays all goals to display or hide  */}
             <ExpandableView expanded={isGoalsOpen} expandedContent={
                 <View style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
                     <View style={{borderColor: Theme.secondaryGray, borderWidth: 0.5, minWidth: '90%', marginBottom: 20}} />
@@ -40,10 +48,13 @@ export default function SelectDailyGoalsExpandedView({goalsOpen}) {
                 <View style={{width: '100%', paddingHorizontal: 20, paddingBottom: 20, flexDirection: 'column'}}>
                     { goals.map((goal) => (
                         <View key={goal.id} style={{flexDirection: 'row', justifyContent: 'space-between', marginVertical: 5, flexWrap: 'wrap', }} >
+
+                            {/* Goal description */}
                             <View style={{ width: '68%', justifyContent: 'center'}}>
                                 <Text style={goals.filter(item => item.isSelected).length > 3 && goal.isSelected == false ? Theme.grayBoldBody : Theme.boldBody}>{goal.title}</Text>
                             </View>
                             
+                            {/* Viewing/Hidden button */}
                             { goal.isSelected ? 
                                 (<TouchableOpacity 
                                     style={{padding: 10, borderRadius: 10, backgroundColor: Theme.primaryTint, width: '30%'}} 
@@ -62,6 +73,8 @@ export default function SelectDailyGoalsExpandedView({goalsOpen}) {
                             }
                         </View>          
                     ))}
+
+                    {/* Info indicator */}
                     <View style={{flexDirection: 'row', alignSelf: 'flex-start', justifyContent: 'center', marginTop: 20, }}>
                         {infoIcon}
                         <View style={{justifyContent: 'center', paddingLeft: 5, }}>

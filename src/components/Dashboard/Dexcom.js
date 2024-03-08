@@ -1,3 +1,9 @@
+// Dexcom.js
+// 
+// ** API calls not working - console logs error {"errors": [{"code": "invalid_client", "title": "max user count exceeded"}], "message": "max user count exceeded"} after logging in
+
+
+
 // import React, { useState, useEffect } from 'react';
 // import { Platform, Button, Text, View, ScrollView, Modal, Image, TouchableOpacity } from 'react-native';
 // import * as AuthSession from 'expo-auth-session';
@@ -14,9 +20,9 @@
 
 
 //     const config = {
-//         clientId: 'Ya05uBrwyRDtiAVabM8HhIPJTXxuhhW7', // '9iV4g71nAd9Jilrz2uZWc1gKyWMS8zJt',
+//         clientId: '9iV4g71nAd9Jilrz2uZWc1gKyWMS8zJt',
 //         redirectUrl: 'exp://10.0.0.79:8081', 
-//         clientSecret: 'rMVVRolApqOR2Aek', // '4HKFPcFe2Xi2kzrE', 
+//         clientSecret: '4HKFPcFe2Xi2kzrE', 
 //         clientAuthMethod: 'post', 
 //         responseType: 'code', 
 //         useNonce: false,

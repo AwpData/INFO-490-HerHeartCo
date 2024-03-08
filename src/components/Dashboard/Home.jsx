@@ -1,25 +1,32 @@
+// Home.jsx [Saving user data with database is not in scope for iSchool dev team]
+// 
+// Dashboard that displays a greeting, the user's summary chart, goal progress, and data visualizations
+// Data visualizations have placeholders as of early March but will continue to be iterated upon in March/April/May
+// Currently Fitbit API calls are hard coded, which is sufficient for the frontend of the MVP
+
+
 import React, { useState, useEffect } from 'react';
-import { Platform, Button, Text, View, ScrollView, Modal, Image, TouchableOpacity } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
+import { Text, View, ScrollView, Image, } from 'react-native';
+
 import * as AuthSession from 'expo-auth-session';
 import * as WebBrowser from 'expo-web-browser';
 import pkceChallenge from 'react-native-pkce-challenge';
 import Base64 from 'react-native-base64';
 import qs from 'qs';
 import { format } from 'date-fns';
-
-import * as Theme from '../../theme';
-import { rectPlaceholder, sampleGoals } from '../../constants';
-import ShadowBox from '../general/ShadowBox';
-import DailyStatContainer from './DailyStatContainer';
-import { useSelector, useDispatch } from 'react-redux';
-import LandingPage from './LandingPage';
-import authorizeProfile from '../fitbitAPI/read/authorizeProfile';
-import { editSleep } from '../../redux/actions';
-
 import { VictoryPie, VictoryLabel } from "victory-native";
 
+import * as Theme from '../../theme';
+import { rectPlaceholder, } from '../../constants';
+import { editSleep } from '../../redux/actions';
 
-// TODO: hard coding this for now
+import ShadowBox from '../general/ShadowBox';
+import DailyStatContainer from './DailyStatContainer';
+import LandingPage from './LandingPage';
+
+
+// TODO: 
 const fitbitConfig = {
   clientId: '23RVLG', // Fitbit client ID
   clientSecret: 'bc5a3f429816d44b1b1b7ca2f71ab8b0', // Fitbit client secret
@@ -44,6 +51,7 @@ export default function Home() {
 
   const [greeting, setGreeting] = useState('Good Morning!');
 
+  // Display greeting to be used at the top of the Dashboard
   function getGreeting() {
     let now = date.getHours();
     
@@ -61,6 +69,7 @@ export default function Home() {
     getGreeting();
   }, [])
   
+  // Fitbit API calls
   // TODO: export login into separate function 
   const handleFitbitLogin = async () => {
     const challenge = pkceChallenge();
@@ -84,6 +93,7 @@ export default function Home() {
     const authUrl = `https://www.fitbit.com/oauth2/authorize?${queryParams}`;
   
     try {
+      // Open in-app browser
       const result = await WebBrowser.openAuthSessionAsync(authUrl, redirectUri);
       const url = result.url;
 
@@ -101,7 +111,7 @@ export default function Home() {
 
       const basicToken = 'Basic ' + Base64.encode(fitbitConfig.clientId + ':' + fitbitConfig.clientSecret);
 
-      // Login
+      // Fitbit login request
       async function makeFitbitLoginPostRequest(properties) {
         try {
           const tokenResponse = await fetch('https://api.fitbit.com/oauth2/token', {
@@ -120,25 +130,7 @@ export default function Home() {
         }
       }
 
-      // Not used right now but this request is to get a summary of all of the user's Fitbit data ever. Can delete later if we don't need it
-      async function getLifetimeActivityPostRequest(tokenEndpoint) {
-        try {
-          const accessToken = 'Bearer ' + tokenEndpoint.access_token;
-          const tokenResponse = await fetch('https://api.fitbit.com/1/user/-/activities.json', {
-            method: 'GET',
-            headers: {
-              'Authorization': accessToken,
-            },
-          });
-
-          const tokenJSON = await tokenResponse.json();
-          return tokenJSON;
-        } catch(error) {
-          console.log('Error in GET request for activities: ', error);
-        }
-      }
-
-      // GET request for user's logged water in the Fitbit app. TODO: write this data 
+      // Fitbit GET request for user's logged water in the Fitbit app. 
       async function getDailyWaterRequest(tokenEndpoint) {
         try {
           const accessToken = 'Bearer ' + tokenEndpoint.access_token;
@@ -156,6 +148,7 @@ export default function Home() {
         }
       }
 
+      // Fitbit GET request for user's daily step goal set in the Fitbit app
       async function getDailyStepGoalRequest(tokenEndpoint) {
         try {
           const accessToken = 'Bearer ' + tokenEndpoint.access_token;
@@ -173,6 +166,7 @@ export default function Home() {
           }
       }
 
+      // Fitbit GET request for summary of user's daily activity 
       async function getDailyActivitySummaryRequest(tokenEndpoint) {
         try {
           const accessToken = 'Bearer ' + tokenEndpoint.access_token;
@@ -190,6 +184,7 @@ export default function Home() {
         }
       }
 
+      // Fitbit GET request for the user's daily water goal set in the Fitbit app
       async function getDailyWaterGoalRequest(tokenEndpoint) {
         try {
           const accessToken = 'Bearer ' + tokenEndpoint.access_token;
@@ -207,6 +202,7 @@ export default function Home() {
         }
       }
 
+      // Fitbit GET request for user's nightly recorded HRV
       async function getDailyHRVRequest(tokenEndpoint) {
         try {
           const accessToken = 'Bearer ' + tokenEndpoint.access_token;
@@ -224,6 +220,7 @@ export default function Home() {
         }
       }
 
+      // Fitbit GET request for duration of user's sleep
       async function getDailySleepRequest(tokenEndpoint) {
         try {
           const accessToken = 'Bearer ' + tokenEndpoint.access_token;
@@ -241,7 +238,7 @@ export default function Home() {
         }
       }
 
-      // Get Profile data 
+      // Fitbit GET request for user's Fitbit profile data 
       async function getProfilePostRequest(tokenEndpoint) {
         try {
           const accessToken = 'Bearer ' + tokenEndpoint.access_token;
@@ -273,41 +270,41 @@ export default function Home() {
           )
           .catch(error => console.log('Error fetching profile data: ', error));
 
-          // getLifetimeActivityPostRequest(tokenEndpoint)
-          // .then(lifeTimeData => {
-          //   setLifetimeSteps(lifeTimeData.lifetime.total.steps);
-          // })
-          // .catch(error => console.log('Error fetching lifetime activity data: ', error));
-
-          getDailyWaterRequest(tokenEndpoint) 
-          .then( dailyWaterData => {
-            setWater(dailyWaterData.summary.water);
-          })
-
+          // Steps 
           getDailyActivitySummaryRequest(tokenEndpoint)
           .then( dailySummaryData => {
             setDailySteps(dailySummaryData.summary.steps);
           })
           .catch(error => console.log('Error fetching daily activity summary data: ', error));
 
+          // Step goal
           getDailyStepGoalRequest(tokenEndpoint)
           .then( dailyGoalData => {
             setDailyStepGoal(dailyGoalData.goals.steps);
           })
           .catch(error => console.log('Error fetching daily step goal: ', error));
 
+          // Water
+          getDailyWaterRequest(tokenEndpoint) 
+          .then( dailyWaterData => {
+            setWater(dailyWaterData.summary.water);
+          })
+
+          // Water goal
           getDailyWaterGoalRequest(tokenEndpoint)
           .then( dailyWaterGoalData => {
             setDailyWaterGoal(dailyWaterGoalData.goal.goal);
           })
           .catch(error => console.log('Error fetching daily water goal: ', error));
-
+          
+          // HRV
           getDailyHRVRequest(tokenEndpoint)
           .then( dailyHRVData => {
             setDailyHRV(dailyHRVData.hrv[0].value.dailyRmssd);
           })
           .catch(error => console.log('Error fetching daily HRV: ', error));
 
+          // Sleep
           getDailySleepRequest(tokenEndpoint)
           .then( dailySleepData => {
             dispatch(editSleep(dailySleepData.summary.totalMinutesAsleep));  
@@ -326,6 +323,8 @@ export default function Home() {
   }
 
   const allGoals = useSelector(state => state.userReducer.allGoals);
+
+  // Scale for determining glucose score (based on proportion)
   function glucoseScale(measurement) {
     if (measurement > 180) {
       return {scale: 'High', color: Theme.secondaryTint};
@@ -338,6 +337,7 @@ export default function Home() {
     }
   }
 
+  // Scale for determining sleep score (based on proportion)
   function sleepScale(min) {
     if (min / 420 > 0.9) {
       return {scale: 'Perfect', color: Theme.pigmentGreen};
@@ -350,6 +350,7 @@ export default function Home() {
     }
   }
 
+  // Scale for determining HRV (based on proportion)
   function hrvScale(measurement) {
     if (measurement > 70) {
       return {scale: 'Excellent', color: Theme.pigmentGreen};
@@ -360,13 +361,14 @@ export default function Home() {
     }
   }
 
-  function calculatePercentage(stat, unit) {
+  // Calculate the proportion to be displayed in the summary graph
+  function calculateProportion(stat, unit) {
     let goal = 70;
 
     if (unit === 'Sleep') {
       goal = 420;
     }
-    
+
     let percentage = (stat / goal) > 1 ? 1 : (stat / goal);
     return percentage;
   }
@@ -384,7 +386,7 @@ export default function Home() {
 
             {/* Summary circle */}
             <VictoryPie
-              radius={({ datum }) => (calculatePercentage(datum.stat, datum.label)) * 121}
+              radius={({ datum }) => (calculateProportion(datum.stat, datum.label)) * 121}
               data={[
                 { label: 'Sleep', x: 1, y: 1, stat: sleep, goal: 420},
                 { label: 'HRV', x: 1, y: 1, stat: dailyHRV, goal: 70 },
@@ -453,9 +455,9 @@ export default function Home() {
             }}>
               <Text style={{...Theme.header, textAlign: 'center'}}>
                 {Math.ceil((
-                  (calculatePercentage(sleep, 'Sleep') + 
-                  calculatePercentage(dailyHRV, 'HRV') + 
-                  calculatePercentage(glucose, 'Glucose') + 
+                  (calculateProportion(sleep, 'Sleep') + 
+                  calculateProportion(dailyHRV, 'HRV') + 
+                  calculateProportion(glucose, 'Glucose') + 
                   1 ) / 4) 
                   * 100)}
               </Text>
@@ -477,7 +479,6 @@ export default function Home() {
                   return item.isSelected ? ( 
                     <Text key={i} style={{...Theme.body, paddingBottom: 5}}>• {item.recommendation}</Text>
                   ) : null }) } />
-
 
           {/* HRV graph */}
           <ShadowBox 

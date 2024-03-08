@@ -1,8 +1,14 @@
+// QuestionView.jsx [Not in scope for iSchool dev team]
+// 
+// Row of a symptom with its slider
+
+
 import React, { useState } from 'react'
 import { View, Text, StyleSheet, Platform } from 'react-native'
 import { Slider,  } from '@react-native-assets/slider';
 
 import * as Theme from '../../theme';
+
 
 const styles = StyleSheet.create({
     questionText: {
