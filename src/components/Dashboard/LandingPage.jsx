@@ -10,7 +10,8 @@ export default function LandingPage({handleFitbitLogin}) {
               animationType="slide"
               transparent={false}
               visible={true}
-              presentationStyle='fullScreen'> 
+              presentationStyle='fullScreen'
+            > 
               <View style={{
                 flexDirection: 'column', 
                 flex: 1, 
@@ -33,7 +34,7 @@ export default function LandingPage({handleFitbitLogin}) {
                   },
                   shadowOpacity: 0.25,
                   shadowRadius: 4,
-                  }}>
+                }}>
                   <Text style={Theme.boldBody}> 
                     Create an account
                   </Text>

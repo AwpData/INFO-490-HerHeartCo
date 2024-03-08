@@ -19,7 +19,8 @@ export default function DailyExerciseRow({icon, title}) {
                 onPress={ () => {
                     setInputValue(!inputValue);
                     dispatch(toggleExercise(!inputValue)); }} 
-                style={{justifyContent: 'center', padding: 15}} >
+                style={{justifyContent: 'center', padding: 15}} 
+            >
                 <View style={{flexDirection: 'row', alignItems: 'center', }}>
                     <View style={{maxWidth: 35, minWidth: 35, alignItems: 'center' }}>
                         {icon}

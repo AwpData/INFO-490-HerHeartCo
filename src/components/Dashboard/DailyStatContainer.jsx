@@ -51,14 +51,16 @@ export default function DailyStatContainer( {
       <View style={{flexDirection: 'row', justifyContent: 'space-between', marginVertical: 15}}>
         <Text style={{...Theme.headline, paddingBottom: 10}}>Goal Progress</Text>
       </View>
+
+      {/* Selection of Today/Week/Month view for Goal Progress */}
       <View style={{flexDirection: 'column'}} >
         {allGoals.filter(goal => goal.isSelected === false).length < 5 && 
           <View style={{
             flexDirection: 'row', alignSelf: 'center', 
             backgroundColor: Theme.primaryBackground, 
             borderRadius: 20, borderWidth: 0.5, borderColor: Theme.primaryGray, 
-            marginVertical: 5}} >
-            
+            marginVertical: 5}} 
+          >
             { dateRangeOptions.map((selection, j) => {
               return (
                 <TouchableOpacity 
@@ -73,7 +75,8 @@ export default function DailyStatContainer( {
                     borderRadius: 30, 
                     width: '28%',
                     padding: 10, 
-                    alignItems: 'center'}} >
+                    alignItems: 'center'}}
+                >
                   <Text 
                     style={{
                       color: selectedDateOption === selection ? Theme.primaryBackground : Theme.primaryTint, 
@@ -89,6 +92,7 @@ export default function DailyStatContainer( {
           </View>
         }
         
+        {/* Display the goal that are selected */}
         <View style={Theme.dailyStatsSection}> 
             { allGoals.map((goal) => {
               if (goal.isSelected) {
@@ -161,17 +165,29 @@ export default function DailyStatContainer( {
             }
           })}
 
+          {/* If # of selected goals is < 4, display + for the user to select more */}
           {allGoals.filter(goal => goal.isSelected === true).length < 4 && 
             allGoals.filter(goal => goal.isSelected === true).length > 0 && 
-              <TouchableOpacity style={{padding: 10, justifyContent: 'center'}} onPress={openEditDailyGoalsModal} >
+              <TouchableOpacity 
+                style={{padding: 10, justifyContent: 'center'}} 
+                onPress={openEditDailyGoalsModal} 
+              >
                 {plusFilled}
             </TouchableOpacity>
           }
           </View>
         </View>
-        <OnboardingGoalsView visible={selectDailyGoalsModalVisible} onRequestClose={closeSelectDailyGoalsModal} />
+
+        {/* Placeholder for front-end MVP onboarding; open upon loading app for the first time */}
+        <OnboardingGoalsView 
+          visible={selectDailyGoalsModalVisible} 
+          onRequestClose={closeSelectDailyGoalsModal} />
         
-        <EditDailyGoalsModal visible={editDailyGoalsModalVisible} onRequestClose={closeEditDailyGoalsModal} goalsOpen={goalsOpen}/ >
+        {/* Modal for selecting additional goals when pressing + button in Goal Progress */}
+        <EditDailyGoalsModal 
+          visible={editDailyGoalsModalVisible} 
+          onRequestClose={closeEditDailyGoalsModal} 
+          goalsOpen={goalsOpen} />
       </View>
   );
 }

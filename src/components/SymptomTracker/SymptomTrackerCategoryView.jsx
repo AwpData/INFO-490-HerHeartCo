@@ -12,20 +12,26 @@ export default function SymptomTrackerCategoryView( { symptomSet } ) {
 
     return (
         <View style={{...Theme.addDataRowStyle, padding: 24, marginBottom: 20}}>
+            {/* Symptom tracker category main button - click to expand and see all symptoms with sliders */}
             <TouchableOpacity 
                 style={{flexDirection: 'row'}} 
-                onPress={() => { setIsExpanded(!isExpanded) }}>
+                onPress={() => { setIsExpanded(!isExpanded) }}
+            >
                 <Text style={{...Theme.headline, paddingBottom: isExpanded? 16 : 0}}>{symptomSet.category}</Text>
 
                 <View style={{flex: 1}} />
                 {isExpanded ? redChevronUp : grayChevronDown}
             </TouchableOpacity>
-            <ExpandableView expanded={isExpanded} expandedContent={
-                <View>
-                    { symptomSet.symptoms.map((symptom) => (
-                        <QuestionView key={symptom.id} symptom={symptom} />
-                    )) }
-                </View>
+            
+            {/* Slider */}
+            <ExpandableView 
+                expanded={isExpanded} 
+                expandedContent={
+                    <View>
+                        { symptomSet.symptoms.map((symptom, i) => (
+                            <QuestionView key={i} symptom={symptom} />
+                        )) }
+                    </View>
             }/>
         </View>
     )

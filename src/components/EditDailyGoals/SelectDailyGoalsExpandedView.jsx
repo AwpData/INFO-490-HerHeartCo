@@ -48,13 +48,15 @@ export default function SelectDailyGoalsExpandedView({goalsOpen}) {
                                 (<TouchableOpacity 
                                     style={{padding: 10, borderRadius: 10, backgroundColor: Theme.primaryTint, width: '30%'}} 
                                     disabled={goals.filter(item => item.isSelected).length == 1}
-                                    onPress={() => {dispatch(toggleObjectBoolean(goal))}}>
+                                    onPress={() => {dispatch(toggleObjectBoolean(goal))}}
+                                >
                                     <Text style={{...Theme.boldBodyLight, textAlign: 'center'}}>Viewing</Text>
                                 </TouchableOpacity>) : 
                                 (<TouchableOpacity 
                                     style={{padding: 10, borderRadius: 10, backgroundColor: Theme.primaryGray, width: '30%', opacity: goals.filter(item => item.isSelected).length > 3 && goal.isSelected == false ? 0.5 : 1}} 
                                     disabled={goals.filter(item => item.isSelected).length > 3 && goal.isSelected == false}
-                                    onPress={() => {dispatch(toggleObjectBoolean(goal))}}>
+                                    onPress={() => {dispatch(toggleObjectBoolean(goal))}}
+                                >
                                     <Text style={{...Theme.boldBodyLight, textAlign: 'center'}}>Hidden</Text>
                                 </TouchableOpacity>)
                             }

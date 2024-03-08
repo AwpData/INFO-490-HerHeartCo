@@ -93,12 +93,34 @@ export default function SelectMealPicturesView() {
             <View style={{flexDirection: 'row'}}>
                 { meals.map((meal, i) => (
                     <View key={i} style={{flexDirection: 'column', alignItems: 'center'}}> 
-                            <TouchableOpacity key={meal.id} onPress={meal.edit} style={{height: 100, width: 100, backgroundColor: Theme.secondaryGray, marginHorizontal: 10, borderRadius: 15, alignItems: 'center', justifyContent: 'center', shadowRadius: 3, shadowOpacity: 0.2, shadowOffset: { height: 3 }, borderWidth: 0.5, borderColor: Theme.primaryGray}}>
+                            <TouchableOpacity 
+                                key={meal.id} 
+                                onPress={meal.edit} 
+                                style={{
+                                    height: 100, width: 100, 
+                                    backgroundColor: Theme.secondaryGray, 
+                                    marginHorizontal: 10, borderRadius: 15, 
+                                    alignItems: 'center', justifyContent: 'center', 
+                                    shadowRadius: 3, shadowOpacity: 0.2, shadowOffset: { height: 3 }, 
+                                    borderWidth: 0.5, borderColor: Theme.primaryGray}}
+                            >
                                 { meal.pic ? (
                                     <View style={{position: 'absolute'}}>
-                                        <Image source={{ uri: meal.pic }} style={{ width: 100, height: 100, marginHorizontal: 10, borderRadius: 15}} />
+                                        <Image 
+                                            source={{ uri: meal.pic }} 
+                                            style={{ 
+                                                width: 100, height: 100, 
+                                                marginHorizontal: 10, borderRadius: 15}} 
+                                        />
 
-                                        <TouchableOpacity onPress={meal.remove} style={{position: 'absolute', alignSelf: 'flex-end', backgroundColor: Theme.secondaryBackground, shadowRadius: 3, shadowOpacity: 0.3, shadowOffset: { height: 3 },  borderRadius: 100}}>
+                                        <TouchableOpacity 
+                                            onPress={meal.remove} 
+                                            style={{
+                                                position: 'absolute', alignSelf: 'flex-end', 
+                                                backgroundColor: Theme.secondaryBackground, 
+                                                shadowRadius: 3, shadowOpacity: 0.3, shadowOffset: { height: 3 },  
+                                                borderRadius: 100}}
+                                        >
                                             {closeCircleFilledIconLarge}
                                         </TouchableOpacity>
                                         

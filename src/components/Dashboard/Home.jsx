@@ -361,21 +361,12 @@ export default function Home() {
   }
 
   function calculatePercentage(stat, unit) {
-    let goal = 1
+    let goal = 70;
 
-    switch(unit) {
-      case('Sleep'): 
-        goal = 420;
-        break; 
-      case ('HRV'): 
-        goal = 70; 
-        break; 
-      case ('Glucose'):
-        goal = 70;
-        break; 
-      default: break; 
+    if (unit === 'Sleep') {
+      goal = 420;
     }
-
+    
     let percentage = (stat / goal) > 1 ? 1 : (stat / goal);
     return percentage;
   }
@@ -388,40 +379,37 @@ export default function Home() {
         <View style={{margin: 20}}>
           <Text style={Theme.header}>{greeting}</Text>
 
-          {/* Summary circle graph */}
+          {/* Summary circle graph container */}
           <View style={{position: 'relative', alignSelf: 'center', justifyContent: 'center',}}>
-            <View>
-              <VictoryPie
-                radius={({ datum }) => (calculatePercentage(datum.stat, datum.label)) * 121}
-                data={[
-                  { label: 'Sleep', x: 1, y: 1, stat: sleep, goal: 420},
-                  { label: 'HRV', x: 1, y: 1, stat: dailyHRV, goal: 70 },
-                  { label: 'Glucose', x:1, y: 1, stat: glucose, goal: 70 },
-                  { label: 'Temp', x: 1, y: 1, stat: 89, goal: 89 },
-                ]}
-                colorScale={[
-                  sleepScale(sleep).color, // Sleep
-                  hrvScale(dailyHRV).color, // HRV
-                  glucoseScale(glucose).color, // Glucose
-                  Theme.pigmentGreen // Temp
-                ]}
-                cornerRadius={10}
-                
-                height={350}
-                // labelPosition={10}
 
-                labelComponent={
-                  <VictoryLabel 
-                    style={ 
-                      [{fontSize: 20, fontFamily:'sans-serif', fontWeight: 'bold'}, ] } 
-                    // text={({ datum }) => [`${datum.label}`, `${datum.status}`]}
-                  />
-                }
-                labelRadius={150}
-              />
-              
-            </View>
-            
+            {/* Summary circle */}
+            <VictoryPie
+              radius={({ datum }) => (calculatePercentage(datum.stat, datum.label)) * 121}
+              data={[
+                { label: 'Sleep', x: 1, y: 1, stat: sleep, goal: 420},
+                { label: 'HRV', x: 1, y: 1, stat: dailyHRV, goal: 70 },
+                { label: 'Glucose', x:1, y: 1, stat: glucose, goal: 70 },
+                { label: 'Temp', x: 1, y: 1, stat: 89, goal: 89 },
+              ]}
+              colorScale={[
+                sleepScale(sleep).color, // Sleep
+                hrvScale(dailyHRV).color, // HRV
+                glucoseScale(glucose).color, // Glucose
+                Theme.pigmentGreen // Temp
+              ]}
+              cornerRadius={10}
+              height={350}
+              labelComponent={
+                <VictoryLabel 
+                  style={ 
+                    [{fontSize: 20, fontFamily:'sans-serif', fontWeight: 'bold'}, ] } 
+                  // text={({ datum }) => [`${datum.label}`, `${datum.status}`]}
+                />
+              }
+              labelRadius={150}
+            />
+                          
+            {/* Quadrant status labels (good, fair, poor, etc.) */}
             <View style={{position: 'absolute'}}>
               <VictoryPie
                 radius={({ datum }) => (datum.stat / datum.goal) * 121 }
@@ -432,17 +420,37 @@ export default function Home() {
                   { label: 'Perfect', x: 1, y: 1, }, // temp 
                 ]}
                 height={350}
-                labelComponent={<VictoryLabel transform={'translate(0, 25)'}
-                  style={[{fontSize: 18, fill: Theme.red, fontFamily:'sans-serif', fontWeight: 'bold'}, 
-                  ] } />}
+                labelComponent={
+                  <VictoryLabel 
+                    transform={'translate(0, 25)'}
+                    style={ [{
+                        fontSize: 18, fill: Theme.red, 
+                        fontFamily:'sans-serif', fontWeight: 'bold'
+                    },] } 
+                />}
                 labelRadius={150}
               />
             </View>
-            <View style={{ position: 'absolute', marginTop: 20, marginBottom: 50, alignSelf: 'center', borderColor: Theme.secondaryGray, borderWidth: 4, borderRadius: 250, height: 250, width: 250 , }}>
+
+            {/* Circle and quadrant lines overlay */}
+            <View style={{ 
+              position: 'absolute', 
+              marginTop: 20, marginBottom: 50, 
+              alignSelf: 'center', height: 250, width: 250,
+              borderColor: Theme.secondaryGray, borderWidth: 4, borderRadius: 250,  
+            }}>
               <View style={{ position: 'absolute', left: '50%', height: '100%', width: 1, borderColor: Theme.secondaryGray, borderWidth: 1 }} />
               <View style={{ position: 'absolute', top: '50%', width: '100%', height: 1, borderColor: Theme.secondaryGray, borderWidth: 1 }} />
             </View>
-            <View style={{position: 'absolute', alignSelf: 'center', backgroundColor: Theme.primaryBackground, height: 90, width: 90, borderRadius: 100, justifyContent: 'center', shadowRadius: 10, shadowOpacity: 0.4, shadowOffset: { height: 3 }}}>
+
+            {/* Total score displayed in middle */}
+            <View style={{
+              position: 'absolute', alignSelf: 'center', 
+              backgroundColor: Theme.primaryBackground, 
+              height: 90, width: 90, borderRadius: 100, 
+              justifyContent: 'center', 
+              shadowRadius: 10, shadowOpacity: 0.4, shadowOffset: { height: 3 }
+            }}>
               <Text style={{...Theme.header, textAlign: 'center'}}>
                 {Math.ceil((
                   (calculatePercentage(sleep, 'Sleep') + 
@@ -460,6 +468,7 @@ export default function Home() {
             sleep={sleep} sleepGoal='420' // in minutes
             dailyWaterSummary={water} dailyWaterGoal={dailyWaterGoal} />
 
+          {/* Reminders box; depends on the goals selected */}
           <ShadowBox 
               primaryTitle='Reminders' 
               secondaryTitle='' 

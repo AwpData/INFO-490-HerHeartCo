@@ -9,6 +9,7 @@ export default function DailyStat( {
         <View style={Theme.dailyStatContainer}> 
             <Text style={Theme.captionBold}>{statTitle}</Text>
             <View style={Theme.dailyStatLayers}> 
+                {/* Progress ring */}
                 <AnimatedCircularProgress
                     size={90}
                     width={5}
@@ -20,6 +21,7 @@ export default function DailyStat( {
 
                 {console.log(statTitle, ' ', measurement)}
                 
+                {/* Overlay for stat count and unit label */}
                 <View style={Theme.dailyStatIcon}> 
                     {icon}
                     { statTitle != 'Exercise' && (

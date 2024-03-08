@@ -66,12 +66,20 @@ export default function OnboardingGoalsView ({
                 </View>
 
                 { tempState.filter(goal => goal.isSelected === true).length < 1 ? 
-                        (<View style={{backgroundColor: tempState.filter(goal => goal.isSelected === true).length < 1 ? Theme.primaryGray : Theme.secondaryTint, paddingHorizontal: 30, paddingVertical: 12, borderRadius: 15, alignSelf: 'center'}}>
+                        (<View style={{
+                                backgroundColor: tempState.filter(goal => goal.isSelected === true).length < 1 ? Theme.primaryGray : Theme.secondaryTint, 
+                                paddingHorizontal: 30, paddingVertical: 12, 
+                                borderRadius: 15, alignSelf: 'center'}}
+                            >
                             <Text style={Theme.lightButtonText}>Save</Text> 
                         </View>) : 
                         (<TouchableOpacity 
                             onPress={handleSubmit} 
-                            style={{backgroundColor: tempState.filter(goal => goal.isSelected === true).length < 1 ? Theme.primaryGray : Theme.secondaryTint, paddingHorizontal: 30, paddingVertical: 12, borderRadius: 15, alignSelf: 'center'}} >
+                            style={{
+                                backgroundColor: tempState.filter(goal => goal.isSelected === true).length < 1 ? Theme.primaryGray : Theme.secondaryTint, 
+                                paddingHorizontal: 30, paddingVertical: 12, 
+                                borderRadius: 15, alignSelf: 'center'}} 
+                            >
                             <Text style={Theme.lightButtonText}>Save</Text>
                         </TouchableOpacity>) }
                 </View>

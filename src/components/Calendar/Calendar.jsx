@@ -62,5 +62,4 @@ export default function Calendar() {
       </Modal>
     </ScrollView>
   );
-
 }

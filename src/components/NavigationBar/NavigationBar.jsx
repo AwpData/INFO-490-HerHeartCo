@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Home from '../Dashboard/Home';
 import Calendar from '../Calendar/Calendar';
-import AddData from '../EditDailyGoals/DailyGoalsContainer';
+import DailyGoalsContainer from '../EditDailyGoals/DailyGoalsContainer';
 import Resources from '../Resources/Resources';
 import Profile from '../Profile/Profile';
 
@@ -47,10 +47,10 @@ export default function NavigationBar() {
                         return focused ? activeCalendarIcon : inactiveCalendarIcon },}} />
             <Tab.Screen 
                 name="Add" 
-                component={AddData} 
+                component={DailyGoalsContainer} 
                 options={{
                     tabBarIcon: () => { 
-                        return ( <AddData /> ); }, }} />
+                        return ( <DailyGoalsContainer /> ); }, }} />
             <Tab.Screen 
                 name="Resources" 
                 component={Resources} 
