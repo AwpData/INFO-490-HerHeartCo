@@ -1,3 +1,11 @@
+// theme.js
+// 
+// HHC application themes (text hierarchies, colors, layouts)
+
+
+import { Platform } from 'react-native';
+
+
 // Off-white pink
 export const primaryBackground = '#FEF7F4';
 export const secondaryBackground = 'white';
@@ -20,27 +28,215 @@ export const lightRed = '#FC6B6D';
 export const gold = '#E2AD47';
 // Yellow 
 export const yellow = '#FFC90C';
+// Purple
+export const purple = '#6E5597'
 // Green
 export const green = '#45B957';
 // Blue
 export const blue = '#1EA7F4';
 // Brown 
 export const brown = '#D38003';
+// Pigment Green - Dashboard
+export const pigmentGreen = '#1AA82F';
+// Dark goldenrod - Dashboard
+export const darkYellow = '#AD8800';
 
 
-export const pageTitle = {
-    fontSize: 36, 
-    fontWeight: 'bold',
-    color: primaryTint
-}
+export const header = {
+    color: primaryTint, 
+    fontSize: 40,
+    fontFamily: Platform.select({
+        android: 'Lato_900Black',
+        ios: 'Lato_900Black'
+    })
+};
 
-export const h1 = {
-    fontSize: 28, 
-    fontWeight: 'bold',
-    color: primaryTint,
-    textAlign: 'center', 
-    paddingBottom: 20
-}
+export const title1 = {
+    color: primaryTint, 
+    fontSize: 36,
+    fontFamily: Platform.select({
+        android: 'Lato_700Bold',
+        ios: 'Lato_700Bold'
+})};
+
+export const title2 = {
+    color: primaryTint, 
+    fontSize: 30,
+    fontFamily: Platform.select({
+        android: 'Lato_700Bold',
+        ios: 'Lato_700Bold'
+    }), 
+    paddingBottom: 5
+};
+
+export const title2V2 = {
+    color: secondaryTint, 
+    fontSize: 30,
+    fontFamily: Platform.select({
+        android: 'Lato_700Bold',
+        ios: 'Lato_700Bold'
+    }), 
+    paddingBottom: 5
+};
+
+export const title2Bold = {
+    color: primaryTint, 
+    fontSize: 30,
+    fontFamily: Platform.select({
+        android: 'Lato_900Black',
+        ios: 'Lato_900Black'
+    }),
+    paddingBottom: 5
+};
+
+export const headline = {
+    color: primaryTint, 
+    fontSize: 24,
+    fontFamily: Platform.select({
+        android: 'Lato_700Bold',
+        ios: 'Lato_700Bold'
+    }),
+};
+
+export const headlineV2 = {
+    color: secondaryTint, 
+    fontSize: 24,
+    fontFamily: Platform.select({
+        android: 'Lato_700Bold',
+        ios: 'Lato_700Bold'
+    }),
+    paddingBottom: 10
+};
+
+export const lightButtonText = {
+    color: primaryBackground, 
+    fontSize: 18,
+    fontFamily: Platform.select({
+        android: 'Lato_900Black',
+        ios: 'Lato_900Black'
+    }),
+};
+
+export const buttonText = {
+    color: primaryTint, 
+    fontSize: 18,
+    fontFamily: Platform.select({
+        android: 'Lato_900Black',
+        ios: 'Lato_900Black'
+    }),
+};
+
+export const buttonTextV2 = {
+    color: secondaryTint, 
+    fontSize: 18,
+    fontFamily: Platform.select({
+        android: 'Lato_900Black',
+        ios: 'Lato_900Black'
+    }),
+};
+
+export const grayButtonText = {
+    color: primaryGray, 
+    fontSize: 18,
+    fontFamily: Platform.select({
+        android: 'Lato_900Black',
+        ios: 'Lato_900Black'
+    }),
+    padding: 10
+};
+
+export const boldBody = {
+    color: primaryTint, 
+    fontSize: 16,
+    fontFamily: Platform.select({
+        android: 'Lato_700Bold',
+        ios: 'Lato_700Bold'
+    })
+};
+
+export const grayBoldBody = {
+    color: primaryGray, 
+    fontSize: 16,
+    fontFamily: Platform.select({
+        android: 'Lato_700Bold',
+        ios: 'Lato_700Bold'
+    })
+};
+
+export const boldBodyLight = {
+    color: primaryBackground, 
+    fontSize: 16,
+    fontFamily: Platform.select({
+        android: 'Lato_700Bold',
+        ios: 'Lato_700Bold'
+    })
+};
+
+export const body = {
+    color: primaryTint, 
+    fontSize: 16,
+    fontFamily: Platform.select({
+        android: 'Lato_400Regular',
+        ios: 'Lato_400Regular'
+    }), 
+};
+
+export const grayBody = {
+    color: primaryGray, 
+    fontSize: 16,
+    fontFamily: Platform.select({
+    android: 'Lato_400Regular',
+    ios: 'Lato_400Regular'
+})};
+
+export const caption = {
+    color: primaryTint, 
+    fontSize: 14,
+    fontFamily: Platform.select({
+        android: 'Lato_400Regular',
+        ios: 'Lato_400Regular'
+    })
+};
+
+export const captionBold = {
+    color: primaryTint, 
+    fontSize: 14,
+    fontFamily: Platform.select({
+        android: 'Lato_700Bold',
+        ios: 'Lato_700Bold'
+    }),
+    paddingBottom: 10
+};
+
+export const whiteCaption = {
+    color: secondaryBackground, 
+    fontSize: 14,
+    fontFamily: Platform.select({
+        android: 'Lato_700Bold',
+        ios: 'Lato_700Bold'
+    }),
+    paddingBottom: 10
+};
+
+
+export const goalsRowSmall = {
+    color: primaryTint, 
+    fontSize: 20,
+    fontFamily: Platform.select({
+        android: 'Lato_700Bold',
+        ios: 'Lato_700Bold'
+    }), 
+};
+
+export const goalsRowLarge = {
+    color: primaryTint, 
+    fontSize: 30,
+    fontFamily: Platform.select({
+        android: 'Lato_700Bold',
+        ios: 'Lato_700Bold'
+    }),
+};
+
 
 export const dailyStatsSection = {
     flexDirection: 'row', 
@@ -50,28 +246,11 @@ export const dailyStatsSection = {
 
 export const dailyStatContainer = {
     alignItems:'center', 
+    justifyContent: 'flex-end',
     minWidth: 90,
     maxWidth: 90, 
     flexWrap: 'wrap', 
     marginHorizontal: 5
-}
-
-export const dailyStatTitle = {
-    fontWeight: 'bold', 
-    paddingBottom: 10,
-    color: primaryTint,
-    fontSize: 12
-}
-
-export const dailyStat = {
-    fontWeight: 'bold', 
-    fontSize: 20,
-    color: primaryTint
-}
-
-export const dailyStatLabel = {
-    fontSize: 13,
-    color: primaryTint
 }
 
 export const dailyStatLayers = {
@@ -96,40 +275,6 @@ export const shadowBoxStyle = {
     color: primaryTint
 }
 
-export const shadowBoxLargeTitle = {
-    fontSize: 30, 
-    fontWeight: 'bold', 
-    paddingVertical: 10,
-    color: primaryTint
-}
-
-export const shadowBoxBoldTitle = {
-    fontSize: 20, 
-    fontWeight: 'bold', 
-    paddingBottom: 10,
-    color: primaryTint
-}
-
-export const shadowBoxTitle = {
-    fontSize: 20, 
-    paddingBottom: 5 ,
-    color: primaryTint
-}
-
-export const shadowBoxSecondaryTitle = {
-    fontSize: 16, 
-    paddingBottom: 5, 
-    color: primaryGray
-}
-
-export const profileName = {
-    fontSize: 40, 
-    fontWeight: 'bold', 
-    textAlign: 'center', 
-    color: primaryTint,
-    marginBottom: 20,
-}
-
 export const addDataRowStyle = {
     backgroundColor: secondaryBackground,
     borderColor: secondaryGray, 
@@ -140,25 +285,6 @@ export const addDataRowStyle = {
     color: primaryTint
 }
 
-export const addDataRowTitle = {
-    fontWeight: 'bold', 
-    fontSize: 18,
-    color: primaryTint,
-}
-
-export const addDataCurrentValue = {
-    fontWeight: 'bold', 
-    fontSize: 28,
-    color: primaryTint
-}
-
-export const addDataRowGoal = {
-    fontWeight: 'bold', 
-    fontSize: 20, 
-    color: secondaryTint, 
-    paddingBottom: 5
-}
-
 export const addDataNavBarStyle = {
     flexDirection:'row', 
     alignItems:'center', 
@@ -166,19 +292,5 @@ export const addDataNavBarStyle = {
     backgroundColor: primaryBackground, 
     minWidth: '100%', height: 60, 
     padding: 20,
-    color: primaryTint
-}
-
-export const addPageDateFormat = {
-    color: secondaryTint, 
-    fontWeight: 'bold', 
-    fontSize: 26, 
-    textAlign: 'center',
-    color: primaryTint
-}
-
-export const logDataUnit = {
-    fontWeight: 'bold', 
-    fontSize: 24,
     color: primaryTint
 }

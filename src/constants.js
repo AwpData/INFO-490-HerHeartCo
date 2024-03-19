@@ -1,3 +1,10 @@
+// constants.js
+// 
+// All constants used
+
+
+import { View, } from 'react-native';
+
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Fontisto from 'react-native-vector-icons/Fontisto';
@@ -6,10 +13,9 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import Feather from 'react-native-vector-icons/Feather'; 
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Octicons from 'react-native-vector-icons/Octicons';
 
 import { LineChart } from 'react-native-chart-kit';
-
-import { View, Text, Dimensions} from 'react-native';
 
 import * as Theme from './theme';
 
@@ -43,7 +49,7 @@ export const sampleGoalsIcons = [
         <MaterialCommunityIcons name='cup-water' color={Theme.blue} size={50} />
     ), title: 'Drink 7 Glasses of Water / Daily'},
     {id: 4, icon: (
-        <MaterialCommunityIcons name="power-sleep" color={Theme.yellow} size={50} />
+        <MaterialCommunityIcons name="power-sleep" color={Theme.purple} size={50} />
     ), title: 'Sleep 7 hours/ Daily'},
     {id: 5, icon: (
         <MaterialCommunityIcons name="heart-pulse" color={Theme.lightRed} size={50} />
@@ -121,7 +127,7 @@ export const rectPlaceholder = (
 )
 
 export const exerciseIcon = (
-    <MaterialCommunityIcons name="weight-lifter" color='black' size={30}/>
+    <MaterialCommunityIcons name="weight-lifter" color='black' size={35}/>
 );
 
 export const goalsIcon = (
@@ -133,11 +139,12 @@ export const stepsIcon = (
 )
 
 export const sleepIcon = (
-    <MaterialCommunityIcons name="power-sleep" color={Theme.yellow} size={30} />
+    // <MaterialCommunityIcons name="power-sleep" color={Theme.purple} size={30} />
+    <Ionicons name="moon" color={Theme.purple} size={30} />
 );
 
 export const hrvTrainingIcon = (
-    <MaterialCommunityIcons name="heart-pulse" color={Theme.lightRed} size={30} />
+    <MaterialCommunityIcons name="heart-pulse" color={Theme.lightRed} size={35 } />
 );
 
 export const reduceFatIcon = (
@@ -189,6 +196,14 @@ export const grayChevronDown = (
     <MaterialCommunityIcons name='chevron-down' color={Theme.secondaryGray} size={30} />
 );
 
+export const darkGrayChevronUp = (
+    <MaterialCommunityIcons name='chevron-up' color={Theme.primaryGray} size = {30} /> 
+)
+
+export const darkGrayChevronDown = (
+    <MaterialCommunityIcons name='chevron-down' color={Theme.primaryGray} size={30} />
+);
+
 export const redChevronRight = (
     <MaterialIcons name='chevron-right' color={Theme.secondaryTint} size={30} />
 );
@@ -212,3 +227,31 @@ export const checkboxTrue = (
 export const checkboxFalse = (
     <MaterialCommunityIcons name='checkbox-blank-outline' color={Theme.secondaryTint} size={40} />
 ); 
+
+export const plusFilled = (
+    <MaterialCommunityIcons name='plus-circle-outline' color={Theme.primaryTint} size={60} />
+);
+
+export const imageIcon = (
+    <FontAwesome6 name='image' color='black' size={30} />
+);
+
+export const infoIcon = (
+    <MaterialCommunityIcons name='information-outline' color={Theme.primaryTint} size={25} />
+);
+
+export const closeCircleFilledIconSmall = (
+    <MaterialCommunityIcons name='close-circle' color={Theme.secondaryTint} size={30} />
+);
+
+export const closeCircleFilledIconLarge = (
+    <MaterialCommunityIcons name='close-circle' color={Theme.secondaryTint} size={40} />
+);
+
+export const questionIconSmall = (
+    <Octicons name='question' color={Theme.primaryGray} size={20} />
+)
+
+export const closeIconRedLarge = (
+    <MaterialCommunityIcons name='close' color={Theme.secondaryTint} size={30} />
+)

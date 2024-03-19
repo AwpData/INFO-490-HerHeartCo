@@ -1,3 +1,8 @@
+// actions.js
+// 
+// All redux actions used 
+
+
 export const TOGGLE_BOOLEAN = 'TOGGLE_BOOLEAN'; 
 export const toggleObjectBoolean = objectId => dispatch => {
     dispatch({
@@ -30,6 +35,22 @@ export const addWater = newAmount => dispatch => {
     })
 }
 
+export const ADD_WATER_LOG = 'ADD_WATER_LOG';
+export const addWaterLog = newWaterEntry => dispatch => {
+    dispatch({
+        type: ADD_WATER_LOG, 
+        payload: newWaterEntry
+    })
+}
+
+export const DELETE_WATER_LOG = 'DELETE_WATER_LOG';
+export const deleteWaterLog = waterEntry => dispatch => {
+    dispatch({
+        type: DELETE_WATER_LOG, 
+        payload: waterEntry
+    })
+}
+
 export const UPDATE_GLUCOSE = 'UPDATE_GLUCOSE'; 
 export const updateGlucose = newGlucose => dispatch => {
     dispatch({
@@ -38,10 +59,58 @@ export const updateGlucose = newGlucose => dispatch => {
     })
 }
 
+export const ADD_GLUCOSE_LOG = 'ADD_GLUCOSE_LOG';
+export const addGlucoseLog = glucoseEntry => dispatch => {
+    dispatch({
+        type: ADD_GLUCOSE_LOG, 
+        payload: glucoseEntry
+    })
+}
+
+export const DELETE_GLUCOSE_LOG = 'DELETE_GLUCOSE_LOG'; 
+export const deleteGlucoseLog = glucoseEntry => dispatch => {
+    dispatch({
+        type: DELETE_GLUCOSE_LOG, 
+        payload: glucoseEntry
+    })
+}
+
+export const EDIT_SLEEP = 'EDIT_SLEEP'; 
+export const editSleep = newSleep => dispatch => {
+    dispatch({
+        type: EDIT_SLEEP,
+        payload: newSleep
+    })
+}
+
 export const ADD_HRV = 'ADD_HRV'; 
 export const addHRV = newAmount => dispatch => {
     dispatch({
         type: ADD_HRV, 
         payload: newAmount
+    })
+}
+
+export const UPDATE_BREAKFAST = 'UPDATE_BREAKFAST';
+export const updateBreakfast = newPicture => dispatch => {
+    dispatch({
+        type: UPDATE_BREAKFAST, 
+        payload: newPicture
+    })
+}
+
+export const UPDATE_LUNCH = 'UPDATE_LUNCH';
+export const updateLunch = newPicture => dispatch => {
+    dispatch({
+        type: UPDATE_LUNCH, 
+        payload: newPicture
+    })
+}
+
+export const UPDATE_DINNER = 'UPDATE_DINNER';
+export const updateDinner = newPicture => dispatch => {
+    dispatch({
+        type: UPDATE_DINNER, 
+        payload: newPicture
     })
 }
