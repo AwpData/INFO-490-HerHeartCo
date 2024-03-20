@@ -41,6 +41,8 @@ export default function Home() {
   const [dailyWaterGoal, setDailyWaterGoal] = React.useState('');
   const [dailyHRV, setDailyHRV] = React.useState('');
   const [dailySleep, setDailySleep] = React.useState('');
+  
+  const [sleepLog, setSleepLog] = React.useState(''); // For data visualization
 
   const sleep = useSelector(state => state.userReducer.sleep);
   const glucose = useSelector(state => state.userReducer.glucose);
@@ -309,6 +311,7 @@ export default function Home() {
           .then( dailySleepData => {
             dispatch(editSleep(dailySleepData.summary.totalMinutesAsleep));  
             setDailySleep(dailySleepData.summary.totalMinutesAsleep);
+            setSleepLog(dailySleepData) // For data visualizations
           })
           .catch(error => console.log('Error fetching daily sleep: ', error));
           
