@@ -1,4 +1,4 @@
-import { VictoryChart, VictoryLine, VictoryAxis, VictoryLabel, VictoryTheme, VictoryVoronoiContainer, VictoryArea } from "victory-native";
+import { VictoryChart, VictoryLine, VictoryAxis, VictoryLabel, VictoryTheme, VictoryVoronoiContainer} from "victory-native";
 
 export function SleepGraph(sleepLog) {
   // props -> sleepLog
@@ -69,15 +69,23 @@ const graphingSleepData = sleepData.reduce((acc, entry, index, array) => {
       convertedSleepLevel = 1;
       break;
   }
-  acc.push({x: convertDateTime(entry.dateTime), y: convertedSleepLevel, rawTime: new Date(entry.dateTime)})
 
-    // If it's not the last data point, add an intermediate point with the same y-value to achieve the flat line look
+  let x = convertDateTime(entry.dateTime)
+  let y = convertedSleepLevel;
+  let rawTime = new Date(entry.dateTime)
+
+  acc.push({x: x, y: y, rawTime: rawTime})
+
   if (index < array.length - 1) {
-    acc.push({ x: convertDateTime(array[index + 1].dateTime), y: convertedSleepLevel, rawTime: array[index + 1].dateTime});
+    x = convertDateTime(array[index + 1].dateTime);
+    rawTime = array[index + 1].dateTime;
+    acc.push({x : x, y: y, rawTime: rawTime})
   }
+
   if (index === array.length - 1) {
-    const endTime = new Date(new Date(entry.dateTime).getTime() + entry.seconds * 1000)
-    acc.push({x : convertDateTime(endTime), y: convertedSleepLevel, rawTime: new Date(new Date(entry.dateTime).getTime() + entry.seconds * 1000)})
+    let endTime = new Date(new Date(entry.dateTime).getTime() + entry.seconds * 1000)
+    x = convertDateTime(endTime)
+    acc.push({x : x, y: y, rawTime: rawTime})
   }
 
   return acc;
@@ -93,6 +101,7 @@ for (let i = 0; i < graphingSleepData.length - 1; i += 2) {
   graphingSleepData[i + 1].range = graphingSleepData[i].x + " - " + graphingSleepData[i + 1].x
 }
 
+// Get total minutes and the date range of the sleeping data
 const getGraphInformation = sleepData.reduce((acc, entry) => {
   // totalMinutesAsleep converted to actual time
   // dateOfSleep (month, day, year)
@@ -104,6 +113,7 @@ const getGraphInformation = sleepData.reduce((acc, entry) => {
   return acc;
 }, [])
 
+// Label our x-axis with times according to the sleeping data
 const xGraphLabels = sleepData.reduce((acc, entry, index, array) => {
   const dateTime = new Date(entry.dateTime);
 
@@ -164,6 +174,24 @@ dates.splice(1, dates.length - 2); // Ensure that only the first and last dates 
         style={{ fontSize: 20, fill: 'black' }}
     />
     <VictoryAxis
+      tickValues={xGraphLabels.filter((_, index) => index % 2 === 1)} // Display ticks at every other data point
+      tickFormat={(value) => {
+        const [hour, minute] = value.split(':'); // Split the time into hour and minute
+        return `${hour}:${minute}`; // Display only hour and minute
+      }}
+      style={{
+        grid : {
+          strokeWidth: 2,
+          strokeDasharray: "none"
+        },
+        tickLabels: { 
+          fontWeight: "bold",
+          fontSize: 12 
+        },
+      }}
+      scale={{ x: 'time' }}
+    />
+    <VictoryAxis
       dependentAxis
       tickValues={[0.5, 1, 2, 3, 4, 4.5]}
       tickFormat={["", "Deep", "REM", "Light", "Awake", ""]}
@@ -183,6 +211,7 @@ dates.splice(1, dates.length - 2); // Ensure that only the first and last dates 
               return "#FBA834"
             }          
           },
+          strokeWidth: 3,
           strokeDasharray: [] // Make grid lines solid
         },
         tickLabels: {
@@ -191,20 +220,7 @@ dates.splice(1, dates.length - 2); // Ensure that only the first and last dates 
         }
       }}
     />
-    <VictoryAxis
-      tickValues={xGraphLabels.filter((_, index) => index % 2 === 1)} // Display ticks at every other data point
-      tickFormat={(value) => {
-        const [hour, minute] = value.split(':'); // Split the time into hour and minute
-        return `${hour}:${minute}`; // Display only hour and minute
-      }}
-      style={{
-        tickLabels: { 
-          fontWeight: "bold",
-          fontSize: 12 
-        }
-      }}
-      scale={{ x: 'time' }}
-    />
+
     <VictoryLine 
       categories={{x: xGraphLabels}}
       data={graphingSleepData}

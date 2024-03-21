@@ -43,6 +43,7 @@ export default function Home() {
   const [dailySleep, setDailySleep] = React.useState('');
   
   const [sleepLog, setSleepLog] = React.useState(''); // For data visualization
+  const [intraHRVLog, setIntraHRVLog] = React.useState(''); // For data visualization (and can view HRV at different times throughout the day)
 
   const sleep = useSelector(state => state.userReducer.sleep);
   const glucose = useSelector(state => state.userReducer.glucose);
@@ -222,6 +223,23 @@ export default function Home() {
         }
       }
 
+      async function getIntradayHRVRequest(tokenEndpoint) {
+        try {
+          const accessToken = 'Bearer ' + tokenEndpoint.access_token;
+          const tokenResponse = await fetch(`https://api.fitbit.com/1/user/-/hrv/date/${todayDateString}/all.json`, {
+            method: 'GET',
+            headers: {
+              'Authorization': accessToken,
+            },
+          });
+
+          const tokenJSON = await tokenResponse.json();
+          return tokenJSON;
+        } catch(error) {
+          console.log('Error in GET request for daily HRV: ', error);
+        }
+      }
+
       // Fitbit GET request for duration of user's sleep
       async function getDailySleepRequest(tokenEndpoint) {
         try {
@@ -305,6 +323,12 @@ export default function Home() {
             setDailyHRV(dailyHRVData.hrv[0].value.dailyRmssd);
           })
           .catch(error => console.log('Error fetching daily HRV: ', error));
+
+          // Intra HRV
+          getIntradayHRVRequest(tokenEndpoint)
+          .then( intradayHRVData => {
+            setIntraHRVLog(intradayHRVData.hrv[0]) // hrv[0] -> .minutes (array with HRV entries) OR .dateTime (string) 
+          })
 
           // Sleep
           getDailySleepRequest(tokenEndpoint)
